@@ -215,13 +215,28 @@ export default function MCQPlayer({ params }: { params: Promise<{ scenarioId: st
                                 <div
                                     key={opt.option_id}
                                     onClick={() => handleSelect(opt)}
-                                    className={`p-4 sm:p-5 rounded-2xl transition-all duration-300 flex items-center gap-4 sm:gap-5 ${cardClass} ${!hasAnswered ? 'hover:shadow-md hover:-translate-y-1' : ''}`}
+                                    className={`p-4 sm:p-5 rounded-2xl transition-all duration-300 flex items-center justify-between gap-4 sm:gap-5 ${cardClass} ${!hasAnswered ? 'hover:shadow-md hover:-translate-y-1' : ''}`}
                                 >
-                                    <div className={`w-6 h-6 sm:w-7 sm:h-7 rounded-full border-2 flex items-center justify-center flex-shrink-0 ${hasAnswered && !isSelected ? 'opacity-50' : ''} ${isSelected ? (isCorrectTarget ? 'border-green-500 bg-green-500' : 'border-red-500 bg-red-500') : 'border-gray-300'}`}>
-                                        {isSelected && <div className="w-2.5 h-2.5 bg-white rounded-full shadow-sm"></div>}
+                                    <div className="flex items-center gap-4 sm:gap-5 flex-1 w-full max-w-[85%]">
+                                        <div className={`w-6 h-6 sm:w-7 sm:h-7 rounded-full border-2 flex items-center justify-center flex-shrink-0 ${hasAnswered && !isSelected ? 'opacity-50' : ''} ${isSelected ? (isCorrectTarget ? 'border-green-500 bg-green-500' : 'border-red-500 bg-red-500') : 'border-gray-300'}`}>
+                                            {isSelected && <div className="w-2.5 h-2.5 bg-white rounded-full shadow-sm"></div>}
+                                        </div>
+                                        <div className={`flex-1 text-base sm:text-lg font-bold text-gray-800 break-words ${hasAnswered && !isSelected ? 'text-gray-500' : ''}`}>{opt.text}</div>
                                     </div>
-                                    <div className={`flex-1 text-base sm:text-lg font-bold text-gray-800 ${hasAnswered && !isSelected ? 'text-gray-500' : ''}`}>{opt.text}</div>
-                                    {icon}
+
+                                    <div className="flex items-center gap-2 flex-shrink-0">
+                                        {icon}
+                                        <button
+                                            onClick={(e) => {
+                                                e.stopPropagation();
+                                                playAudio(opt.text, `opt-${opt.option_id}`);
+                                            }}
+                                            className={`p-2 rounded-full transition-colors flex-shrink-0 ml-1 ${playingAudioId === `opt-${opt.option_id}` ? 'bg-orange-100 text-[#FF7A00]' : 'bg-gray-50 hover:bg-gray-200 text-gray-400 hover:text-gray-600'}`}
+                                            title="Listen to option"
+                                        >
+                                            {playingAudioId === `opt-${opt.option_id}` ? <Square className="w-4 h-4 sm:w-5 sm:h-5 fill-current" /> : <Volume2 className="w-4 h-4 sm:w-5 sm:h-5" />}
+                                        </button>
+                                    </div>
                                 </div>
                             );
                         })}
