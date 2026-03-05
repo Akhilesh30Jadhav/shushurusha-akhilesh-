@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Outfit } from "next/font/google";
 import { LanguageProvider } from "@/contexts/LanguageContext";
+import { ChakraBackground } from "@/components/ui/ashoka-chakra";
 import "./globals.css";
 
 const outfit = Outfit({
@@ -22,8 +23,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${outfit.variable} ${outfit.className} antialiased min-h-screen bg-background text-foreground`}
+        className={`${outfit.variable} ${outfit.className} antialiased min-h-screen bg-background text-foreground relative z-0`}
       >
+        <ChakraBackground />
         <LanguageProvider>
           {children}
         </LanguageProvider>

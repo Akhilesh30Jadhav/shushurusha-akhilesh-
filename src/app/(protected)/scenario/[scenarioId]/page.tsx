@@ -106,16 +106,29 @@ export default function MCQPlayer({ params }: { params: Promise<{ scenarioId: st
             let baseScore = (correctCount / scenario.questions.length) * 100;
             let finalScore = Math.max(0, Math.round(baseScore - (criticalMissCount * 10))); // 10% penalty per critical miss
 
+            const payload = {
+                scenarioId: scenario.scenario_id,
+                answers: newAnswers,
+                startTime,
+                score: finalScore
+            };
+
+            if (!navigator.onLine) {
+                // Offline mode
+                const queue = JSON.parse(localStorage.getItem('offlineSessionQueue') || '[]');
+                queue.push({ ...payload, tempId: Date.now().toString() });
+                localStorage.setItem('offlineSessionQueue', JSON.stringify(queue));
+
+                alert("Scenario Completed Offline! Your data is saved locally and will sync when you regain connection.");
+                router.push('/dashboard');
+                return;
+            }
+
             try {
                 const res = await fetch('/api/sessions/mcq/complete', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        scenarioId: scenario.scenario_id,
-                        answers: newAnswers,
-                        startTime,
-                        score: finalScore
-                    })
+                    body: JSON.stringify(payload)
                 });
                 const data = await res.json();
                 if (data.sessionId) {

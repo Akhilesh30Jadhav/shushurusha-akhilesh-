@@ -3,6 +3,7 @@ export const translations = {
         nav: {
             dashboard: "Dashboard",
             scenarios: "Scenarios",
+            leaderboard: "Leaderboard",
             profile: "Profile",
             language: "Language",
             logout: "Logout"
@@ -64,6 +65,7 @@ export const translations = {
         nav: {
             dashboard: "डैशबोर्ड",
             scenarios: "परिदृश्य",
+            leaderboard: "लीडरबोर्ड",
             profile: "प्रोफ़ाइल",
             language: "भाषा",
             logout: "लॉग आउट"
@@ -125,6 +127,7 @@ export const translations = {
         nav: {
             dashboard: "डॅशबोर्ड",
             scenarios: "परिदृश्य",
+            leaderboard: "लीडरबोर्ड",
             profile: "प्रोफाइल",
             language: "भाषा",
             logout: "लॉग आउट"

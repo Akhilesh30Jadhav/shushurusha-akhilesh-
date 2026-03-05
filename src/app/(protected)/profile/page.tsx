@@ -2,9 +2,16 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { UserCog, Mail, Shield, Award, Sparkles, TrendingUp, LogOut } from 'lucide-react';
+import { UserCog, Mail, Shield, Award, Sparkles, TrendingUp, LogOut, Footprints, Medal, Trophy, HeartPulse } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { GlowingEffect } from '@/components/ui/glowing-effect';
+
+const iconMap = {
+    Footprints,
+    Medal,
+    Trophy,
+    HeartPulse
+};
 
 export default function ProfilePage() {
     const router = useRouter();
@@ -109,7 +116,7 @@ export default function ProfilePage() {
                             <GlowingEffect spread={40} glow={true} disabled={false} proximity={64} inactiveZone={0.01} borderWidth={3} />
                             <div className="relative z-10 w-full h-full bg-gradient-to-br from-orange-50 to-[#FF7A00]/10 rounded-[1.5rem] p-8 border border-white shadow-sm flex flex-col justify-center overflow-hidden group hover:shadow-md transition-all pt-10">
                                 <Award className="absolute -right-4 -top-4 w-32 h-32 text-[#FF7A00] opacity-5 group-hover:scale-110 transition-transform duration-500" />
-                                <div className="text-5xl font-extrabold text-[#FF7A00] mb-2 drop-shadow-sm">42</div>
+                                <div className="text-5xl font-extrabold text-[#FF7A00] mb-2 drop-shadow-sm">{user.stats?.totalScenariosPassed || 0}</div>
                                 <div className="text-sm font-extrabold text-orange-900 uppercase tracking-widest opacity-80">Total Scenarios Passed</div>
                             </div>
                         </div>
@@ -117,7 +124,7 @@ export default function ProfilePage() {
                             <GlowingEffect spread={40} glow={true} disabled={false} proximity={64} inactiveZone={0.01} borderWidth={3} />
                             <div className="relative z-10 w-full h-full bg-gradient-to-br from-pink-50 to-pink-500/10 rounded-[1.5rem] p-8 border border-white shadow-sm flex flex-col justify-center overflow-hidden group hover:shadow-md transition-all pt-10">
                                 <Sparkles className="absolute -right-4 -top-4 w-32 h-32 text-pink-500 opacity-5 group-hover:scale-110 transition-transform duration-500" />
-                                <div className="text-5xl font-extrabold text-pink-600 mb-2 drop-shadow-sm">18</div>
+                                <div className="text-5xl font-extrabold text-pink-600 mb-2 drop-shadow-sm">{user.stats?.criticalSavesLogged || 0}</div>
                                 <div className="text-sm font-extrabold text-pink-900 uppercase tracking-widest opacity-80">Critical Saves Logged</div>
                             </div>
                         </div>
@@ -163,6 +170,35 @@ export default function ProfilePage() {
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+
+                    {/* Badges Section */}
+                    <div className="relative rounded-[2.5rem] mt-6 border border-gray-50/50 p-2 sm:p-3">
+                        <GlowingEffect spread={40} glow={true} disabled={false} proximity={64} inactiveZone={0.01} borderWidth={3} />
+                        <div className="relative z-10 w-full h-full bg-white/80 backdrop-blur-md rounded-[2rem] p-8 border border-white/60 shadow-sm overflow-hidden transition-all hover:shadow-md">
+                            <h3 className="text-xl font-extrabold text-gray-900 mb-6 flex items-center gap-2">
+                                <Award className="text-yellow-500 w-6 h-6" /> Earned Badges
+                            </h3>
+
+                            {user.badges?.length === 0 ? (
+                                <div className="text-center text-gray-500 py-4 opacity-70 font-medium">No badges earned yet. Complete scenarios to earn!</div>
+                            ) : (
+                                <div className="grid grid-cols-2 gap-4">
+                                    {user.badges?.map((badge: any) => {
+                                        const IconComponent = (iconMap as any)[badge.icon] || Award;
+                                        return (
+                                            <div key={badge.id} className="bg-gradient-to-br from-yellow-50 flex flex-col items-center justify-center p-4 rounded-2xl border border-yellow-200/50 shadow-sm text-center">
+                                                <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-inner mb-3 border border-yellow-100">
+                                                    <IconComponent className="w-6 h-6 text-yellow-500" />
+                                                </div>
+                                                <h4 className="font-bold text-gray-800 text-sm">{badge.name}</h4>
+                                                <p className="text-[10px] text-gray-500 font-medium mt-1 uppercase tracking-wider">{badge.desc}</p>
+                                            </div>
+                                        );
+                                    })}
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>

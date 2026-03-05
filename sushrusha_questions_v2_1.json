@@ -1,0 +1,704 @@
+{
+  "metadata": {
+    "platform": "Sushrusha",
+    "version": "2.1",
+    "team": "TEAM ORBIX",
+    "document_source": "Notes for ASHA Trainers – Induction Training for ASHAs in Urban Areas (MoHFW, Government of India)",
+    "note": "Maternal Health (MAT_ANC) and Newborn Care (NB_ADO) scenarios removed — already covered in v1 (WHO guides). Only net-new scenarios retained.",
+    "total_questions": 20,
+    "scenarios": 4,
+    "difficulty_breakdown": {
+      "Easy": 4,
+      "Medium": 8,
+      "Hard": 8
+    },
+    "scenario_list": [
+      "Tuberculosis: Identification & DOTS Management",
+      "Malaria: Diagnosis, Treatment & Prevention",
+      "Non-Communicable Diseases & Community Screening",
+      "RTI/STI, Family Planning & Safe Abortion"
+    ]
+  },
+  "questions": [
+    {
+      "scenario_id": "TB_001",
+      "scenario_title": "Tuberculosis: Identification & DOTS Management",
+      "category": "Common Diseases",
+      "difficulty": "Easy",
+      "estimated_time_min": 5,
+      "patient_feedback": "During a home visit, you meet Ramesh, a 35-year-old man living in a slum. He mentions he has had a cough for the past 3 weeks, along with fever in the evenings and significant weight loss. He has not visited any health facility.",
+      "question": "Based on these symptoms, what should the ASHA do FIRST?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Give him cough syrup from her drug kit and revisit in one week",
+          "is_correct": false
+        },
+        {
+          "id": "B",
+          "text": "Identify him as a possible TB case and refer him to the nearest health facility for sputum testing",
+          "is_correct": true
+        },
+        {
+          "id": "C",
+          "text": "Advise complete bed rest and a high protein diet — it is likely just a common cold",
+          "is_correct": false
+        },
+        {
+          "id": "D",
+          "text": "Wait for 6 weeks — TB is only suspected if cough lasts more than 6 weeks",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "B",
+      "explanation": "Session 7.1 (TB): Symptoms of cough for 3+ weeks, evening fever, and weight loss are classic signs of possible TB. The ASHA's role is to identify possible TB cases and refer them to the nearest health facility for sputum testing. ASHA is NOT expected to diagnose or treat TB independently.",
+      "source": "ASHA Induction Training Module, Session 7.1 – Tuberculosis"
+    },
+    {
+      "scenario_id": "TB_002",
+      "scenario_title": "Tuberculosis: Identification & DOTS Management",
+      "category": "Common Diseases",
+      "difficulty": "Medium",
+      "estimated_time_min": 5,
+      "patient_feedback": "Sunita, a TB patient in your area, has been on DOTS treatment for 2 months. She tells you she has stopped taking her medicines because she felt better and dislikes the side effects — her urine has turned orange-red and she feels nauseous.",
+      "question": "What is the ASHA's correct response?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Accept her decision — if she feels better, TB is likely cured",
+          "is_correct": false
+        },
+        {
+          "id": "B",
+          "text": "Report her to the ANM immediately for non-compliance without counseling her first",
+          "is_correct": false
+        },
+        {
+          "id": "C",
+          "text": "Counsel her that orange urine is a normal side effect; stopping treatment leads to drug resistance; motivate her to complete the full course",
+          "is_correct": true
+        },
+        {
+          "id": "D",
+          "text": "Tell her to skip doses on days she feels nauseous and resume when comfortable",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "C",
+      "explanation": "Session 7.1 (TB): ASHA acts as a DOTS provider and treatment supporter. Orange-red urine is a known, harmless side effect of Rifampicin. The ASHA must counsel the patient about side effects, explain that stopping treatment leads to drug resistance, and ensure completion of the full course. Defaulting is dangerous.",
+      "source": "ASHA Induction Training Module, Session 7.1 – Tuberculosis"
+    },
+    {
+      "scenario_id": "TB_003",
+      "scenario_title": "Tuberculosis: Identification & DOTS Management",
+      "category": "Common Diseases",
+      "difficulty": "Medium",
+      "estimated_time_min": 5,
+      "patient_feedback": "You are an ASHA in an urban slum. A community member, Vikram, is diagnosed with TB. His neighbors avoid him, and his landlord is threatening to evict him saying TB is highly contagious and shameful. Vikram is distressed and considering stopping his treatment.",
+      "question": "What is the ASHA's PRIMARY role in this situation?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Only focus on medication adherence — social issues are beyond ASHA's scope",
+          "is_correct": false
+        },
+        {
+          "id": "B",
+          "text": "Address the social stigma by educating the community that TB is curable; support Vikram to continue treatment and link him to entitlements",
+          "is_correct": true
+        },
+        {
+          "id": "C",
+          "text": "Advise Vikram to relocate to a different area to avoid stigma",
+          "is_correct": false
+        },
+        {
+          "id": "D",
+          "text": "Inform health authorities to isolate Vikram in a TB ward until treatment completes",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "B",
+      "explanation": "Session 7.1 Trainer Notes: 'The trainer must discuss the way TB is considered a social stigma and the ASHA's role in changing this perception.' ASHA is expected to address stigma through community education, provide emotional support to the patient, and ensure treatment continuation. TB is curable with proper treatment.",
+      "source": "ASHA Induction Training Module, Session 7.1 – Tuberculosis, Trainer Notes"
+    },
+    {
+      "scenario_id": "TB_004",
+      "scenario_title": "Tuberculosis: Identification & DOTS Management",
+      "category": "Common Diseases",
+      "difficulty": "Hard",
+      "estimated_time_min": 5,
+      "patient_feedback": "During an ANC home visit, you find that Priya, who is 5 months pregnant, has had a cough for 4 weeks with evening fever and weight loss. Her husband was recently diagnosed with TB and is on DOTS treatment.",
+      "question": "What special consideration applies here, according to the ASHA training guidelines?",
+      "options": [
+        {
+          "id": "A",
+          "text": "TB treatment is completely contraindicated in pregnancy — advise her to wait until after delivery for diagnosis",
+          "is_correct": false
+        },
+        {
+          "id": "B",
+          "text": "Refer her immediately to health facility for sputum testing; ensure the treating doctor knows she is pregnant, as special precautions apply for TB drugs in pregnancy",
+          "is_correct": true
+        },
+        {
+          "id": "C",
+          "text": "Start her on DOTS drugs from your kit immediately since her husband has TB and delay is dangerous",
+          "is_correct": false
+        },
+        {
+          "id": "D",
+          "text": "TB is less likely in pregnant women — advise her to rest and observe for 2 more weeks",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "B",
+      "explanation": "Session 7.1 Trainer Notes: 'ASHAs should clearly understand the precautions to be taken for pregnant women' in the context of TB. ASHA must refer the pregnant woman urgently for proper diagnosis and ensure the treating provider is aware of the pregnancy, as certain TB drug regimens require modification for pregnant women.",
+      "source": "ASHA Induction Training Module, Session 7.1 – Tuberculosis, Trainer Notes"
+    },
+    {
+      "scenario_id": "TB_005",
+      "scenario_title": "Tuberculosis: Identification & DOTS Management",
+      "category": "Common Diseases",
+      "difficulty": "Hard",
+      "estimated_time_min": 5,
+      "patient_feedback": "You are conducting vulnerability assessment in your slum. You identify a household: Ram, 42 years old, malnourished, living in a poorly ventilated single room with 7 others, works as a daily labourer, and has had persistent cough for 5 weeks. He has NOT been diagnosed with TB yet.",
+      "question": "Which combination correctly describes ASHA's role in this case?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Only register him as a vulnerable household — TB screening is ANM's responsibility",
+          "is_correct": false
+        },
+        {
+          "id": "B",
+          "text": "Identify him as a possible TB case, refer for sputum testing, counsel on nutrition and ventilation, and track if he completes the diagnostic workup",
+          "is_correct": true
+        },
+        {
+          "id": "C",
+          "text": "Give him Chloroquine from your drug kit to treat the fever and recheck in 2 weeks",
+          "is_correct": false
+        },
+        {
+          "id": "D",
+          "text": "Classify as malnutrition only — cough for 5 weeks is not enough for TB suspicion",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "B",
+      "explanation": "Session 7.1 + Session 4.8: Malnutrition, overcrowding, poor ventilation, and poverty are risk factors for TB (discussed in context of TB session). ASHA must identify possible TB cases during home visits, refer for testing, counsel on risk factors, and follow up. Session 7.1 explicitly asks ASHA to discuss TB risk 'in relation to malnutrition, living conditions and poverty.'",
+      "source": "ASHA Induction Training Module, Session 7.1 – Tuberculosis"
+    },
+    {
+      "scenario_id": "MAL_001",
+      "scenario_title": "Malaria: Diagnosis, Treatment & Prevention",
+      "category": "Common Diseases",
+      "difficulty": "Easy",
+      "estimated_time_min": 5,
+      "patient_feedback": "A mother brings her 8-year-old son to you. He has had fever with chills and shivering since yesterday. You have an RDT (Rapid Diagnostic Test) kit available. The RDT result comes back POSITIVE.",
+      "question": "What is the correct first action for the ASHA?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Give paracetamol only and advise to come back if fever persists for 3 days",
+          "is_correct": false
+        },
+        {
+          "id": "B",
+          "text": "Treat with the appropriate antimalarial drugs as per age-wise treatment guidelines and advise on completing the full 3-day course",
+          "is_correct": true
+        },
+        {
+          "id": "C",
+          "text": "Refer immediately to hospital — ASHA cannot treat malaria",
+          "is_correct": false
+        },
+        {
+          "id": "D",
+          "text": "Wait for blood slide confirmation from a lab before giving any treatment",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "B",
+      "explanation": "Session 7.3b (Treating Malaria): A positive RDT confirms malaria. ASHA is trained to give antimalarial treatment (Chloroquine/ACT as per guidelines) based on age and RDT result. The full 3-day course must be completed. Tepid water sponging can be done to reduce fever alongside drug treatment.",
+      "source": "ASHA Induction Training Module, Session 7.3b – Treating Malaria"
+    },
+    {
+      "scenario_id": "MAL_002",
+      "scenario_title": "Malaria: Diagnosis, Treatment & Prevention",
+      "category": "Common Diseases",
+      "difficulty": "Medium",
+      "estimated_time_min": 5,
+      "patient_feedback": "During a home visit, you meet Kavita who is 7 months pregnant and has fever with chills. You suspect malaria. No RDT kits are available at your level today.",
+      "question": "What is the correct action for the ASHA in this situation?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Give her the standard adult dose of Chloroquine since you suspect malaria — do not delay treatment in pregnancy",
+          "is_correct": false
+        },
+        {
+          "id": "B",
+          "text": "Refer her immediately to the nearest health facility for testing and management — special precautions apply for malaria treatment in pregnancy",
+          "is_correct": true
+        },
+        {
+          "id": "C",
+          "text": "Ask her to take Paracetamol and wait at home for 2 days to see if fever resolves",
+          "is_correct": false
+        },
+        {
+          "id": "D",
+          "text": "Give Primaquine as it is safe in pregnancy",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "B",
+      "explanation": "Session 7.3b Trainer Notes: 'What to do in case of a pregnant woman?' is listed as a key outcome. Malaria treatment requires special precautions in pregnancy (e.g., Primaquine is contraindicated in pregnancy). Without RDT, ASHA must refer the pregnant woman to a health facility for proper diagnosis and safe treatment.",
+      "source": "ASHA Induction Training Module, Session 7.3b – Treating Malaria, Trainer Notes"
+    },
+    {
+      "scenario_id": "MAL_003",
+      "scenario_title": "Malaria: Diagnosis, Treatment & Prevention",
+      "category": "Common Diseases",
+      "difficulty": "Medium",
+      "estimated_time_min": 5,
+      "patient_feedback": "You observe that in a lane in your slum area, there are several broken earthen pots filled with stagnant water near homes. The area has had 3 malaria cases in the past month. The Mahila Aarogya Samiti (MAS) meeting is scheduled for tomorrow.",
+      "question": "What is the MOST comprehensive action ASHA should take?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Report to the ANM — mosquito control is solely the ANM's responsibility",
+          "is_correct": false
+        },
+        {
+          "id": "B",
+          "text": "Use the MAS meeting to mobilize community action to eliminate breeding sites, and include this in an area-level malaria prevention plan",
+          "is_correct": true
+        },
+        {
+          "id": "C",
+          "text": "Spray insecticide on the water pots yourself and inform no one",
+          "is_correct": false
+        },
+        {
+          "id": "D",
+          "text": "Educate only the households near the breeding sites and take no further action",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "B",
+      "explanation": "Session 7.6 Prevention of Vector Borne Diseases: 'ASHA and MAS should use community fora to explain how the closeness of such sites to where people live is likely to cause infections such as malaria.' An area-level malaria plan should include: identification of breeding sites, community action to reduce them, and convergence with other departments.",
+      "source": "ASHA Induction Training Module, Session 7.6 – Prevention of Vector Borne Diseases"
+    },
+    {
+      "scenario_id": "MAL_004",
+      "scenario_title": "Malaria: Diagnosis, Treatment & Prevention",
+      "category": "Common Diseases",
+      "difficulty": "Hard",
+      "estimated_time_min": 5,
+      "patient_feedback": "You give a 6-year-old child treatment for confirmed malaria (positive RDT). After 1 day, the child develops very high fever (104°F), is unable to drink fluids, has continuous vomiting, and appears confused.",
+      "question": "What do these signs indicate and what should the ASHA do?",
+      "options": [
+        {
+          "id": "A",
+          "text": "These are normal side effects of antimalarial drugs — continue treatment and monitor",
+          "is_correct": false
+        },
+        {
+          "id": "B",
+          "text": "Increase the dose of antimalarial — the current dose may be insufficient for the severity",
+          "is_correct": false
+        },
+        {
+          "id": "C",
+          "text": "These are danger signs of severe malaria — refer the child urgently to hospital immediately",
+          "is_correct": true
+        },
+        {
+          "id": "D",
+          "text": "Give paracetamol to reduce fever and reassess after 4 hours before deciding on referral",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "C",
+      "explanation": "Session 7.3 (Malaria): Very high fever, inability to drink, vomiting, and confusion are danger signs of severe/complicated malaria in a child. This requires immediate emergency referral to a hospital. ASHA training emphasizes recognizing when a case exceeds primary level management. Session 6.1 also states: 'danger signs such as cough, chills, stiff neck, rash' signify acute illness needing immediate referral.",
+      "source": "ASHA Induction Training Module, Session 7.3 – Malaria; Session 6.1 – Fever"
+    },
+    {
+      "scenario_id": "MAL_005",
+      "scenario_title": "Malaria: Diagnosis, Treatment & Prevention",
+      "category": "Common Diseases",
+      "difficulty": "Hard",
+      "estimated_time_min": 5,
+      "patient_feedback": "In a malaria-endemic area, you are conducting a session with the Mahila Aarogya Samiti. A member asks: 'We distributed bed nets to all families last year. Why are malaria cases still occurring?' You need to explain a comprehensive prevention approach.",
+      "question": "Which response best reflects the ASHA's role in comprehensive malaria prevention according to the training module?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Bed nets are the only proven method — the issue is that families are not using them properly",
+          "is_correct": false
+        },
+        {
+          "id": "B",
+          "text": "Malaria prevention requires a multi-pronged approach: eliminating breeding sites, personal protection (bed nets, repellants), availability of diagnosis and drugs with ASHA, and availability of referral transport for severe cases",
+          "is_correct": true
+        },
+        {
+          "id": "C",
+          "text": "Contact the government to spray insecticide — community-level efforts are ineffective against malaria",
+          "is_correct": false
+        },
+        {
+          "id": "D",
+          "text": "Malaria cannot be prevented at the community level — focus only on treatment when cases appear",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "B",
+      "explanation": "Session 7.6 Trainer Notes: The area-level malaria plan must include — 'Identification of breeding sites, action on controlling breeding, personal protection including bed nets and repellants, availability of medicines and RDT with ASHA, and availability of referral transport for severe cases.' Prevention is multi-layered and community-driven.",
+      "source": "ASHA Induction Training Module, Session 7.6 – Prevention of Vector Borne Diseases"
+    },
+    {
+      "scenario_id": "NCD_001",
+      "scenario_title": "Non-Communicable Diseases & Community Screening",
+      "category": "Common Diseases (NCD)",
+      "difficulty": "Easy",
+      "estimated_time_min": 5,
+      "patient_feedback": "During a home visit, you meet Suresh, a 50-year-old man who is overweight, smokes, and has not visited a doctor in 3 years. He mentions he sometimes gets headaches. He says he is 'too busy' to go to the hospital.",
+      "question": "What is ASHA's primary action in this case?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Give him paracetamol for headache from the drug kit and move on",
+          "is_correct": false
+        },
+        {
+          "id": "B",
+          "text": "Identify him as a high-risk individual for NCDs; counsel him on lifestyle risk factors and motivate him to attend a screening camp at the nearest health centre",
+          "is_correct": true
+        },
+        {
+          "id": "C",
+          "text": "NCDs are not ASHA's area — refer all NCD cases directly to a specialist hospital",
+          "is_correct": false
+        },
+        {
+          "id": "D",
+          "text": "Advise him to reduce smoking but do not mention hospital — he may resist",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "B",
+      "explanation": "Session 7.6 (NCDs): 'ASHAs should regularly identify and monitor those who are overweight, hypertensive, smoke or drink alcohol during home visits and mobilize them to go for screening camps held periodically at their nearest health centre.' Obesity, smoking, and persistent headaches = high NCD risk. ASHA must counsel and motivate health-seeking behavior.",
+      "source": "ASHA Induction Training Module, Session 7.6 – Addressing Non-Communicable Diseases"
+    },
+    {
+      "scenario_id": "NCD_002",
+      "scenario_title": "Non-Communicable Diseases & Community Screening",
+      "category": "Common Diseases (NCD)",
+      "difficulty": "Medium",
+      "estimated_time_min": 5,
+      "patient_feedback": "Madhu is a 55-year-old woman with diabetes who has been buying medicines from a local pharmacy for 2 years without regular check-ups. Her son and daughter-in-law are both busy labourers. She now has low vision and difficulty walking.",
+      "question": "What should ASHA do in this case? (Based on NCD Case Study 2 in the module)",
+      "options": [
+        {
+          "id": "A",
+          "text": "Accept the situation — family is busy and Madhu is managing with pharmacy medicines",
+          "is_correct": false
+        },
+        {
+          "id": "B",
+          "text": "Counsel the children on risks of unmonitored diabetes, inform them about FREE medicines at public facilities, and accompany Madhu to the health centre for proper follow-up",
+          "is_correct": true
+        },
+        {
+          "id": "C",
+          "text": "Only refer Madhu — family counseling is not the ASHA's role",
+          "is_correct": false
+        },
+        {
+          "id": "D",
+          "text": "Advise dietary changes only — hospital visits are unnecessary since she already has medicines",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "B",
+      "explanation": "Session 7.6 NCD Case Study 2 (Madhu): 'ASHA should meet with Madhu's children and explain that Diabetes, if not treated properly, can lead to various health problems. She can also inform that all tests and medicine can be available for free at a public health facility. ASHA herself can accompany them to the health centre.' Unmonitored diabetes causes complications like low vision — prompt action is essential.",
+      "source": "ASHA Induction Training Module, Session 7.6 – NCD Case Study 2"
+    },
+    {
+      "scenario_id": "NCD_003",
+      "scenario_title": "Non-Communicable Diseases & Community Screening",
+      "category": "Common Diseases (NCD)",
+      "difficulty": "Medium",
+      "estimated_time_min": 5,
+      "patient_feedback": "You visit a family where the 25-year-old son, Lata's boy, has been having frequent fits since childhood. The family believes it is due to 'evil spirits' and has never taken him to a doctor. They are embarrassed about the condition.",
+      "question": "What is the ASHA's correct approach? (Based on NCD Case Study 4)",
+      "options": [
+        {
+          "id": "A",
+          "text": "Respect the family's belief and advise them to continue with their traditional practices",
+          "is_correct": false
+        },
+        {
+          "id": "B",
+          "text": "Counsel the family that epilepsy is a medical condition, not caused by spirits; if treated properly it can be controlled; refer to the appropriate health facility",
+          "is_correct": true
+        },
+        {
+          "id": "C",
+          "text": "Contact mental health authorities to forcefully admit the person to a facility",
+          "is_correct": false
+        },
+        {
+          "id": "D",
+          "text": "Give the person a mild sedative from your drug kit and revisit in a month",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "B",
+      "explanation": "Session 7.6 NCD Case Study 4: 'ASHA should counsel the family that it is a medical condition that could have other ill effects. This can happen to anyone and is not related to spirits. If treated properly, this can be controlled. She should motivate the family to seek medical help and refer them to the appropriate health facility.' Addressing myths and stigma is a core ASHA competency.",
+      "source": "ASHA Induction Training Module, Session 7.6 – NCD Case Study 4"
+    },
+    {
+      "scenario_id": "NCD_004",
+      "scenario_title": "Non-Communicable Diseases & Community Screening",
+      "category": "Common Diseases (NCD)",
+      "difficulty": "Hard",
+      "estimated_time_min": 5,
+      "patient_feedback": "You are preparing a community awareness session for Mahila Aarogya Samiti on NCD prevention. You need to explain the difference between modifiable and non-modifiable risk factors, using examples from the slum context.",
+      "question": "Which of the following correctly distinguishes modifiable vs non-modifiable NCD risk factors as per the module?",
+      "options": [
+        {
+          "id": "A",
+          "text": "All risk factors for NCDs are non-modifiable — NCDs are largely determined by genetics and cannot be prevented",
+          "is_correct": false
+        },
+        {
+          "id": "B",
+          "text": "Hereditary factors (family history, age) are non-modifiable; lifestyle factors (smoking, alcohol, unhealthy diet, physical inactivity) are modifiable and can be changed to prevent NCDs",
+          "is_correct": true
+        },
+        {
+          "id": "C",
+          "text": "Only diet is a modifiable risk factor — smoking and alcohol cannot be changed through counseling",
+          "is_correct": false
+        },
+        {
+          "id": "D",
+          "text": "Non-communicable diseases only affect the elderly — no preventive action is needed for people below 40",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "B",
+      "explanation": "Session 7.6 (NCDs): 'Explain the two types of Risk Factors — Hereditary and Lifestyle related risk factors — and how lifestyle related risk factors can be MODIFIED so as to prevent the disease.' ASHA must help community members understand that smoking, alcohol, unhealthy food, and inactivity are within their control to change.",
+      "source": "ASHA Induction Training Module, Session 7.6 – Addressing Non-Communicable Diseases"
+    },
+    {
+      "scenario_id": "NCD_005",
+      "scenario_title": "Non-Communicable Diseases & Community Screening",
+      "category": "Common Diseases (NCD)",
+      "difficulty": "Hard",
+      "estimated_time_min": 5,
+      "patient_feedback": "Aman, 35 years old, was told by a doctor he has high blood pressure. He did not follow up and continues eating junk food, smoking, and drinking alcohol occasionally. He says: 'I feel fine, so there is nothing to worry about. Blood pressure has no symptoms.'",
+      "question": "What is ASHA's most effective response to Aman? (Based on NCD Case Study 3)",
+      "options": [
+        {
+          "id": "A",
+          "text": "Agree — if he feels fine, he can delay treatment until he develops symptoms",
+          "is_correct": false
+        },
+        {
+          "id": "B",
+          "text": "Explain that high BP is a 'silent' risk factor — it causes heart attack and brain haemorrhage even without symptoms; his lifestyle adds to the risk; motivate him to attend a health facility and follow up on medications",
+          "is_correct": true
+        },
+        {
+          "id": "C",
+          "text": "Advise only on diet — smoking and alcohol are personal choices that ASHA should not comment on",
+          "is_correct": false
+        },
+        {
+          "id": "D",
+          "text": "Give him antihypertensive medication from your drug kit as an emergency measure",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "B",
+      "explanation": "Session 7.6 NCD Case Study 3 (Aman): 'ASHA can inform Aman that high blood pressure is one of the biggest risk factors for many non-communicable diseases like heart attack and brain haemorrhage. Moreover, sedentary lifestyle, junk food, smoking and drinking add to the risk. Therefore, he should immediately visit the nearest appropriate health centre for proper treatment and follow up.' Hypertension is often asymptomatic but deadly.",
+      "source": "ASHA Induction Training Module, Session 7.6 – NCD Case Study 3"
+    },
+    {
+      "scenario_id": "RTISTI_001",
+      "scenario_title": "RTI/STI, Family Planning & Safe Abortion",
+      "category": "Reproductive Health",
+      "difficulty": "Easy",
+      "estimated_time_min": 5,
+      "patient_feedback": "Swarna, a woman in your area, confides in you about itching in her genital area, foul-smelling greenish-yellow discharge, and lower abdominal pain. Her husband is a migrant labourer.",
+      "question": "What is ASHA's correct response?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Give her a vaginal antiseptic wash from the drug kit and advise hygiene practices",
+          "is_correct": false
+        },
+        {
+          "id": "B",
+          "text": "Advise her to go to the U-PHC; tell her husband should also get treatment; counsel on condom use for every encounter; ensure she completes the treatment",
+          "is_correct": true
+        },
+        {
+          "id": "C",
+          "text": "Tell her this is a normal vaginal discharge and no treatment is needed",
+          "is_correct": false
+        },
+        {
+          "id": "D",
+          "text": "Advise her to visit the PHC alone — husband's involvement is not necessary",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "B",
+      "explanation": "Session 12 (RTI/STI), Handout 8 Case Study (Swarna): Correct response: 'Advise her to go to the U-PHC since she may have an STD. Ask her to ensure that her husband should also take the treatment. Ask her to complete the treatment and not stop the medication. Ask her to ensure she uses a condom for every sexual encounter.' Partner treatment is critical to prevent re-infection.",
+      "source": "ASHA Induction Training Module, Session 12 – RTI/STI, Handout 8 Case Study (Swarna)"
+    },
+    {
+      "scenario_id": "RTISTI_002",
+      "scenario_title": "RTI/STI, Family Planning & Safe Abortion",
+      "category": "Reproductive Health",
+      "difficulty": "Medium",
+      "estimated_time_min": 5,
+      "patient_feedback": "Nithya, 21 years old, married with a 2-year-old daughter, comes to you with a complaint of white discharge but no other symptoms. Her husband is a school teacher.",
+      "question": "What is the likely diagnosis and what should ASHA do? (Based on RTI/STI Case Study)",
+      "options": [
+        {
+          "id": "A",
+          "text": "Immediately diagnose STI — any white discharge requires antibiotic treatment at once",
+          "is_correct": false
+        },
+        {
+          "id": "B",
+          "text": "Ask further questions to assess the discharge (colour, smell, associated symptoms); white discharge without other symptoms may be normal; refer to U-PHC for proper assessment",
+          "is_correct": true
+        },
+        {
+          "id": "C",
+          "text": "Advise her to use a sanitary pad and return only if discharge increases",
+          "is_correct": false
+        },
+        {
+          "id": "D",
+          "text": "Prescribe metronidazole from your drug kit since all vaginal discharge requires treatment",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "B",
+      "explanation": "Session 12 (RTI/STI), Handout 8 Case Study (Nithya): The correct action is to ask questions to distinguish normal from abnormal discharge. The module introduces 'the concept of white discharge and highlights when it is normal vs abnormal.' White discharge alone without symptoms like itching, smell, or pain may be physiological. ASHA must assess and refer to U-PHC for proper diagnosis.",
+      "source": "ASHA Induction Training Module, Session 12 – RTI/STI, Handout 8 Case Study (Nithya)"
+    },
+    {
+      "scenario_id": "RTISTI_003",
+      "scenario_title": "RTI/STI, Family Planning & Safe Abortion",
+      "category": "Reproductive Health",
+      "difficulty": "Medium",
+      "estimated_time_min": 5,
+      "patient_feedback": "Fatima, a woman in your area, confidentially tells you she wants to terminate her 7-week pregnancy. She is scared and does not know where to go. Her family does not know yet.",
+      "question": "What is ASHA's correct role in this situation?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Discourage her from abortion and counsel her to continue the pregnancy",
+          "is_correct": false
+        },
+        {
+          "id": "B",
+          "text": "Maintain strict confidentiality; inform her about safe abortion services available at the nearest approved facility; assist her in accessing services; counsel on post-abortion contraception",
+          "is_correct": true
+        },
+        {
+          "id": "C",
+          "text": "Inform her family immediately — consent of husband is required for abortion",
+          "is_correct": false
+        },
+        {
+          "id": "D",
+          "text": "Tell her that abortion is illegal in India and she should not pursue it",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "B",
+      "explanation": "Session 15 (Safe Abortion): 'The ASHA must respect the confidentiality of women who come to them seeking information on abortion-related services.' ASHA's role includes: advising on services based on duration of pregnancy, helping women access safe abortion services, and counseling for post-abortion contraception. Safe abortion is legal in India up to 20 weeks under MTP Act.",
+      "source": "ASHA Induction Training Module, Session 15 – Safe Abortion"
+    },
+    {
+      "scenario_id": "RTISTI_004",
+      "scenario_title": "RTI/STI, Family Planning & Safe Abortion",
+      "category": "Reproductive Health",
+      "difficulty": "Hard",
+      "estimated_time_min": 5,
+      "patient_feedback": "Sarala, 35 years old, sterilized, has had recurrent foul-smelling vaginal discharge with itching 3 times in the past year. Her husband is an alcoholic who stays away frequently. She asks you for local relief measures.",
+      "question": "What is ASHA's complete action in this case? (Based on RTI/STI Case Study)",
+      "options": [
+        {
+          "id": "A",
+          "text": "Give her a vaginal wash and hygiene tips — since she is sterilized, STI is unlikely",
+          "is_correct": false
+        },
+        {
+          "id": "B",
+          "text": "Refer her to U-PHC for proper diagnosis and treatment; counsel on condom use regardless of sterilization (STIs can still occur); advise on local hygiene relief measures while awaiting referral",
+          "is_correct": true
+        },
+        {
+          "id": "C",
+          "text": "Tell her the discharge is due to her sterilization surgery — no treatment is needed",
+          "is_correct": false
+        },
+        {
+          "id": "D",
+          "text": "Give antibiotics from the drug kit since recurrent episodes confirm STI",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "B",
+      "explanation": "Session 12 (RTI/STI), Handout 8 Case Study (Sarala): Sarala has risk factors for STI (husband with multiple partners, recurrent symptoms). Sterilization prevents pregnancy but NOT STIs. ASHA must advise referral, counsel on condom use, and advise methods of local relief (outlined in module). Recurrent episodes require proper medical diagnosis and treatment.",
+      "source": "ASHA Induction Training Module, Session 12 – RTI/STI, Handout 8 Case Study (Sarala)"
+    },
+    {
+      "scenario_id": "RTISTI_005",
+      "scenario_title": "RTI/STI, Family Planning & Safe Abortion",
+      "category": "Reproductive Health",
+      "difficulty": "Hard",
+      "estimated_time_min": 5,
+      "patient_feedback": "A woman in your area had an abortion 10 days ago at an unofficial, unregistered facility. She now comes to you with heavy bleeding, fever (38.5°C), and foul-smelling discharge from the vagina. She is embarrassed and scared to go to a hospital.",
+      "question": "What is ASHA's correct assessment and action?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Reassure her that post-abortion bleeding and mild fever are normal — advise rest and paracetamol",
+          "is_correct": false
+        },
+        {
+          "id": "B",
+          "text": "Recognize these as signs of POST-ABORTION COMPLICATIONS (infection, incomplete abortion); maintain confidentiality; refer her urgently to the nearest health facility without delay",
+          "is_correct": true
+        },
+        {
+          "id": "C",
+          "text": "Respect her wish to stay home — accessing a hospital may lead to legal issues for her",
+          "is_correct": false
+        },
+        {
+          "id": "D",
+          "text": "Give her antibiotics from the drug kit and monitor for 48 hours before referring",
+          "is_correct": false
+        }
+      ],
+      "correct_option_id": "B",
+      "explanation": "Session 15 (Safe Abortion): ASHA must 'identify signs of post-abortion complications and advise appropriate referral.' Heavy bleeding + fever + foul discharge after abortion = signs of serious post-abortion infection/incomplete abortion. These are life-threatening. ASHA must urgently refer while maintaining confidentiality. Unsafe abortion is a major cause of maternal mortality in India.",
+      "source": "ASHA Induction Training Module, Session 15 – Safe Abortion"
+    }
+  ]
+}
