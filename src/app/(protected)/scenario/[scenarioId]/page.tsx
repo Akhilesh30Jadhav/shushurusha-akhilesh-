@@ -6,7 +6,7 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import scenariosEn from '@/data/scenarios_mcq.json';
 import scenariosHi from '@/data/scenarios_mcq_hi.json';
 import scenariosMr from '@/data/scenarios_mcq_mr.json';
-import { CheckCircle2, XCircle, AlertTriangle, ArrowRight, Loader2 } from 'lucide-react';
+import { CheckCircle2, XCircle, AlertTriangle, ArrowRight, Loader2, Volume2, Square } from 'lucide-react';
 import Image from 'next/image';
 
 export default function MCQPlayer({ params }: { params: Promise<{ scenarioId: string }> }) {
@@ -23,6 +23,40 @@ export default function MCQPlayer({ params }: { params: Promise<{ scenarioId: st
     const [answers, setAnswers] = useState<any[]>([]);
     const [startTime, setStartTime] = useState<number>(0);
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [playingAudioId, setPlayingAudioId] = useState<string | null>(null);
+
+    useEffect(() => {
+        // Cancel speech when component unmounts or question changes
+        window.speechSynthesis.cancel();
+        setPlayingAudioId(null);
+    }, [currentQIdx]);
+
+    const playAudio = (text: string, id: string) => {
+        if (playingAudioId === id) {
+            window.speechSynthesis.cancel();
+            setPlayingAudioId(null);
+            return;
+        }
+
+        window.speechSynthesis.cancel(); // Stop any other playing audio
+
+        const utterance = new SpeechSynthesisUtterance(text);
+
+        // Map app language to speech synthesis language code
+        if (language === 'hi') {
+            utterance.lang = 'hi-IN';
+        } else if (language === 'mr') {
+            utterance.lang = 'mr-IN';
+        } else {
+            utterance.lang = 'en-IN';
+        }
+
+        utterance.onend = () => setPlayingAudioId(null);
+        utterance.onerror = () => setPlayingAudioId(null);
+
+        setPlayingAudioId(id);
+        window.speechSynthesis.speak(utterance);
+    };
 
     useEffect(() => {
         const found = scenariosData.find(s => s.scenario_id === scenarioId);
@@ -125,14 +159,32 @@ export default function MCQPlayer({ params }: { params: Promise<{ scenarioId: st
                     </div>
                     <div className="bg-white/80 p-5 sm:p-8 rounded-[2rem] border border-white shadow-sm relative overflow-hidden">
                         <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-blue-400 to-indigo-500"></div>
-                        <h3 className="font-extrabold text-gray-800 text-base sm:text-lg mb-2 sm:mb-3 pl-2">{t('player', 'feedback')}</h3>
+                        <div className="flex justify-between items-start mb-2 sm:mb-3">
+                            <h3 className="font-extrabold text-gray-800 text-base sm:text-lg pl-2">{t('player', 'feedback')}</h3>
+                            <button
+                                onClick={() => playAudio(currentQ.patient_prompt, 'prompt')}
+                                className={`p-2 rounded-full transition-colors flex-shrink-0 ${playingAudioId === 'prompt' ? 'bg-orange-100 text-[#FF7A00]' : 'bg-blue-50 text-blue-600 hover:bg-blue-100'}`}
+                                title="Listen to prompt"
+                            >
+                                {playingAudioId === 'prompt' ? <Square className="w-5 h-5 fill-current" /> : <Volume2 className="w-5 h-5" />}
+                            </button>
+                        </div>
                         <p className="text-gray-700 leading-relaxed text-base sm:text-lg font-medium pl-2">{currentQ.patient_prompt}</p>
                     </div>
                 </div>
 
                 {/* Right Panel: MCQ Options */}
                 <div className="md:w-7/12 flex flex-col">
-                    <h3 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-gray-900 mb-6 sm:mb-8 leading-tight">{currentQ.mcq_question}</h3>
+                    <div className="flex justify-between items-start gap-4 mb-6 sm:mb-8">
+                        <h3 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-gray-900 leading-tight">{currentQ.mcq_question}</h3>
+                        <button
+                            onClick={() => playAudio(currentQ.mcq_question, 'question')}
+                            className={`p-2.5 sm:p-3 rounded-full transition-colors flex-shrink-0 mt-1 shadow-sm ${playingAudioId === 'question' ? 'bg-orange-100 text-[#FF7A00]' : 'bg-white border border-gray-100 text-gray-500 hover:text-blue-600 hover:border-blue-200'}`}
+                            title="Listen to question"
+                        >
+                            {playingAudioId === 'question' ? <Square className="w-5 h-5 sm:w-6 sm:h-6 fill-current" /> : <Volume2 className="w-5 h-5 sm:w-6 sm:h-6" />}
+                        </button>
+                    </div>
 
                     <div className="space-y-3 sm:space-y-4 flex-1">
                         {currentQ.options.map((opt: any) => {
@@ -179,9 +231,18 @@ export default function MCQPlayer({ params }: { params: Promise<{ scenarioId: st
                     {hasAnswered && (
                         <div className="mt-8 animate-in slide-in-from-bottom-6 duration-500 fade-in">
                             <div className={`p-6 rounded-[2rem] border border-white/60 shadow-sm mb-6 relative overflow-hidden ${selectedOption.option_id === currentQ.correct_option_id ? 'bg-gradient-to-br from-green-50 to-emerald-50 text-green-900' : 'bg-gradient-to-br from-orange-50 to-red-50 text-red-900'}`}>
-                                <h4 className="font-extrabold flex items-center gap-2 mb-2 text-xl">
-                                    {selectedOption.option_id === currentQ.correct_option_id ? <><CheckCircle2 className="w-6 h-6 text-green-600" /> {t('player', 'correctTitle')}</> : <><XCircle className="w-6 h-6 text-red-600" /> {t('player', 'wrongTitle')}</>}
-                                </h4>
+                                <div className="flex justify-between items-start mb-2">
+                                    <h4 className="font-extrabold flex items-center gap-2 text-xl">
+                                        {selectedOption.option_id === currentQ.correct_option_id ? <><CheckCircle2 className="w-6 h-6 text-green-600" /> {t('player', 'correctTitle')}</> : <><XCircle className="w-6 h-6 text-red-600" /> {t('player', 'wrongTitle')}</>}
+                                    </h4>
+                                    <button
+                                        onClick={() => playAudio(selectedOption.option_id === currentQ.correct_option_id ? currentQ.explanation_correct : currentQ.explanation_wrong, 'explanation')}
+                                        className={`p-2 rounded-full transition-colors flex-shrink-0 ${playingAudioId === 'explanation' ? 'bg-orange-100 text-[#FF7A00]' : 'bg-white/50 hover:bg-white text-gray-700'}`}
+                                        title="Listen to explanation"
+                                    >
+                                        {playingAudioId === 'explanation' ? <Square className="w-5 h-5 fill-current" /> : <Volume2 className="w-5 h-5" />}
+                                    </button>
+                                </div>
                                 <p className="text-base font-medium opacity-90 leading-relaxed">
                                     {selectedOption.option_id === currentQ.correct_option_id ? currentQ.explanation_correct : currentQ.explanation_wrong}
                                 </p>
