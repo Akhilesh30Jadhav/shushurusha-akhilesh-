@@ -355,6 +355,21 @@ export default function MCQPlayer({ params }: { params: Promise<{ scenarioId: st
                                     <p className="text-base md:text-lg font-medium opacity-90 leading-relaxed relative z-10">
                                         {selectedOption.option_id === currentQ.correct_option_id ? currentQ.explanation_correct : currentQ.explanation_wrong}
                                     </p>
+
+                                    {/* WHO Reference link — shown only on wrong answers */}
+                                    {selectedOption.option_id !== currentQ.correct_option_id && (
+                                        <a
+                                            href="https://www.who.int/health-topics"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="mt-4 inline-flex items-center gap-2 text-xs md:text-sm font-bold text-red-700 bg-white/70 hover:bg-white border border-red-200 hover:border-red-400 px-4 py-2.5 rounded-xl transition-all relative z-10 shadow-sm hover:shadow-md group w-fit"
+                                        >
+                                            <svg className="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><circle cx="12" cy="12" r="10" /><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10A15.3 15.3 0 0 1 12 2z" /></svg>
+                                            Learn more on WHO Health Topics
+                                            <svg className="w-3 h-3 opacity-60 group-hover:translate-x-0.5 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5}><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14 21 3" /></svg>
+                                        </a>
+                                    )}
+
                                     {currentQ.critical && selectedOption.option_id !== currentQ.correct_option_id && (
                                         <div className="mt-6 flex items-center gap-2 text-xs md:text-sm font-bold text-red-700 bg-red-100/80 backdrop-blur-sm px-4 py-3 rounded-xl uppercase tracking-wider w-fit shadow-inner border border-red-200 relative z-10">
                                             <AlertTriangle className="w-5 h-5 md:w-6 md:h-6" /> {t('player', 'critical')}
