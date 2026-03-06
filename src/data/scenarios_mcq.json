@@ -1728,194 +1728,188 @@
     ]
   },
   {
-    "scenario_id": "RTI_STI__FAMILY_PLANNING___SAFE_ABORTION",
-    "title": "RTI/STI, Family Planning & Safe Abortion",
-    "category": "Reproductive Health",
-    "difficulty": "Easy",
-    "duration_minutes": 5,
-    "thumbnail_url": "/images/rti_sti_family_planning.png",
-    "short_description": "Learn how to handle RTI/STI, Family Planning & Safe Abortion correctly based on guidelines.",
-    "language": "en",
-    "skills_targeted": [
-      "Clinical Assessment",
-      "Guidelines",
-      "Decision Making"
-    ],
+    "scenario_id": "CPR_SIMULATION",
+    "title": "CPR Simulation",
+    "short_description": "Learn Cardiopulmonary Resuscitation (CPR) for cardiac emergencies in the community.",
+    "category": "Emergency Care",
+    "difficulty": "Hard",
+    "duration_minutes": 7,
+    "thumbnail_url": "https://images.unsplash.com/photo-1516841273335-e39b37888115?w=800&auto=format&fit=crop",
     "questions": [
       {
         "question_id": "Q_46",
-        "patient_prompt": "Swarna, a woman in your area, confides in you about itching in her genital area, foul-smelling greenish-yellow discharge, and lower abdominal pain. Her husband is a migrant labourer.",
-        "mcq_question": "What is ASHA's correct response?",
+        "patient_prompt": "You are at a community health camp when 52-year-old Ramesh suddenly collapses. He is completely unresponsive and is not breathing normally.",
+        "mcq_question": "What is the FIRST thing you should do?",
         "options": [
           {
             "option_id": "A",
-            "text": "Give her a vaginal antiseptic wash from the drug kit and advise hygiene practices",
+            "text": "Immediately start chest compressions",
             "keywords": [],
             "intents": []
           },
           {
             "option_id": "B",
-            "text": "Advise her to go to the U-PHC; tell her husband should also get treatment; counsel on condom use for every encounter; ensure she completes the treatment",
+            "text": "Check responsiveness by tapping his shoulders and shouting his name, then immediately call 108",
             "keywords": [],
             "intents": []
           },
           {
             "option_id": "C",
-            "text": "Tell her this is a normal vaginal discharge and no treatment is needed",
+            "text": "Give him water and fan him so he revives",
             "keywords": [],
             "intents": []
           },
           {
             "option_id": "D",
-            "text": "Advise her to visit the PHC alone — husband's involvement is not necessary",
+            "text": "Wait 5 minutes to see if he regains consciousness on his own",
             "keywords": [],
             "intents": []
           }
         ],
         "correct_option_id": "B",
-        "critical": false,
-        "explanation_correct": "Correct! Session 12 (RTI/STI), Handout 8 Case Study (Swarna): Correct response: 'Advise her to go to the U-PHC since she may have an STD. Ask her to ensure that her husband should also take the treatment. Ask her to complete the treatment and not stop the medication. Ask her to ensure she uses a condom for every sexual encounter.' Partner treatment is critical to prevent re-infection.",
-        "explanation_wrong": "Incorrect. Session 12 (RTI/STI), Handout 8 Case Study (Swarna): Correct response: 'Advise her to go to the U-PHC since she may have an STD. Ask her to ensure that her husband should also take the treatment. Ask her to complete the treatment and not stop the medication. Ask her to ensure she uses a condom for every sexual encounter.' Partner treatment is critical to prevent re-infection."
+        "critical": true,
+        "explanation_correct": "Correct! Always confirm unresponsiveness first by tapping shoulders and shouting. Immediately call 108. Only after confirming no response and no normal breathing should you begin CPR.",
+        "explanation_wrong": "Incorrect. Before starting CPR you must confirm unresponsiveness. Tap his shoulders and shout his name, then call 108. Starting compressions on a conscious person can cause serious injury."
       },
       {
         "question_id": "Q_47",
-        "patient_prompt": "Nithya, 21 years old, married with a 2-year-old daughter, comes to you with a complaint of white discharge but no other symptoms. Her husband is a school teacher.",
-        "mcq_question": "What is the likely diagnosis and what should ASHA do? (Based on RTI/STI Case Study)",
+        "patient_prompt": "Ramesh is confirmed unresponsive and not breathing. You have called 108 and are alone with him. You have basic first aid training.",
+        "mcq_question": "What is the correct hand position and compression depth for adult CPR?",
         "options": [
           {
             "option_id": "A",
-            "text": "Immediately diagnose STI — any white discharge requires antibiotic treatment at once",
+            "text": "Place one hand on the stomach and push gently, about 1 cm deep",
             "keywords": [],
             "intents": []
           },
           {
             "option_id": "B",
-            "text": "Ask further questions to assess the discharge (colour, smell, associated symptoms); white discharge without other symptoms may be normal; refer to U-PHC for proper assessment",
+            "text": "Place the heel of one hand on the center of the chest (lower sternum), other hand on top, compress at least 5 cm (2 inches) deep at 100–120 per minute",
             "keywords": [],
             "intents": []
           },
           {
             "option_id": "C",
-            "text": "Advise her to use a sanitary pad and return only if discharge increases",
+            "text": "Place both hands on the left side of the chest over the heart and press 2 cm deep",
             "keywords": [],
             "intents": []
           },
           {
             "option_id": "D",
-            "text": "Prescribe metronidazole from your drug kit since all vaginal discharge requires treatment",
+            "text": "Use only two fingers in the center of the chest and press lightly",
             "keywords": [],
             "intents": []
           }
         ],
         "correct_option_id": "B",
-        "critical": false,
-        "explanation_correct": "Correct! Session 12 (RTI/STI), Handout 8 Case Study (Nithya): The correct action is to ask questions to distinguish normal from abnormal discharge. The module introduces 'the concept of white discharge and highlights when it is normal vs abnormal.' White discharge alone without symptoms like itching, smell, or pain may be physiological. ASHA must assess and refer to U-PHC for proper diagnosis.",
-        "explanation_wrong": "Incorrect. Session 12 (RTI/STI), Handout 8 Case Study (Nithya): The correct action is to ask questions to distinguish normal from abnormal discharge. The module introduces 'the concept of white discharge and highlights when it is normal vs abnormal.' White discharge alone without symptoms like itching, smell, or pain may be physiological. ASHA must assess and refer to U-PHC for proper diagnosis."
+        "critical": true,
+        "explanation_correct": "Correct! Heel of hand on the center of the chest (sternum), fingers interlocked, arms straight, compress at least 5 cm deep at 100–120 per minute. Correct depth ensures blood circulates to the brain.",
+        "explanation_wrong": "Incorrect. Both hands go on the center of the sternum, compressions must be at least 5 cm deep at 100–120 per minute. Wrong position or insufficient depth makes CPR ineffective."
       },
       {
         "question_id": "Q_48",
-        "patient_prompt": "Fatima, a woman in your area, confidentially tells you she wants to terminate her 7-week pregnancy. She is scared and does not know where to go. Her family does not know yet.",
-        "mcq_question": "What is ASHA's correct role in this situation?",
+        "patient_prompt": "You are doing compressions. A bystander arrives with no medical training. Ambulance is 10 minutes away.",
+        "mcq_question": "What is the correct compression-to-breath ratio, and what should an untrained bystander do?",
         "options": [
           {
             "option_id": "A",
-            "text": "Discourage her from abortion and counsel her to continue the pregnancy",
+            "text": "30 compressions then 2 rescue breaths (30:2 ratio) at 100–120/min. Untrained rescuers can do hands-only CPR (continuous compressions, no breaths).",
             "keywords": [],
             "intents": []
           },
           {
             "option_id": "B",
-            "text": "Maintain strict confidentiality; inform her about safe abortion services available at the nearest approved facility; assist her in accessing services; counsel on post-abortion contraception",
+            "text": "15 compressions slowly, then wait 30 seconds for the next set",
             "keywords": [],
             "intents": []
           },
           {
             "option_id": "C",
-            "text": "Inform her family immediately — consent of husband is required for abortion",
+            "text": "Give 5 rescue breaths first, then start compressions at any pace",
             "keywords": [],
             "intents": []
           },
           {
             "option_id": "D",
-            "text": "Tell her that abortion is illegal in India and she should not pursue it",
+            "text": "Stop compressions every 2 minutes for a 5-minute rest",
             "keywords": [],
             "intents": []
           }
         ],
-        "correct_option_id": "B",
-        "critical": false,
-        "explanation_correct": "Correct! Session 15 (Safe Abortion): 'The ASHA must respect the confidentiality of women who come to them seeking information on abortion-related services.' ASHA's role includes: advising on services based on duration of pregnancy, helping women access safe abortion services, and counseling for post-abortion contraception. Safe abortion is legal in India up to 20 weeks under MTP Act.",
-        "explanation_wrong": "Incorrect. Session 15 (Safe Abortion): 'The ASHA must respect the confidentiality of women who come to them seeking information on abortion-related services.' ASHA's role includes: advising on services based on duration of pregnancy, helping women access safe abortion services, and counseling for post-abortion contraception. Safe abortion is legal in India up to 20 weeks under MTP Act."
+        "correct_option_id": "A",
+        "critical": true,
+        "explanation_correct": "Correct! Standard ratio is 30 compressions to 2 rescue breaths (30:2) at 100–120 per minute. If untrained in rescue breaths, hands-only CPR (continuous compressions) is still highly effective.",
+        "explanation_wrong": "Incorrect. CPR must be 30:2 at 100–120 compressions per minute. Stopping or slowing significantly reduces blood flow to the brain and heart."
       },
       {
         "question_id": "Q_49",
-        "patient_prompt": "Sarala, 35 years old, sterilized, has had recurrent foul-smelling vaginal discharge with itching 3 times in the past year. Her husband is an alcoholic who stays away frequently. She asks you for local relief measures.",
-        "mcq_question": "What is ASHA's complete action in this case? (Based on RTI/STI Case Study)",
+        "patient_prompt": "After 2 minutes of CPR, Ramesh gasps and starts breathing weakly. He is still unconscious but has a faint pulse. Ambulance is 5 minutes away.",
+        "mcq_question": "What should you do now?",
         "options": [
           {
             "option_id": "A",
-            "text": "Give her a vaginal wash and hygiene tips — since she is sterilized, STI is unlikely",
+            "text": "Continue chest compressions at the same rate as he is still unconscious",
             "keywords": [],
             "intents": []
           },
           {
             "option_id": "B",
-            "text": "Refer her to U-PHC for proper diagnosis and treatment; counsel on condom use regardless of sterilization (STIs can still occur); advise on local hygiene relief measures while awaiting referral",
+            "text": "Place him in the Recovery Position (on his side), monitor breathing and pulse continuously, keep him warm until the ambulance arrives",
             "keywords": [],
             "intents": []
           },
           {
             "option_id": "C",
-            "text": "Tell her the discharge is due to her sterilization surgery — no treatment is needed",
+            "text": "Sit him upright and give him water to drink",
             "keywords": [],
             "intents": []
           },
           {
             "option_id": "D",
-            "text": "Give antibiotics from the drug kit since recurrent episodes confirm STI",
+            "text": "Leave him to rest and go call his family",
             "keywords": [],
             "intents": []
           }
         ],
         "correct_option_id": "B",
         "critical": true,
-        "explanation_correct": "Correct! Session 12 (RTI/STI), Handout 8 Case Study (Sarala): Sarala has risk factors for STI (husband with multiple partners, recurrent symptoms). Sterilization prevents pregnancy but NOT STIs. ASHA must advise referral, counsel on condom use, and advise methods of local relief (outlined in module). Recurrent episodes require proper medical diagnosis and treatment.",
-        "explanation_wrong": "Incorrect. Session 12 (RTI/STI), Handout 8 Case Study (Sarala): Sarala has risk factors for STI (husband with multiple partners, recurrent symptoms). Sterilization prevents pregnancy but NOT STIs. ASHA must advise referral, counsel on condom use, and advise methods of local relief (outlined in module). Recurrent episodes require proper medical diagnosis and treatment."
+        "explanation_correct": "Correct! Once pulse and breathing return, stop compressions immediately. Place in the Recovery Position (left side) to keep the airway open and prevent choking if he vomits. Monitor every minute until ambulance arrives.",
+        "explanation_wrong": "Incorrect. Continuing compressions when the heart is already beating can be harmful. Once breathing and pulse return, place in the Recovery Position and monitor closely."
       },
       {
         "question_id": "Q_50",
-        "patient_prompt": "A woman in your area had an abortion 10 days ago at an unofficial, unregistered facility. She now comes to you with heavy bleeding, fever (38.5°C), and foul-smelling discharge from the vagina. She is embarrassed and scared to go to a hospital.",
-        "mcq_question": "What is ASHA's correct assessment and action?",
+        "patient_prompt": "A mother rushes to you with her 8-month-old infant who is unresponsive and not breathing after choking on food. The infant cannot cry or cough.",
+        "mcq_question": "What is the correct action for a choking infant?",
         "options": [
           {
             "option_id": "A",
-            "text": "Reassure her that post-abortion bleeding and mild fever are normal — advise rest and paracetamol",
+            "text": "Perform the same adult CPR technique with both hands on the chest",
             "keywords": [],
             "intents": []
           },
           {
             "option_id": "B",
-            "text": "Recognize these as signs of POST-ABORTION COMPLICATIONS (infection, incomplete abortion); maintain confidentiality; refer her urgently to the nearest health facility without delay",
+            "text": "Give 5 back blows between shoulder blades, then 5 chest thrusts using 2 fingers on the center of the chest; repeat until the object is expelled or infant becomes unconscious",
             "keywords": [],
             "intents": []
           },
           {
             "option_id": "C",
-            "text": "Respect her wish to stay home — accessing a hospital may lead to legal issues for her",
+            "text": "Hold the infant upside down and shake vigorously",
             "keywords": [],
             "intents": []
           },
           {
             "option_id": "D",
-            "text": "Give her antibiotics from the drug kit and monitor for 48 hours before referring",
+            "text": "Give the infant water to swallow the object and call for help",
             "keywords": [],
             "intents": []
           }
         ],
         "correct_option_id": "B",
         "critical": true,
-        "explanation_correct": "Correct! Session 15 (Safe Abortion): ASHA must 'identify signs of post-abortion complications and advise appropriate referral.' Heavy bleeding + fever + foul discharge after abortion = signs of serious post-abortion infection/incomplete abortion. These are life-threatening. ASHA must urgently refer while maintaining confidentiality. Unsafe abortion is a major cause of maternal mortality in India.",
-        "explanation_wrong": "Incorrect. Session 15 (Safe Abortion): ASHA must 'identify signs of post-abortion complications and advise appropriate referral.' Heavy bleeding + fever + foul discharge after abortion = signs of serious post-abortion infection/incomplete abortion. These are life-threatening. ASHA must urgently refer while maintaining confidentiality. Unsafe abortion is a major cause of maternal mortality in India."
+        "explanation_correct": "Correct! For a choking infant: 5 back blows with the heel of your hand, then 5 chest thrusts with 2 fingers. Never use abdominal thrusts on infants. If the infant becomes unresponsive, begin infant CPR (2-finger compressions, 1.5 inches deep, 30:2) and call 108.",
+        "explanation_wrong": "Incorrect. Never use adult CPR technique or Heimlich on infants. Give 5 back blows followed by 5 chest thrusts. If the infant becomes unconscious, begin infant CPR with 2 fingers and call 108 immediately."
       }
     ]
   }

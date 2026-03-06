@@ -1728,194 +1728,188 @@
     ]
   },
   {
-    "scenario_id": "RTI_STI__FAMILY_PLANNING___SAFE_ABORTION",
-    "title": "आरटीआई/एसटीआई, परिवार नियोजन एवं सुरक्षित गर्भपात",
-    "category": "प्रजनन स्वास्थ्य",
-    "difficulty": "Easy",
-    "duration_minutes": 5,
-    "thumbnail_url": "/images/rti_sti_family_planning.png",
-    "short_description": "Learn how to handle RTI/STI, Family Planning & Safe Abortion correctly based on guidelines.",
-    "language": "en",
-    "skills_targeted": [
-      "Clinical Assessment",
-      "Guidelines",
-      "Decision Making"
-    ],
+    "scenario_id": "CPR_SIMULATION",
+    "title": "CPR सिमुलेशन",
+    "short_description": "समुदाय में हृदय आपात स्थितियों के लिए CPR (कार्डियोपल्मोनरी रिससिटेशन) सीखें।",
+    "category": "Emergency Care",
+    "difficulty": "Hard",
+    "duration_minutes": 7,
+    "thumbnail_url": "https://images.unsplash.com/photo-1516841273335-e39b37888115?w=800&auto=format&fit=crop",
     "questions": [
       {
         "question_id": "Q_46",
-        "patient_prompt": "आपके क्षेत्र की एक महिला स्वर्णा आपको अपने जननांग क्षेत्र में खुजली, दुर्गंधयुक्त हरा-पीला स्राव और पेट के निचले हिस्से में दर्द के बारे में बताती है। उनके पति एक प्रवासी मजदूर हैं।",
-        "mcq_question": "आशा की सही प्रतिक्रिया क्या है?",
+        "patient_prompt": "You are at a community health camp when 52-year-old Ramesh suddenly collapses. He is completely unresponsive and is not breathing normally.",
+        "mcq_question": "What is the FIRST thing you should do?",
         "options": [
           {
             "option_id": "A",
-            "text": "उसे दवा किट से एक योनि एंटीसेप्टिक वॉश दें और स्वच्छता प्रथाओं की सलाह दें",
+            "text": "Immediately start chest compressions",
             "keywords": [],
             "intents": []
           },
           {
             "option_id": "B",
-            "text": "उसे यू-पीएचसी जाने की सलाह दें; कहो उसके पति को भी इलाज मिले; प्रत्येक मुठभेड़ के लिए कंडोम के उपयोग पर सलाह; सुनिश्चित करें कि वह इलाज पूरा कर ले",
+            "text": "Check responsiveness by tapping his shoulders and shouting his name, then immediately call 108",
             "keywords": [],
             "intents": []
           },
           {
             "option_id": "C",
-            "text": "उसे बताएं कि यह एक सामान्य योनि स्राव है और किसी उपचार की आवश्यकता नहीं है",
+            "text": "Give him water and fan him so he revives",
             "keywords": [],
             "intents": []
           },
           {
             "option_id": "D",
-            "text": "उसे अकेले पीएचसी जाने की सलाह दें - पति की भागीदारी आवश्यक नहीं है",
+            "text": "Wait 5 minutes to see if he regains consciousness on his own",
             "keywords": [],
             "intents": []
           }
         ],
         "correct_option_id": "B",
-        "critical": false,
-        "explanation_correct": "सही! सत्र 12 (आरटीआई/एसटीआई), हैंडआउट 8 केस स्टडी (स्वर्ण): सही प्रतिक्रिया: 'उसे यू-पीएचसी जाने की सलाह दें क्योंकि उसे एसटीडी हो सकता है। उससे यह सुनिश्चित करने के लिए कहें कि उसका पति भी इलाज कराए। उसे इलाज पूरा करने के लिए कहें और दवा बंद न करने के लिए कहें। उससे यह सुनिश्चित करने के लिए कहें कि वह हर यौन संबंध के लिए कंडोम का उपयोग करती है।' पुन: संक्रमण को रोकने के लिए साथी उपचार महत्वपूर्ण है।",
-        "explanation_wrong": "गलत. सत्र 12 (आरटीआई/एसटीआई), हैंडआउट 8 केस स्टडी (स्वर्ण): सही प्रतिक्रिया: 'उसे यू-पीएचसी जाने की सलाह दें क्योंकि उसे एसटीडी हो सकता है। उससे यह सुनिश्चित करने के लिए कहें कि उसका पति भी इलाज कराए। उसे इलाज पूरा करने के लिए कहें और दवा बंद न करने के लिए कहें। उससे यह सुनिश्चित करने के लिए कहें कि वह हर यौन संबंध के लिए कंडोम का उपयोग करती है।' पुन: संक्रमण को रोकने के लिए साथी उपचार महत्वपूर्ण है।"
+        "critical": true,
+        "explanation_correct": "Correct! Always confirm unresponsiveness first by tapping shoulders and shouting. Immediately call 108. Only after confirming no response and no normal breathing should you begin CPR.",
+        "explanation_wrong": "Incorrect. Before starting CPR you must confirm unresponsiveness. Tap his shoulders and shout his name, then call 108. Starting compressions on a conscious person can cause serious injury."
       },
       {
         "question_id": "Q_47",
-        "patient_prompt": "21 साल की निथ्या, जिसकी शादी हो चुकी है और उसकी 2 साल की बेटी है, आपके पास श्वेत प्रदर की शिकायत लेकर आती है लेकिन कोई अन्य लक्षण नहीं है। उनके पति एक स्कूल टीचर हैं.",
-        "mcq_question": "संभावित निदान क्या है और आशा को क्या करना चाहिए? (आरटीआई/एसटीआई केस स्टडी पर आधारित)",
+        "patient_prompt": "Ramesh is confirmed unresponsive and not breathing. You have called 108 and are alone with him. You have basic first aid training.",
+        "mcq_question": "What is the correct hand position and compression depth for adult CPR?",
         "options": [
           {
             "option_id": "A",
-            "text": "एसटीआई का तुरंत निदान करें - किसी भी सफेद स्राव के लिए तुरंत एंटीबायोटिक उपचार की आवश्यकता होती है",
+            "text": "Place one hand on the stomach and push gently, about 1 cm deep",
             "keywords": [],
             "intents": []
           },
           {
             "option_id": "B",
-            "text": "स्राव (रंग, गंध, संबंधित लक्षण) का आकलन करने के लिए और प्रश्न पूछें; अन्य लक्षणों के बिना सफेद स्राव सामान्य हो सकता है; उचित मूल्यांकन के लिए यू-पीएचसी देखें",
+            "text": "Place the heel of one hand on the center of the chest (lower sternum), other hand on top, compress at least 5 cm (2 inches) deep at 100–120 per minute",
             "keywords": [],
             "intents": []
           },
           {
             "option_id": "C",
-            "text": "उसे सैनिटरी पैड का उपयोग करने की सलाह दें और डिस्चार्ज बढ़ने पर ही वापस आएं",
+            "text": "Place both hands on the left side of the chest over the heart and press 2 cm deep",
             "keywords": [],
             "intents": []
           },
           {
             "option_id": "D",
-            "text": "अपनी दवा किट से मेट्रोनिडाज़ोल लिखिए क्योंकि सभी योनि स्रावों के लिए उपचार की आवश्यकता होती है",
+            "text": "Use only two fingers in the center of the chest and press lightly",
             "keywords": [],
             "intents": []
           }
         ],
         "correct_option_id": "B",
-        "critical": false,
-        "explanation_correct": "सही! सत्र 12 (आरटीआई/एसटीआई), हैंडआउट 8 केस स्टडी (निथ्या): सामान्य और असामान्य स्राव में अंतर करने के लिए प्रश्न पूछना सही कार्रवाई है। मॉड्यूल 'श्वेत स्राव की अवधारणा का परिचय देता है और इसके सामान्य बनाम असामान्य होने पर प्रकाश डालता है।' खुजली, गंध या दर्द जैसे लक्षणों के बिना अकेले सफेद स्राव शारीरिक हो सकता है। आशा को उचित निदान के लिए मूल्यांकन करना चाहिए और यू-पीएचसी को संदर्भित करना चाहिए।",
-        "explanation_wrong": "गलत. सत्र 12 (आरटीआई/एसटीआई), हैंडआउट 8 केस स्टडी (निथ्या): सामान्य और असामान्य स्राव में अंतर करने के लिए प्रश्न पूछना सही कार्रवाई है। मॉड्यूल 'श्वेत स्राव की अवधारणा का परिचय देता है और इसके सामान्य बनाम असामान्य होने पर प्रकाश डालता है।' खुजली, गंध या दर्द जैसे लक्षणों के बिना अकेले सफेद स्राव शारीरिक हो सकता है। आशा को उचित निदान के लिए मूल्यांकन करना चाहिए और यू-पीएचसी को संदर्भित करना चाहिए।"
+        "critical": true,
+        "explanation_correct": "Correct! Heel of hand on the center of the chest (sternum), fingers interlocked, arms straight, compress at least 5 cm deep at 100–120 per minute. Correct depth ensures blood circulates to the brain.",
+        "explanation_wrong": "Incorrect. Both hands go on the center of the sternum, compressions must be at least 5 cm deep at 100–120 per minute. Wrong position or insufficient depth makes CPR ineffective."
       },
       {
         "question_id": "Q_48",
-        "patient_prompt": "आपके क्षेत्र की एक महिला, फातिमा, गोपनीय रूप से आपको बताती है कि वह अपनी 7 सप्ताह की गर्भावस्था को समाप्त करना चाहती है। वह डरी हुई है और नहीं जानती कि कहां जाए. उसके परिवार को अभी तक पता नहीं है.",
-        "mcq_question": "इस स्थिति में आशा की सही भूमिका क्या है?",
+        "patient_prompt": "You are doing compressions. A bystander arrives with no medical training. Ambulance is 10 minutes away.",
+        "mcq_question": "What is the correct compression-to-breath ratio, and what should an untrained bystander do?",
         "options": [
           {
             "option_id": "A",
-            "text": "उसे गर्भपात से हतोत्साहित करें और उसे गर्भावस्था जारी रखने के लिए परामर्श दें",
+            "text": "30 compressions then 2 rescue breaths (30:2 ratio) at 100–120/min. Untrained rescuers can do hands-only CPR (continuous compressions, no breaths).",
             "keywords": [],
             "intents": []
           },
           {
             "option_id": "B",
-            "text": "सख्त गोपनीयता बनाए रखें; उसे निकटतम अनुमोदित सुविधा पर उपलब्ध सुरक्षित गर्भपात सेवाओं के बारे में सूचित करें; सेवाओं तक पहुँचने में उसकी सहायता करें; गर्भपात के बाद गर्भनिरोधक पर सलाह",
+            "text": "15 compressions slowly, then wait 30 seconds for the next set",
             "keywords": [],
             "intents": []
           },
           {
             "option_id": "C",
-            "text": "उसके परिवार को तुरंत सूचित करें - गर्भपात के लिए पति की सहमति आवश्यक है",
+            "text": "Give 5 rescue breaths first, then start compressions at any pace",
             "keywords": [],
             "intents": []
           },
           {
             "option_id": "D",
-            "text": "उसे बताएं कि भारत में गर्भपात गैरकानूनी है और उसे इसे आगे नहीं बढ़ाना चाहिए",
+            "text": "Stop compressions every 2 minutes for a 5-minute rest",
             "keywords": [],
             "intents": []
           }
         ],
-        "correct_option_id": "B",
-        "critical": false,
-        "explanation_correct": "सही! सत्र 15 (सुरक्षित गर्भपात): 'आशा को उन महिलाओं की गोपनीयता का सम्मान करना चाहिए जो गर्भपात से संबंधित सेवाओं के बारे में जानकारी मांगने के लिए उनके पास आती हैं।' आशा की भूमिका में शामिल हैं: गर्भावस्था की अवधि के आधार पर सेवाओं पर सलाह देना, महिलाओं को सुरक्षित गर्भपात सेवाओं तक पहुंचने में मदद करना, और गर्भपात के बाद गर्भनिरोधक के लिए परामर्श देना। एमटीपी अधिनियम के तहत भारत में 20 सप्ताह तक सुरक्षित गर्भपात वैध है।",
-        "explanation_wrong": "गलत. सत्र 15 (सुरक्षित गर्भपात): 'आशा को उन महिलाओं की गोपनीयता का सम्मान करना चाहिए जो गर्भपात से संबंधित सेवाओं के बारे में जानकारी मांगने के लिए उनके पास आती हैं।' आशा की भूमिका में शामिल हैं: गर्भावस्था की अवधि के आधार पर सेवाओं पर सलाह देना, महिलाओं को सुरक्षित गर्भपात सेवाओं तक पहुंचने में मदद करना, और गर्भपात के बाद गर्भनिरोधक के लिए परामर्श देना। एमटीपी अधिनियम के तहत भारत में 20 सप्ताह तक सुरक्षित गर्भपात वैध है।"
+        "correct_option_id": "A",
+        "critical": true,
+        "explanation_correct": "Correct! Standard ratio is 30 compressions to 2 rescue breaths (30:2) at 100–120 per minute. If untrained in rescue breaths, hands-only CPR (continuous compressions) is still highly effective.",
+        "explanation_wrong": "Incorrect. CPR must be 30:2 at 100–120 compressions per minute. Stopping or slowing significantly reduces blood flow to the brain and heart."
       },
       {
         "question_id": "Q_49",
-        "patient_prompt": "35 साल की सरला, जो नसबंदी करा चुकी है, को पिछले साल में 3 बार बार-बार खुजली के साथ दुर्गंधयुक्त योनि स्राव हुआ है। उसका पति शराबी है जो अक्सर बाहर रहता है। वह आपसे स्थानीय राहत उपायों के बारे में पूछती है।",
-        "mcq_question": "इस मामले में आशा की पूरी कार्रवाई क्या है? (आरटीआई/एसटीआई केस स्टडी पर आधारित)",
+        "patient_prompt": "After 2 minutes of CPR, Ramesh gasps and starts breathing weakly. He is still unconscious but has a faint pulse. Ambulance is 5 minutes away.",
+        "mcq_question": "What should you do now?",
         "options": [
           {
             "option_id": "A",
-            "text": "उसे योनि धोने और स्वच्छता संबंधी सुझाव दें - चूंकि उसकी नसबंदी कर दी गई है, इसलिए एसटीआई की संभावना नहीं है",
+            "text": "Continue chest compressions at the same rate as he is still unconscious",
             "keywords": [],
             "intents": []
           },
           {
             "option_id": "B",
-            "text": "उचित निदान और उपचार के लिए उसे यू-पीएचसी में रेफर करें; नसबंदी की परवाह किए बिना कंडोम के उपयोग पर सलाह (एसटीआई अभी भी हो सकती है); रेफरल की प्रतीक्षा करते समय स्थानीय स्वच्छता राहत उपायों पर सलाह दें",
+            "text": "Place him in the Recovery Position (on his side), monitor breathing and pulse continuously, keep him warm until the ambulance arrives",
             "keywords": [],
             "intents": []
           },
           {
             "option_id": "C",
-            "text": "उसे बताएं कि डिस्चार्ज उसकी नसबंदी सर्जरी के कारण हुआ है - किसी उपचार की आवश्यकता नहीं है",
+            "text": "Sit him upright and give him water to drink",
             "keywords": [],
             "intents": []
           },
           {
             "option_id": "D",
-            "text": "दवा किट से एंटीबायोटिक्स दें क्योंकि बार-बार होने वाले एपिसोड एसटीआई की पुष्टि करते हैं",
+            "text": "Leave him to rest and go call his family",
             "keywords": [],
             "intents": []
           }
         ],
         "correct_option_id": "B",
         "critical": true,
-        "explanation_correct": "सही! सत्र 12 (आरटीआई/एसटीआई), हैंडआउट 8 केस स्टडी (सरला): सरला में एसटीआई (कई साझेदारों वाला पति, आवर्ती लक्षण) के लिए जोखिम कारक हैं। नसबंदी गर्भावस्था को रोकती है लेकिन एसटीआई को नहीं। आशा को रेफरल की सलाह देनी चाहिए, कंडोम के उपयोग पर परामर्श देना चाहिए और स्थानीय राहत के तरीकों की सलाह देनी चाहिए (मॉड्यूल में उल्लिखित)। बार-बार होने वाले एपिसोड के लिए उचित चिकित्सा निदान और उपचार की आवश्यकता होती है।",
-        "explanation_wrong": "गलत. सत्र 12 (आरटीआई/एसटीआई), हैंडआउट 8 केस स्टडी (सरला): सरला में एसटीआई (कई साझेदारों वाला पति, आवर्ती लक्षण) के लिए जोखिम कारक हैं। नसबंदी गर्भावस्था को रोकती है लेकिन एसटीआई को नहीं। आशा को रेफरल की सलाह देनी चाहिए, कंडोम के उपयोग पर परामर्श देना चाहिए और स्थानीय राहत के तरीकों की सलाह देनी चाहिए (मॉड्यूल में उल्लिखित)। बार-बार होने वाले एपिसोड के लिए उचित चिकित्सा निदान और उपचार की आवश्यकता होती है।"
+        "explanation_correct": "Correct! Once pulse and breathing return, stop compressions immediately. Place in the Recovery Position (left side) to keep the airway open and prevent choking if he vomits. Monitor every minute until ambulance arrives.",
+        "explanation_wrong": "Incorrect. Continuing compressions when the heart is already beating can be harmful. Once breathing and pulse return, place in the Recovery Position and monitor closely."
       },
       {
         "question_id": "Q_50",
-        "patient_prompt": "आपके क्षेत्र की एक महिला का 10 दिन पहले एक अनौपचारिक, अपंजीकृत सुविधा पर गर्भपात हुआ था। अब वह आपके पास भारी रक्तस्राव, बुखार (38.5°C) और योनि से दुर्गंधयुक्त स्राव के साथ आती है। वह अस्पताल जाने से शर्मिंदा और डरती है।",
-        "mcq_question": "आशा का सही मूल्यांकन एवं कार्यवाही क्या है?",
+        "patient_prompt": "A mother rushes to you with her 8-month-old infant who is unresponsive and not breathing after choking on food. The infant cannot cry or cough.",
+        "mcq_question": "What is the correct action for a choking infant?",
         "options": [
           {
             "option_id": "A",
-            "text": "उसे आश्वस्त करें कि गर्भपात के बाद रक्तस्राव और हल्का बुखार सामान्य है - आराम करने और पेरासिटामोल की सलाह दें",
+            "text": "Perform the same adult CPR technique with both hands on the chest",
             "keywords": [],
             "intents": []
           },
           {
             "option_id": "B",
-            "text": "इन्हें गर्भपात के बाद की जटिलताओं (संक्रमण, अधूरा गर्भपात) के संकेतों के रूप में पहचानें; गोपनीयता बनाए रखें; बिना किसी देरी के उसे तुरंत निकटतम स्वास्थ्य सुविधा में रेफर करें",
+            "text": "Give 5 back blows between shoulder blades, then 5 chest thrusts using 2 fingers on the center of the chest; repeat until the object is expelled or infant becomes unconscious",
             "keywords": [],
             "intents": []
           },
           {
             "option_id": "C",
-            "text": "घर पर रहने की उसकी इच्छा का सम्मान करें - अस्पताल तक पहुंचने से उसके लिए कानूनी समस्याएं पैदा हो सकती हैं",
+            "text": "Hold the infant upside down and shake vigorously",
             "keywords": [],
             "intents": []
           },
           {
             "option_id": "D",
-            "text": "उसे दवा किट से एंटीबायोटिक्स दें और रेफर करने से पहले 48 घंटे तक निगरानी रखें",
+            "text": "Give the infant water to swallow the object and call for help",
             "keywords": [],
             "intents": []
           }
         ],
         "correct_option_id": "B",
         "critical": true,
-        "explanation_correct": "सही! सत्र 15 (सुरक्षित गर्भपात): आशा को 'गर्भपात के बाद की जटिलताओं के लक्षणों की पहचान करनी चाहिए और उचित रेफरल की सलाह देनी चाहिए।' भारी रक्तस्राव + बुखार + गर्भपात के बाद गंदा स्राव = गर्भपात के बाद गंभीर संक्रमण/अपूर्ण गर्भपात के लक्षण। ये जीवन के लिए खतरा हैं. आशा को गोपनीयता बनाए रखते हुए तत्काल रेफर करना चाहिए। असुरक्षित गर्भपात भारत में मातृ मृत्यु दर का एक प्रमुख कारण है।",
-        "explanation_wrong": "गलत. सत्र 15 (सुरक्षित गर्भपात): आशा को 'गर्भपात के बाद की जटिलताओं के लक्षणों की पहचान करनी चाहिए और उचित रेफरल की सलाह देनी चाहिए।' भारी रक्तस्राव + बुखार + गर्भपात के बाद गंदा स्राव = गर्भपात के बाद गंभीर संक्रमण/अपूर्ण गर्भपात के लक्षण। ये जीवन के लिए खतरा हैं. आशा को गोपनीयता बनाए रखते हुए तत्काल रेफर करना चाहिए। असुरक्षित गर्भपात भारत में मातृ मृत्यु दर का एक प्रमुख कारण है।"
+        "explanation_correct": "Correct! For a choking infant: 5 back blows with the heel of your hand, then 5 chest thrusts with 2 fingers. Never use abdominal thrusts on infants. If the infant becomes unresponsive, begin infant CPR (2-finger compressions, 1.5 inches deep, 30:2) and call 108.",
+        "explanation_wrong": "Incorrect. Never use adult CPR technique or Heimlich on infants. Give 5 back blows followed by 5 chest thrusts. If the infant becomes unconscious, begin infant CPR with 2 fingers and call 108 immediately."
       }
     ]
   }
