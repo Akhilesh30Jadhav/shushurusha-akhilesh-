@@ -144,51 +144,115 @@ export default function MCQPlayer({ params }: { params: Promise<{ scenarioId: st
     };
 
     return (
-        <div className="flex flex-col h-[calc(100vh-theme(spacing.8))] bg-white/70 backdrop-blur-xl rounded-[2.5rem] shadow-[0_8px_32px_0_rgba(31,38,135,0.07)] border border-white/60 overflow-hidden font-sans">
-            {/* Header */}
-            <div className="bg-white/50 px-4 sm:px-8 py-4 sm:py-5 border-b border-white/60 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 sm:gap-0 relative overflow-hidden">
-                <div className="absolute top-0 left-0 h-1.5 bg-gradient-to-r from-[#FF7A00] via-pink-500 to-purple-600 transition-all duration-700 ease-out" style={{ width: `${progressPercent}%` }}></div>
-                <div>
-                    <div className="text-[10px] font-extrabold text-[#FF7A00] uppercase tracking-widest bg-orange-50 px-2 py-0.5 rounded shadow-sm w-fit mb-1">{scenario.category}</div>
-                    <h2 className="text-xl sm:text-2xl font-extrabold text-gray-900 leading-tight">{scenario.title}</h2>
+        <div className="flex flex-col md:flex-row h-[calc(100vh-theme(spacing.8))] gap-4 md:gap-6 font-sans">
+
+            {/* Left Sidebar: Patient & Scenario Context */}
+            <div className="w-full md:w-3/12 lg:w-[28%] flex flex-col gap-4 md:gap-5 overflow-y-auto custom-scrollbar pb-6 pr-2">
+
+                {/* 1. Patient Profile Card */}
+                <div className="bg-white rounded-2xl md:rounded-[2rem] shadow-sm border border-gray-100 overflow-hidden flex-shrink-0">
+                    <div className="bg-[#1e40af] p-4 flex gap-4 items-center relative overflow-hidden">
+                        <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full blur-2xl -mr-10 -mt-10 pointer-events-none"></div>
+                        <div className="w-12 h-12 rounded-full border-2 border-blue-200/50 overflow-hidden flex-shrink-0 relative bg-indigo-900 shadow-inner flex items-center justify-center">
+                            <span className="text-xl">👩🏾‍⚕️</span>
+                        </div>
+                        <div className="text-white relative z-10">
+                            <h3 className="font-bold text-lg leading-tight truncate">Simulation Case</h3>
+                            <p className="text-blue-200 text-xs mt-0.5 opacity-90">Patient · Reference #{scenario.scenario_id.substring(0, 6)}</p>
+                        </div>
+                    </div>
+                    <div className="p-4 md:p-5 flex flex-col gap-3.5 text-xs lg:text-sm">
+                        <div className="flex justify-between border-b border-gray-50 pb-2.5">
+                            <span className="text-gray-500">Language</span>
+                            <span className="font-bold text-gray-900 uppercase">{language}</span>
+                        </div>
+                        <div className="flex justify-between border-b border-gray-50 pb-2.5">
+                            <span className="text-gray-500">Category</span>
+                            <span className="font-bold text-gray-900 truncate max-w-[60%] text-right">{scenario.category}</span>
+                        </div>
+                        <div className="flex justify-between">
+                            <span className="text-gray-500">Difficulty</span>
+                            <span className={`font-bold ${scenario.difficulty === 'Hard' ? 'text-red-500' : scenario.difficulty === 'Medium' ? 'text-orange-500' : 'text-green-500'}`}>{scenario.difficulty}</span>
+                        </div>
+                    </div>
                 </div>
-                <div className="text-xs sm:text-sm font-bold text-gray-500 bg-white/80 px-4 py-2 rounded-full border border-gray-100 shadow-sm flex items-center gap-2 self-end sm:self-auto">
-                    <span className="text-gray-900">{currentQIdx + 1}</span> <span className="text-[10px] uppercase font-bold">{t('player', 'of')}</span> {scenario.questions.length}
+
+                {/* 2. Scenario Info Card */}
+                <div className="bg-gradient-to-br from-[#E55A00] to-[#FF7A00] rounded-2xl md:rounded-[2rem] shadow-[0_8px_20px_rgb(229,90,0,0.15)] p-5 text-white flex-shrink-0 relative overflow-hidden">
+                    <div className="absolute top-0 right-0 w-40 h-40 bg-white/10 rounded-full blur-3xl pointer-events-none"></div>
+                    <p className="text-[10px] uppercase font-bold tracking-widest text-orange-200 mb-2">SCENARIO</p>
+                    <h3 className="font-extrabold text-lg leading-tight mb-5 relative z-10 drop-shadow-sm">{scenario.title}</h3>
+                    <div className="flex items-center gap-2 lg:gap-3 text-xs font-bold text-orange-100 flex-wrap">
+                        <span className="bg-black/20 backdrop-blur-sm px-2.5 py-1.5 rounded-lg shadow-inner">Question {currentQIdx + 1} of {scenario.questions.length}</span>
+                    </div>
+                    <div className="mt-5 bg-white/20 h-1.5 rounded-full w-full overflow-hidden shadow-inner relative z-10">
+                        <div className="h-full bg-white transition-all duration-700 ease-out shadow-[0_0_10px_white]" style={{ width: `${progressPercent}%` }}></div>
+                    </div>
+                </div>
+
+                {/* 3. Key Clinical Hints */}
+                <div className="bg-white rounded-2xl md:rounded-[2rem] shadow-sm border border-gray-100 p-5 md:p-6 flex-shrink-0">
+                    <div className="flex justify-between items-start mb-4">
+                        <h4 className="font-extrabold text-sm md:text-base text-gray-800 flex items-center gap-2">
+                            📌 Clinical Presentation
+                        </h4>
+                        <button onClick={() => playAudio(currentQ.patient_prompt, 'prompt')} className={`p-2 rounded-full transition-colors flex-shrink-0 shadow-sm border ${playingAudioId === 'prompt' ? 'bg-orange-100 text-[#FF7A00] border-orange-200/50' : 'bg-white text-gray-400 hover:text-blue-600 border-gray-100'}`}>
+                            {playingAudioId === 'prompt' ? <Square className="w-4 h-4 fill-current" /> : <Volume2 className="w-4 h-4" />}
+                        </button>
+                    </div>
+                    <p className="text-sm md:text-base text-gray-700 font-medium leading-relaxed bg-gray-50 p-4 rounded-xl border border-gray-100 border-l-4 border-l-blue-400">
+                        {currentQ.patient_prompt}
+                    </p>
                 </div>
             </div>
 
-            {/* Main Content */}
-            <div className="flex-1 overflow-y-auto p-4 sm:p-6 md:p-10 flex flex-col md:flex-row gap-6 sm:gap-8 lg:gap-12 custom-scrollbar">
+            {/* Right Main Stage: Media & MCQ */}
+            <div className="w-full md:w-9/12 lg:w-[72%] flex flex-col bg-white/70 backdrop-blur-xl rounded-[2.5rem] shadow-[0_8px_32px_0_rgba(31,38,135,0.07)] border border-white/60 overflow-hidden relative">
+                <div className="flex flex-col h-full overflow-y-auto custom-scrollbar p-3 md:p-6 lg:p-8">
 
-                {/* Left Panel: Patient Context */}
-                <div className="md:w-5/12 space-y-6">
-                    <div className="relative h-64 sm:h-72 w-full rounded-[2rem] overflow-hidden shadow-sm bg-gradient-to-br from-indigo-50 to-pink-50 flex items-center justify-center p-2 border border-white">
-                        <Image src={scenario.thumbnail_url} alt="Context" fill className="object-contain p-4" />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent pointer-events-none"></div>
-                        <div className="absolute bottom-4 left-6 text-white font-bold flex items-center gap-2 drop-shadow-md text-sm tracking-wide">
-                            <div className="w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse border border-white/50"></div>
-                            {t('player', 'live')}
+                    {/* Media Stage (Video Placeholder) */}
+                    <div className="w-full h-[35vh] md:min-h-[350px] lg:min-h-[420px] bg-[#d9e8f4] relative rounded-[2rem] overflow-hidden shadow-inner flex flex-col justify-end border-4 border-white">
+                        {/* Video/Image Background */}
+                        <Image src={scenario.thumbnail_url} alt="Scenario Stage" fill className="object-cover opacity-95" />
+
+                        {/* Dark gradient for controls visibility */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-[#111827]/95 via-[#111827]/40 to-transparent pointer-events-none"></div>
+
+                        {/* Top Floating Status Indicator */}
+                        <div className="absolute top-4 md:top-6 right-4 md:right-6 flex gap-2">
+                            <div className="bg-black/40 backdrop-blur-md text-white px-3 md:px-4 py-1.5 md:py-2 rounded-full text-[10px] md:text-xs font-bold shadow-sm flex items-center gap-2 border border-white/10 uppercase tracking-wider">
+                                <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse box-shadow-glow"></div> INTERACTIVE VIDEO MODULE
+                            </div>
+                        </div>
+
+                        {/* Bottom Simulated Video Controls Bar */}
+                        <div className="relative z-10 w-full flex flex-col">
+                            {/* Fake progress bar */}
+                            <div className="flex items-center gap-3 md:gap-4 px-4 md:px-6 py-3 border-b border-white/10 font-mono text-[10px] md:text-xs text-gray-400">
+                                <div className="w-6 h-6 md:w-8 md:h-8 hover:bg-white/10 rounded-full flex items-center justify-center cursor-pointer transition-colors"><div className="w-0 h-0 border-t-4 border-t-transparent border-l-[6px] border-l-white border-b-4 border-b-transparent ml-1 opacity-80"></div></div>
+                                <span className="opacity-80 drop-shadow-sm">0:15</span>
+                                <div className="flex-1 h-1 md:h-1.5 bg-gray-600/50 rounded-full relative overflow-hidden backdrop-blur-sm"><div className="absolute top-0 left-0 bg-blue-500 shadow-[0_0_8px_blue] h-full w-[40%] rounded-full"></div></div>
+                                <span className="opacity-80 drop-shadow-sm">1:20</span>
+                                <div className="w-6 h-6 md:w-8 md:h-8 hover:bg-white/10 rounded-full flex items-center justify-center cursor-pointer transition-colors">
+                                    <Volume2 className="w-3.5 h-3.5 md:w-4 md:h-4 text-white opacity-80 pt-0.5" />
+                                </div>
+                            </div>
+
+                            {/* Dialogue Subtitle Overlay matching Image 1 layout */}
+                            <div className="p-3 md:p-5 flex gap-3 md:gap-5 items-center bg-[#1f2937]/60 backdrop-blur-lg">
+                                <button onClick={() => playAudio(currentQ.patient_prompt, 'prompt-video')} className="flex-shrink-0 w-10 h-10 md:w-12 md:h-12 bg-teal-600/90 hover:bg-teal-500 rounded-full flex items-center justify-center text-white transition-colors shadow-lg shadow-teal-900 border border-teal-400/30">
+                                    {playingAudioId === 'prompt-video' ? <Square className="w-4 h-4 md:w-5 md:h-5 fill-current" /> : <Volume2 className="w-4 h-4 md:w-5 md:h-5" />}
+                                </button>
+                                <div className="flex-1 text-gray-100 font-medium text-xs md:text-sm lg:text-base leading-snug lg:leading-relaxed">
+                                    <span className="text-teal-400 font-bold mr-2 uppercase tracking-wide text-[10px] md:text-xs bg-teal-900/50 px-2 py-0.5 rounded border border-teal-700/50">TRANSCRIPT</span>
+                                    {currentQ.patient_prompt}
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div className="bg-white/80 p-5 sm:p-8 rounded-[2rem] border border-white shadow-sm relative overflow-hidden">
-                        <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-blue-400 to-indigo-500"></div>
-                        <div className="flex justify-between items-start mb-2 sm:mb-3">
-                            <h3 className="font-extrabold text-gray-800 text-base sm:text-lg pl-2">{t('player', 'feedback')}</h3>
-                            <button
-                                onClick={() => playAudio(currentQ.patient_prompt, 'prompt')}
-                                className={`p-2 rounded-full transition-colors flex-shrink-0 ${playingAudioId === 'prompt' ? 'bg-orange-100 text-[#FF7A00]' : 'bg-blue-50 text-blue-600 hover:bg-blue-100'}`}
-                                title="Listen to prompt"
-                            >
-                                {playingAudioId === 'prompt' ? <Square className="w-5 h-5 fill-current" /> : <Volume2 className="w-5 h-5" />}
-                            </button>
-                        </div>
-                        <p className="text-gray-700 leading-relaxed text-base sm:text-lg font-medium pl-2">{currentQ.patient_prompt}</p>
-                    </div>
-                </div>
 
-                {/* Right Panel: MCQ Options */}
-                <div className="md:w-7/12 flex flex-col">
-                    <div className="flex justify-between items-start gap-4 mb-6 sm:mb-8">
+                    {/* MCQ Section Header */}
+                    <div className="flex justify-between items-start gap-4 mt-8 md:mt-10 px-2 sm:px-4">
                         <h3 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-gray-900 leading-tight">{currentQ.mcq_question}</h3>
                         <button
                             onClick={() => playAudio(currentQ.mcq_question, 'question')}
@@ -199,21 +263,22 @@ export default function MCQPlayer({ params }: { params: Promise<{ scenarioId: st
                         </button>
                     </div>
 
-                    <div className="space-y-3 sm:space-y-4 flex-1">
+                    {/* MCQ Options Area */}
+                    <div className="space-y-3 sm:space-y-4 flex-1 mt-6 px-2 sm:px-4 pb-8 md:pb-12 max-w-5xl">
                         {currentQ.options.map((opt: any) => {
                             const isSelected = selectedOption?.option_id === opt.option_id;
                             const isCorrectTarget = opt.option_id === currentQ.correct_option_id;
 
-                            let cardClass = "bg-white/70 border-2 border-gray-100 hover:border-[#FF7A00]/40 cursor-pointer shadow-sm";
+                            let cardClass = "bg-white/70 border-2 border-gray-100 hover:border-[#FF7A00]/40 cursor-pointer shadow-sm hover:bg-white";
                             let icon = null;
 
                             if (hasAnswered) {
                                 if (isSelected) {
                                     if (isCorrectTarget) {
-                                        cardClass = "bg-green-50/80 border-2 border-green-500 shadow-md";
+                                        cardClass = "bg-green-50/90 border-2 border-green-500 shadow-md";
                                         icon = <CheckCircle2 className="text-green-600 w-6 h-6 sm:w-7 sm:h-7" />;
                                     } else {
-                                        cardClass = "bg-red-50/80 border-2 border-red-500 shadow-md";
+                                        cardClass = "bg-red-50/90 border-2 border-red-500 shadow-md";
                                         icon = <XCircle className="text-red-600 w-6 h-6 sm:w-7 sm:h-7" />;
                                     }
                                 } else if (isCorrectTarget) {
@@ -231,8 +296,8 @@ export default function MCQPlayer({ params }: { params: Promise<{ scenarioId: st
                                     className={`p-4 sm:p-5 rounded-2xl transition-all duration-300 flex items-center justify-between gap-4 sm:gap-5 ${cardClass} ${!hasAnswered ? 'hover:shadow-md hover:-translate-y-1' : ''}`}
                                 >
                                     <div className="flex items-center gap-4 sm:gap-5 flex-1 w-full max-w-[85%]">
-                                        <div className={`w-6 h-6 sm:w-7 sm:h-7 rounded-full border-2 flex items-center justify-center flex-shrink-0 ${hasAnswered && !isSelected ? 'opacity-50' : ''} ${isSelected ? (isCorrectTarget ? 'border-green-500 bg-green-500' : 'border-red-500 bg-red-500') : 'border-gray-300'}`}>
-                                            {isSelected && <div className="w-2.5 h-2.5 bg-white rounded-full shadow-sm"></div>}
+                                        <div className={`w-6 h-6 sm:w-7 sm:h-7 rounded-full border-2 flex items-center justify-center flex-shrink-0 transition-colors ${hasAnswered && !isSelected ? 'opacity-50' : ''} ${isSelected ? (isCorrectTarget ? 'border-green-500 bg-green-500' : 'border-red-500 bg-red-500') : 'border-gray-300 bg-gray-50'}`}>
+                                            {isSelected && <div className="w-2.5 h-2.5 bg-white rounded-full shadow-sm animate-in zoom-in duration-200"></div>}
                                         </div>
                                         <div className={`flex-1 text-base sm:text-lg font-bold text-gray-800 break-words ${hasAnswered && !isSelected ? 'text-gray-500' : ''}`}>{opt.text}</div>
                                     </div>
@@ -244,7 +309,7 @@ export default function MCQPlayer({ params }: { params: Promise<{ scenarioId: st
                                                 e.stopPropagation();
                                                 playAudio(opt.text, `opt-${opt.option_id}`);
                                             }}
-                                            className={`p-2 rounded-full transition-colors flex-shrink-0 ml-1 ${playingAudioId === `opt-${opt.option_id}` ? 'bg-orange-100 text-[#FF7A00]' : 'bg-gray-50 hover:bg-gray-200 text-gray-400 hover:text-gray-600'}`}
+                                            className={`p-2 rounded-full transition-colors flex-shrink-0 ml-1 shadow-sm border ${playingAudioId === `opt-${opt.option_id}` ? 'bg-orange-100 text-[#FF7A00] border-orange-200' : 'bg-white hover:bg-gray-50 text-gray-400 hover:text-gray-600 border-gray-100'}`}
                                             title="Listen to option"
                                         >
                                             {playingAudioId === `opt-${opt.option_id}` ? <Square className="w-4 h-4 sm:w-5 sm:h-5 fill-current" /> : <Volume2 className="w-4 h-4 sm:w-5 sm:h-5" />}
@@ -253,46 +318,49 @@ export default function MCQPlayer({ params }: { params: Promise<{ scenarioId: st
                                 </div>
                             );
                         })}
-                    </div>
 
-                    {/* Feedback & Next Button */}
-                    {hasAnswered && (
-                        <div className="mt-8 animate-in slide-in-from-bottom-6 duration-500 fade-in">
-                            <div className={`p-6 rounded-[2rem] border border-white/60 shadow-sm mb-6 relative overflow-hidden ${selectedOption.option_id === currentQ.correct_option_id ? 'bg-gradient-to-br from-green-50 to-emerald-50 text-green-900' : 'bg-gradient-to-br from-orange-50 to-red-50 text-red-900'}`}>
-                                <div className="flex justify-between items-start mb-2">
-                                    <h4 className="font-extrabold flex items-center gap-2 text-xl">
-                                        {selectedOption.option_id === currentQ.correct_option_id ? <><CheckCircle2 className="w-6 h-6 text-green-600" /> {t('player', 'correctTitle')}</> : <><XCircle className="w-6 h-6 text-red-600" /> {t('player', 'wrongTitle')}</>}
-                                    </h4>
+                        {/* Feedback & Result Card */}
+                        {hasAnswered && (
+                            <div className="mt-8 animate-in slide-in-from-bottom-6 duration-500 fade-in">
+                                <div className={`p-6 md:p-8 rounded-[2rem] border border-white/60 shadow-md mb-6 relative overflow-hidden ${selectedOption.option_id === currentQ.correct_option_id ? 'bg-gradient-to-br from-green-50 to-emerald-50 text-green-900' : 'bg-gradient-to-br from-orange-50 to-red-50 text-red-900'}`}>
+                                    {/* Background decoration */}
+                                    <div className={`absolute -top-24 -right-24 w-48 h-48 rounded-full blur-3xl opacity-50 ${selectedOption.option_id === currentQ.correct_option_id ? 'bg-green-400' : 'bg-red-400'}`}></div>
+
+                                    <div className="flex justify-between items-start mb-4 relative z-10">
+                                        <h4 className="font-extrabold flex items-center gap-2 text-xl md:text-2xl">
+                                            {selectedOption.option_id === currentQ.correct_option_id ? <><CheckCircle2 className="w-7 h-7 md:w-8 md:h-8 text-green-600" /> {t('player', 'correctTitle')}</> : <><XCircle className="w-7 h-7 md:w-8 md:h-8 text-red-600" /> {t('player', 'wrongTitle')}</>}
+                                        </h4>
+                                        <button
+                                            onClick={() => playAudio(selectedOption.option_id === currentQ.correct_option_id ? currentQ.explanation_correct : currentQ.explanation_wrong, 'explanation')}
+                                            className={`p-2 rounded-full transition-colors flex-shrink-0 border bg-white/60 shadow-sm ${playingAudioId === 'explanation' ? 'border-orange-300 text-[#FF7A00]' : 'border-transparent hover:bg-white text-gray-700'}`}
+                                            title="Listen to explanation"
+                                        >
+                                            {playingAudioId === 'explanation' ? <Square className="w-5 h-5 fill-current" /> : <Volume2 className="w-5 h-5" />}
+                                        </button>
+                                    </div>
+                                    <p className="text-base md:text-lg font-medium opacity-90 leading-relaxed relative z-10">
+                                        {selectedOption.option_id === currentQ.correct_option_id ? currentQ.explanation_correct : currentQ.explanation_wrong}
+                                    </p>
+                                    {currentQ.critical && selectedOption.option_id !== currentQ.correct_option_id && (
+                                        <div className="mt-6 flex items-center gap-2 text-xs md:text-sm font-bold text-red-700 bg-red-100/80 backdrop-blur-sm px-4 py-3 rounded-xl uppercase tracking-wider w-fit shadow-inner border border-red-200 relative z-10">
+                                            <AlertTriangle className="w-5 h-5 md:w-6 md:h-6" /> {t('player', 'critical')}
+                                        </div>
+                                    )}
+                                </div>
+
+                                <div className="flex justify-end pt-2">
                                     <button
-                                        onClick={() => playAudio(selectedOption.option_id === currentQ.correct_option_id ? currentQ.explanation_correct : currentQ.explanation_wrong, 'explanation')}
-                                        className={`p-2 rounded-full transition-colors flex-shrink-0 ${playingAudioId === 'explanation' ? 'bg-orange-100 text-[#FF7A00]' : 'bg-white/50 hover:bg-white text-gray-700'}`}
-                                        title="Listen to explanation"
+                                        onClick={handleNext}
+                                        disabled={isSubmitting}
+                                        className="px-8 md:px-12 py-4 md:py-5 bg-gradient-to-r from-[#FF7A00] to-[#E55A00] text-white font-extrabold text-lg md:text-xl rounded-full shadow-[0_8px_20px_rgb(229,90,0,0.25)] hover:shadow-[0_12px_25px_rgb(229,90,0,0.35)] hover:-translate-y-1 transition-all flex items-center gap-3 disabled:opacity-70 disabled:hover:translate-y-0"
                                     >
-                                        {playingAudioId === 'explanation' ? <Square className="w-5 h-5 fill-current" /> : <Volume2 className="w-5 h-5" />}
+                                        {isSubmitting ? t('player', 'evaluating') : (currentQIdx === scenario.questions.length - 1 ? t('player', 'finish') : t('player', 'next'))}
+                                        {!isSubmitting && <ArrowRight className="w-6 h-6 md:w-7 md:h-7" />}
                                     </button>
                                 </div>
-                                <p className="text-base font-medium opacity-90 leading-relaxed">
-                                    {selectedOption.option_id === currentQ.correct_option_id ? currentQ.explanation_correct : currentQ.explanation_wrong}
-                                </p>
-                                {currentQ.critical && selectedOption.option_id !== currentQ.correct_option_id && (
-                                    <div className="mt-4 flex items-center gap-2 text-xs font-bold text-red-700 bg-red-100 px-4 py-2.5 rounded-xl uppercase tracking-wider w-fit shadow-inner">
-                                        <AlertTriangle className="w-5 h-5" /> {t('player', 'critical')}
-                                    </div>
-                                )}
                             </div>
-
-                            <div className="flex justify-end pt-2">
-                                <button
-                                    onClick={handleNext}
-                                    disabled={isSubmitting}
-                                    className="px-10 py-4 bg-gradient-to-r from-[#FF7A00] to-[#E55A00] text-white font-extrabold text-lg rounded-full shadow-[0_8px_20px_rgb(229,90,0,0.25)] hover:shadow-[0_12px_25px_rgb(229,90,0,0.35)] hover:-translate-y-1 transition-all flex items-center gap-3 disabled:opacity-70 disabled:hover:translate-y-0"
-                                >
-                                    {isSubmitting ? t('player', 'evaluating') : (currentQIdx === scenario.questions.length - 1 ? t('player', 'finish') : t('player', 'next'))}
-                                    {!isSubmitting && <ArrowRight className="w-6 h-6" />}
-                                </button>
-                            </div>
-                        </div>
-                    )}
+                        )}
+                    </div>
                 </div>
             </div>
         </div>
