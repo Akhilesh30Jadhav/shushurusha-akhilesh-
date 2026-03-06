@@ -50,22 +50,27 @@ export default function DashboardPage() {
     return (
         <div className="space-y-8 animate-in fade-in duration-500 max-w-7xl mx-auto w-full">
             {/* Top Banner */}
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-white p-6 rounded-2xl shadow-sm border border-border mt-2 relative overflow-hidden">
-                <div className="absolute right-0 top-0 w-32 h-full opacity-10 bg-gradient-to-l from-primary to-transparent pointer-events-none"></div>
-                <div>
-                    <h1 className="text-3xl font-bold text-secondary">
-                        {t('dashboard', 'greeting').split(',')[0]}, {user?.display_name || 'Health Champion'} 👋
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 bg-gradient-to-br from-[#1e3a8a] via-[#1e40af] to-[#3b82f6] p-8 md:p-10 rounded-[2rem] shadow-[0_8px_30px_rgb(30,58,138,0.2)] border border-blue-400/20 mt-2 relative overflow-hidden text-white">
+                <div className="absolute right-0 top-0 w-64 h-64 bg-white/10 rounded-full blur-[80px] -mr-20 -mt-20 pointer-events-none"></div>
+                <div className="absolute left-0 bottom-0 w-40 h-40 bg-[url('/images/hero-background.png')] bg-cover opacity-20 rounded-full blur-[40px] -ml-10 -mb-10 pointer-events-none mix-blend-screen"></div>
+                
+                <div className="relative z-10">
+                    <div className="inline-flex items-center rounded-full border border-white/20 bg-black/20 px-3 py-1 text-xs font-bold text-blue-100 shadow-inner mb-4 backdrop-blur-md">
+                        ✨ Clinical Hub
+                    </div>
+                    <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight drop-shadow-sm">
+                        {t('dashboard', 'greeting').split(',')[0]}, <span className="text-orange-300">{user?.display_name || 'Health Champion'}</span> 👋
                     </h1>
-                    <p className="text-muted-foreground mt-1">Ready to enhance your clinical protocol skills today?</p>
+                    <p className="text-blue-100 mt-2 text-sm md:text-base font-medium max-w-md break-words">Ready to enhance your clinical protocol skills today?</p>
                 </div>
 
                 {/* Search Bar matching prompt nav requirements array */}
-                <div className="relative w-full md:w-80">
-                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+                <div className="relative w-full md:w-96 z-10 mt-4 md:mt-0">
+                    <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-500" />
                     <input
                         type="text"
                         placeholder={t('dashboard', 'search')}
-                        className="w-full pl-10 pr-4 py-3 rounded-full border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary shadow-sm"
+                        className="w-full pl-12 pr-4 py-3.5 rounded-2xl border-none focus:outline-none focus:ring-4 focus:ring-orange-500/30 shadow-[0_8px_30px_rgb(0,0,0,0.12)] bg-white text-gray-900 font-medium transition-all"
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
                     />

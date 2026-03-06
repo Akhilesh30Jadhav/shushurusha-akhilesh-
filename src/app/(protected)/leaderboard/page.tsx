@@ -7,10 +7,14 @@ import { useLanguage } from '@/contexts/LanguageContext';
 export default function LeaderboardPage() {
     const [leaders, setLeaders] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
+    const [activeRegion, setActiveRegion] = useState("Maharashtra");
     const { t } = useLanguage();
 
+    const regions = ["Maharashtra", "Tamil Nadu", "Gujarat"];
+
     useEffect(() => {
-        fetch('/api/leaderboard')
+        setLoading(true);
+        fetch(`/api/leaderboard?region=${encodeURIComponent(activeRegion)}`)
             .then(res => res.json())
             .then(data => {
                 if (data.leaderboard) {
@@ -19,28 +23,46 @@ export default function LeaderboardPage() {
                 setLoading(false);
             })
             .catch(() => setLoading(false));
-    }, []);
+    }, [activeRegion]);
 
-    if (loading) {
+    if (loading && leaders.length === 0) {
         return <div className="flex h-[calc(100vh-theme(spacing.8))] items-center justify-center bg-transparent"><Loader2 className="w-12 h-12 animate-spin text-[#FF7A00]" /></div>;
     }
 
     return (
         <div className="max-w-3xl mx-auto space-y-6 sm:space-y-8 animate-in fade-in duration-500 w-full px-2 sm:px-0">
             {/* Header */}
-            <div className="bg-gradient-to-r from-[#FF7A00] to-[#E55A00] rounded-2xl p-6 sm:p-8 text-white shadow-lg relative overflow-hidden">
-                <div className="absolute right-0 top-0 opacity-10">
-                    <Trophy className="w-48 h-48 -mr-8 -mt-8" />
+            <div className="bg-gradient-to-br from-emerald-600 to-emerald-800 rounded-3xl p-6 sm:p-10 text-white shadow-xl relative overflow-hidden">
+                <div className="absolute right-0 top-0 opacity-10 blur-xl">
+                    <Trophy className="w-56 h-56 -mr-12 -mt-12" />
                 </div>
-                <h1 className="text-2xl sm:text-3xl font-bold flex items-center gap-3 relative z-10">
-                    <Trophy className="w-7 h-7 sm:w-8 sm:h-8 text-yellow-300" />
-                    Global Leaderboard
+                <h1 className="text-3xl sm:text-4xl font-extrabold flex items-center gap-3 relative z-10 tracking-tight">
+                    <Trophy className="w-8 h-8 sm:w-10 sm:h-10 text-emerald-300" />
+                    Regional Leaderboard
                 </h1>
-                <p className="opacity-90 mt-2 text-sm sm:text-lg relative z-10">Top ASHA Workers by Clinical XP</p>
+                <p className="text-emerald-100 font-medium mt-3 text-sm sm:text-lg relative z-10 max-w-md leading-relaxed">Top ASHA Workers by Clinical XP organized by state and district</p>
+                
+                {/* Region Tabs */}
+                <div className="mt-8 flex flex-wrap gap-2 relative z-10 bg-white/10 p-1.5 rounded-2xl backdrop-blur-md w-fit">
+                    {regions.map(region => (
+                        <button
+                            key={region}
+                            onClick={() => setActiveRegion(region)}
+                            className={`px-5 py-2.5 rounded-xl font-bold text-sm transition-all duration-300 ${activeRegion === region ? 'bg-white text-emerald-800 shadow-md transform scale-105' : 'text-emerald-50 hover:bg-white/20 hover:text-white'}`}
+                        >
+                            {region}
+                        </button>
+                    ))}
+                </div>
             </div>
 
             {/* List */}
-            <div className="bg-white rounded-[1.5rem] shadow-sm border border-gray-100 overflow-hidden">
+            <div className="bg-white rounded-[2rem] shadow-sm border border-emerald-50 overflow-hidden relative min-h-[400px]">
+                {loading && (
+                    <div className="absolute inset-0 bg-white/60 backdrop-blur-sm z-20 flex items-center justify-center">
+                        <Loader2 className="w-8 h-8 animate-spin text-emerald-500" />
+                    </div>
+                )}
                 <div className="p-0">
                     {leaders.length === 0 ? (
                         <div className="p-8 text-center text-gray-500">No scores yet. Complete a scenario to be the first!</div>

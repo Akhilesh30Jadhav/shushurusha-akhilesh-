@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 import sys
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
-from simulation.simulation_engine import ScenarioGenerator, PerformanceAnalytics
+from simulation.simulation_engine import ScenarioGenerator, PerformanceAnalytics, ReportGenerator
 from langchain_google_genai import ChatGoogleGenerativeAI
 
 # Load the root project .env file instead of just the python folder's
@@ -31,6 +31,7 @@ print("Initializing LangChain and FAISS Vectorstore...")
 llm = ChatGoogleGenerativeAI(model="gemini-2.5-flash", temperature=0.7)
 generator = ScenarioGenerator(llm)
 analytics = PerformanceAnalytics(llm)
+reporter = ReportGenerator(llm)
 print("Initialization complete. API ready.")
 
 class GenerateRequest(BaseModel):
@@ -42,6 +43,11 @@ class EvaluateRequest(BaseModel):
     user_choice: str
     correct_option: str
     context: str
+
+class ReportRequest(BaseModel):
+    score: int
+    critical_misses: list = []
+    suggestions: list = []
 
 @app.post("/generate")
 async def generate_scenario(req: GenerateRequest):
@@ -58,5 +64,13 @@ async def evaluate_response(req: EvaluateRequest):
     try:
         result = analytics.evaluate(req.scenario, req.user_choice, req.correct_option, req.context)
         return result
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.post("/generate_report")
+async def generate_report(req: ReportRequest):
+    try:
+        result = reporter.generate_report(req.score, req.critical_misses, req.suggestions)
+        return {"report": result}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))

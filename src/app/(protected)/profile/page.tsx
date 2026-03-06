@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { UserCog, Mail, Shield, Award, Sparkles, TrendingUp, LogOut, Footprints, Medal, Trophy, HeartPulse } from 'lucide-react';
+import { UserCog, Mail, Shield, Award, Sparkles, TrendingUp, LogOut, Footprints, Medal, Trophy, HeartPulse, Activity } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { GlowingEffect } from '@/components/ui/glowing-effect';
 
@@ -201,6 +201,45 @@ export default function ProfilePage() {
                             )}
                         </div>
                     </div>
+
+                    {/* Performance Reports Section */}
+                    {user.recent_reports && user.recent_reports.length > 0 && (
+                        <div className="relative rounded-[2.5rem] mt-6 border border-gray-50/50 p-2 sm:p-3">
+                            <GlowingEffect spread={40} glow={true} disabled={false} proximity={64} inactiveZone={0.01} borderWidth={3} />
+                            <div className="relative z-10 w-full h-full bg-white/80 backdrop-blur-md rounded-[2rem] p-8 border border-white/60 shadow-sm overflow-hidden transition-all hover:shadow-md">
+                                <h3 className="text-xl font-extrabold text-gray-900 mb-6 flex items-center gap-2">
+                                    <Activity className="text-emerald-500 w-6 h-6" /> Detailed Performance Reports
+                                </h3>
+
+                                <div className="space-y-4">
+                                    {user.recent_reports.map((report: any) => (
+                                        <div key={report.id} className="bg-gradient-to-br from-emerald-50/50 p-5 rounded-2xl border border-emerald-100 shadow-sm flex flex-col transition-all hover:-translate-y-1 hover:shadow-md">
+                                            <div className="flex justify-between items-center mb-3">
+                                                <h4 className="font-bold text-gray-800 text-lg flex items-center gap-2">
+                                                    {report.title} 
+                                                    <span className={`text-xs px-2 py-1 rounded-full text-white font-bold ml-2 ${report.score >= 80 ? 'bg-emerald-500' : report.score >= 50 ? 'bg-yellow-500' : 'bg-red-500'}`}>
+                                                        {report.score}%
+                                                    </span>
+                                                </h4>
+                                                <div className="text-xs font-bold text-gray-400">
+                                                    {new Date(report.date).toLocaleDateString()}
+                                                </div>
+                                            </div>
+                                            <div className="text-sm font-medium text-gray-600 leading-relaxed space-y-2">
+                                                {report.report_text ? (
+                                                    report.report_text.split('\n').map((para: string, idx: number) => (
+                                                        <p key={idx}>{para}</p>
+                                                    ))
+                                                ) : (
+                                                    <p className="italic text-gray-400">No report generated for this session.</p>
+                                                )}
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
+                    )}
                 </div>
             </div>
 

@@ -66,12 +66,33 @@ export async function POST(
             suggestions.push("Great job following protocol closely!");
         }
 
+        // Generate Textual Report from Python AI
+        let report_text = null;
+        try {
+            const pyRes = await fetch('http://localhost:8000/generate_report', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    score: score,
+                    critical_misses: allCriticalMisses,
+                    suggestions: suggestions
+                })
+            });
+            if (pyRes.ok) {
+                const pyData = await pyRes.json();
+                report_text = pyData.report;
+            }
+        } catch (error) {
+            console.error('Failed to generate AI report:', error);
+        }
+
         // Mark completed
         await prisma.session.update({
             where: { id: session_id },
             data: {
                 completed_at_optional: new Date(),
-                score_optional: score
+                score_optional: score,
+                report_json: report_text ? JSON.stringify({ text: report_text }) : null
             }
         });
 

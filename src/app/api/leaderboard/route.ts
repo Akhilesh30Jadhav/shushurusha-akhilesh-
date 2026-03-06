@@ -9,7 +9,11 @@ export async function GET(request: Request) {
             return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
         }
 
+        const { searchParams } = new URL(request.url);
+        const region = searchParams.get('region');
+
         const leaderboardData = await prisma.user.findMany({
+            where: region ? { district: region } : undefined,
             select: {
                 id: true,
                 display_name: true,

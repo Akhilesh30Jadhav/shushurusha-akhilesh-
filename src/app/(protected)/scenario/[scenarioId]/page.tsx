@@ -25,14 +25,11 @@ export default function MCQPlayer({ params }: { params: Promise<{ scenarioId: st
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [playingAudioId, setPlayingAudioId] = useState<string | null>(null);
     const videoRef = useRef<HTMLVideoElement>(null);
-    // 0 = try per-question video, 1 = fallback to Q_1.mp4, 2 = show thumbnail
-    const [videoFallback, setVideoFallback] = useState(0);
 
     useEffect(() => {
-        // Cancel speech and reset video fallback when question changes
+        // Cancel speech when component unmounts or question changes
         window.speechSynthesis.cancel();
         setPlayingAudioId(null);
-        setVideoFallback(0);
     }, [currentQIdx]);
 
     const playAudio = (text: string, id: string) => {
@@ -223,30 +220,27 @@ export default function MCQPlayer({ params }: { params: Promise<{ scenarioId: st
                         <video
                             key={videoUrl}
                             ref={videoRef}
-                            src={
-                                videoFallback === 0
-                                    ? videoUrl                                     // try per-question video first
-                                    : `/videos/${scenarioId}/Q_1.mp4`             // fallback: use the single scenario video
-                            }
+                            src={videoUrl}
                             autoPlay
                             playsInline
                             controls={false}
-                            loop={true}
-                            className={`absolute inset-0 w-full h-full object-cover ${videoFallback >= 2 ? 'hidden' : ''}`}
-                            onError={() => {
-                                if (videoFallback === 0) {
-                                    setVideoFallback(1); // try Q_1.mp4 next
-                                } else {
-                                    setVideoFallback(2); // give up — show thumbnail
-                                }
+                            loop={false}
+                            className="absolute inset-0 w-full h-full object-cover"
+                            onError={(e) => {
+                                // If no video file exists, show thumbnail instead
+                                const el = e.currentTarget;
+                                el.style.display = 'none';
+                                const img = el.nextElementSibling as HTMLElement | null;
+                                if (img) img.style.display = 'block';
                             }}
                         />
-                        {/* Thumbnail fallback — shown only when all video attempts fail */}
+                        {/* Thumbnail fallback (hidden when video loads) */}
                         <Image
                             src={scenario.thumbnail_url}
                             alt="Scenario Stage"
                             fill
-                            className={`object-cover opacity-95 ${videoFallback < 2 ? 'hidden' : ''}`}
+                            className="object-cover opacity-95"
+                            style={{ display: 'none' }}
                         />
 
                         {/* Dark gradient overlay — only top half, not covering video content */}
@@ -358,29 +352,36 @@ export default function MCQPlayer({ params }: { params: Promise<{ scenarioId: st
                                             {playingAudioId === 'explanation' ? <Square className="w-5 h-5 fill-current" /> : <Volume2 className="w-5 h-5" />}
                                         </button>
                                     </div>
-                                    <p className="text-base md:text-lg font-medium opacity-90 leading-relaxed relative z-10">
+
+                                    {/* Show the correct answer explicitly if they got it wrong */}
+                                    {selectedOption.option_id !== currentQ.correct_option_id && (
+                                        <div className="mb-4 bg-white/60 backdrop-blur-sm border border-red-100 rounded-xl p-4 shadow-sm relative z-10">
+                                            <p className="text-sm font-bold text-red-800 uppercase tracking-widest mb-1 text-[10px]">Correct Answer:</p>
+                                            <p className="text-base md:text-lg font-bold text-gray-900">
+                                                {currentQ.options.find((opt: any) => opt.option_id === currentQ.correct_option_id)?.text}
+                                            </p>
+                                        </div>
+                                    )}
+
+                                    <p className="text-base md:text-lg font-medium opacity-90 leading-relaxed relative z-10 bg-white/30 p-4 rounded-xl border border-white/40">
                                         {selectedOption.option_id === currentQ.correct_option_id ? currentQ.explanation_correct : currentQ.explanation_wrong}
                                     </p>
 
-                                    {/* WHO Reference link — shown only on wrong answers */}
-                                    {selectedOption.option_id !== currentQ.correct_option_id && (
-                                        <a
-                                            href="https://www.who.int/health-topics"
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="mt-4 inline-flex items-center gap-2 text-xs md:text-sm font-bold text-red-700 bg-white/70 hover:bg-white border border-red-200 hover:border-red-400 px-4 py-2.5 rounded-xl transition-all relative z-10 shadow-sm hover:shadow-md group w-fit"
-                                        >
-                                            <svg className="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><circle cx="12" cy="12" r="10" /><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10A15.3 15.3 0 0 1 12 2z" /></svg>
-                                            Learn more on WHO Health Topics
-                                            <svg className="w-3 h-3 opacity-60 group-hover:translate-x-0.5 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5}><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14 21 3" /></svg>
-                                        </a>
-                                    )}
-
                                     {currentQ.critical && selectedOption.option_id !== currentQ.correct_option_id && (
-                                        <div className="mt-6 flex items-center gap-2 text-xs md:text-sm font-bold text-red-700 bg-red-100/80 backdrop-blur-sm px-4 py-3 rounded-xl uppercase tracking-wider w-fit shadow-inner border border-red-200 relative z-10">
+                                        <div className="mt-4 mb-2 flex items-center gap-2 text-xs md:text-sm font-bold text-red-700 bg-red-100/80 backdrop-blur-sm px-4 py-3 rounded-xl uppercase tracking-wider w-fit shadow-inner border border-red-200 relative z-10">
                                             <AlertTriangle className="w-5 h-5 md:w-6 md:h-6" /> {t('player', 'critical')}
                                         </div>
                                     )}
+
+                                    {/* Reference Link */}
+                                    <div className="mt-6 flex flex-wrap gap-3 relative z-10 pt-4 border-t border-black/5">
+                                        <a href="https://nhsrcindia.org/sites/default/files/2021-06/ASHA%20Training%20Module%20%28English%29.pdf" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-4 py-2 bg-white/70 hover:bg-white border border-gray-200 rounded-xl text-sm font-bold text-blue-700 transition-colors shadow-sm">
+                                            📘 ASHA Training Module Ref
+                                        </a>
+                                        <a href="https://www.who.int/publications/i/item/9789241549912" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-4 py-2 bg-white/70 hover:bg-white border border-gray-200 rounded-xl text-sm font-bold text-teal-700 transition-colors shadow-sm">
+                                            🌍 WHO Protocol Reference
+                                        </a>
+                                    </div>
                                 </div>
 
                                 <div className="flex justify-end pt-2">

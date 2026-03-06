@@ -19,11 +19,32 @@ export async function GET() {
                 email: true,
                 phone: true,
                 mcq_sessions: {
+                    orderBy: { started_at: 'desc' },
                     select: {
+                        id: true,
+                        started_at: true,
                         score: true,
+                        report_json: true,
+                        scenario_id: true,
                         answers: {
                             select: {
                                 is_critical_miss: true
+                            }
+                        }
+                    }
+                },
+                sessions: {
+                    where: { report_json: { not: null } },
+                    orderBy: { started_at: 'desc' },
+                    take: 5,
+                    select: {
+                        id: true,
+                        started_at: true,
+                        score_optional: true,
+                        report_json: true,
+                        scenario: {
+                            select: {
+                                title: true
                             }
                         }
                     }
@@ -52,6 +73,28 @@ export async function GET() {
         if (totalScenariosPassed >= 10) badges.push({ id: 'master', name: 'Protocol Master', icon: 'Trophy', desc: 'Passed 10 Scenarios' });
         if (criticalSavesLogged >= 5) badges.push({ id: 'lifesaver', name: 'Lifesaver', icon: 'HeartPulse', desc: '5 Flawless Scenarios' });
 
+        const recent_sessions = user.sessions.map((s: any) => ({
+            id: s.id,
+            date: s.started_at,
+            score: s.score_optional || 0,
+            title: s.scenario?.title || 'Unknown Scenario',
+            report_text: s.report_json ? JSON.parse(s.report_json).text : ""
+        }));
+
+        const recent_mcq_sessions = user.mcq_sessions
+            .filter((s: any) => s.report_json !== null)
+            .map((s: any) => ({
+                id: s.id,
+                date: s.started_at,
+                score: s.score || 0,
+                title: s.scenario_id || 'MCQ Scenario',
+                report_text: s.report_json ? JSON.parse(s.report_json).text : ""
+            }));
+
+        const recent_reports = [...recent_sessions, ...recent_mcq_sessions]
+            .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+            .slice(0, 5);
+
         return NextResponse.json({
             user: {
                 id: user.id,
@@ -64,7 +107,8 @@ export async function GET() {
                     totalScenariosPassed,
                     criticalSavesLogged
                 },
-                badges
+                badges,
+                recent_reports
             }
         });
     } catch (error) {

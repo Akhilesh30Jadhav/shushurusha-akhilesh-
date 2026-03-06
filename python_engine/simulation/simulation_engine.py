@@ -95,6 +95,50 @@ JSON Output:""",
         })
         return response
 
+class ReportGenerator:
+    def __init__(self, llm: BaseLanguageModel):
+        self.llm = llm
+        
+        # Prompt to generate an end-of-simulation detailed report
+        self.report_prompt = PromptTemplate(
+            template="""You are an expert medical supervisor for rural health workers (ASHA workers).
+A health worker has just completed a simulation exercise. Based on the following metrics, generate a detailed 2 to 3 paragraph educational summary report for their profile.
+
+Score: {score}%
+Critical Mistakes Made (if any):
+{critical_misses}
+
+Specific Suggestions provided during simulation:
+{suggestions}
+
+Instructions:
+1. Start with an encouraging tone, acknowledging their score.
+2. If there are critical mistakes, clearly explain why they are dangerous in a medical context and how to avoid them in the future.
+3. Incorporate the specific suggestions provided.
+4. Keep the vocabulary accessible but professional.
+5. Provide ONLY the text of the report. Do NOT use markdown code blocks or JSON. Just output pure text formatting.
+
+Report:""",
+            input_variables=["score", "critical_misses", "suggestions"]
+        )
+        # Using string output parser because we just want pure text
+        from langchain_core.output_parsers import StrOutputParser
+        self.report_chain = self.report_prompt | self.llm | StrOutputParser()
+
+    def generate_report(self, score: int, critical_misses: list, suggestions: list) -> str:
+        """Generate a textual evaluation report based on session performance."""
+        print(f"Generating post-simulation report for score: {score}%")
+        
+        misses_str = "\n".join([f"- {m.get('text', m)}" for m in critical_misses]) if critical_misses else "None! Excellent work handling critical procedures."
+        suggs_str = "\n".join([f"- {s}" for s in suggestions]) if suggestions else "Followed protocols well."
+
+        response = self.report_chain.invoke({
+            "score": score,
+            "critical_misses": misses_str,
+            "suggestions": suggs_str
+        })
+        return response.strip()
+
 class AdaptiveEngine:
     def __init__(self, initial_difficulty: int = 3):
         self.current_difficulty = initial_difficulty

@@ -3,7 +3,7 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "sqlite"
   url      = env("DATABASE_URL")
 }
 
@@ -62,6 +62,7 @@ model Session {
   started_at            DateTime      @default(now())
   completed_at_optional DateTime?
   score_optional        Int?
+  report_json           String?       // JSON storing the AI generated detailed summary report
   user                  User?         @relation(fields: [user_id], references: [id], onDelete: SetNull)
   scenario              Scenario      @relation(fields: [scenario_id], references: [id], onDelete: Cascade)
   turns                 SessionTurn[]
@@ -87,6 +88,7 @@ model McqSession {
   started_at            DateTime     @default(now())
   completed_at_optional DateTime?
   score                 Int?
+  report_json           String?      // JSON storing the AI generated detailed summary report
   user                  User         @relation(fields: [user_id], references: [id], onDelete: Cascade)
   answers               McqAnswer[]
 }

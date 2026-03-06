@@ -11,6 +11,28 @@ export async function POST(request: Request) {
 
         const { scenarioId, answers, startTime, score } = await request.json();
 
+        const criticalMisses = answers.filter((a: any) => a.is_critical_miss).map((a: any) => ({ text: `Missed critical question ${a.question_id}` }));
+
+        // Generate Textual Report from Python AI
+        let report_text = null;
+        try {
+            const pyRes = await fetch('http://localhost:8000/generate_report', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    score: score || 0,
+                    critical_misses: criticalMisses,
+                    suggestions: []
+                })
+            });
+            if (pyRes.ok) {
+                const pyData = await pyRes.json();
+                report_text = pyData.report;
+            }
+        } catch (error) {
+            console.error('Failed to generate AI report for MCQ:', error);
+        }
+
         // Create the MCQ Session
         const mcqSession = await prisma.mcqSession.create({
             data: {
@@ -19,6 +41,7 @@ export async function POST(request: Request) {
                 started_at: new Date(startTime),
                 completed_at_optional: new Date(),
                 score: score,
+                report_json: report_text ? JSON.stringify({ text: report_text }) : null,
                 answers: {
                     create: answers.map((a: any) => ({
                         question_id: a.question_id,
