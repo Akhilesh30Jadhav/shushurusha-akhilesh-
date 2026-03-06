@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, use } from 'react';
+import { useState, useEffect, use, useRef, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { useLanguage } from '@/contexts/LanguageContext';
 import scenariosEn from '@/data/scenarios_mcq.json';
@@ -24,6 +24,7 @@ export default function MCQPlayer({ params }: { params: Promise<{ scenarioId: st
     const [startTime, setStartTime] = useState<number>(0);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [playingAudioId, setPlayingAudioId] = useState<string | null>(null);
+    const videoRef = useRef<HTMLVideoElement>(null);
 
     useEffect(() => {
         // Cancel speech when component unmounts or question changes
@@ -72,6 +73,8 @@ export default function MCQPlayer({ params }: { params: Promise<{ scenarioId: st
 
     const currentQ = scenario.questions[currentQIdx];
     const progressPercent = ((currentQIdx + 1) / scenario.questions.length) * 100;
+    // Per-question video path — falls back to thumbnail if file doesn't exist
+    const videoUrl = `/videos/${scenarioId}/${currentQ.question_id}.mp4`;
 
     const handleSelect = (option: any) => {
         if (hasAnswered) return;
@@ -210,37 +213,50 @@ export default function MCQPlayer({ params }: { params: Promise<{ scenarioId: st
             <div className="w-full md:w-9/12 lg:w-[72%] flex flex-col bg-white/70 backdrop-blur-xl rounded-[2.5rem] shadow-[0_8px_32px_0_rgba(31,38,135,0.07)] border border-white/60 overflow-hidden relative">
                 <div className="flex flex-col h-full overflow-y-auto custom-scrollbar p-3 md:p-6 lg:p-8">
 
-                    {/* Media Stage (Video Placeholder) */}
-                    <div className="w-full h-[35vh] md:min-h-[350px] lg:min-h-[420px] bg-[#d9e8f4] relative rounded-[2rem] overflow-hidden shadow-inner flex flex-col justify-end border-4 border-white">
-                        {/* Video/Image Background */}
-                        <Image src={scenario.thumbnail_url} alt="Scenario Stage" fill className="object-cover opacity-95" />
+                    {/* Media Stage — real video if available, thumbnail fallback otherwise */}
+                    <div className="w-full h-[35vh] md:min-h-[350px] lg:min-h-[420px] bg-[#0f172a] relative rounded-[2rem] overflow-hidden shadow-inner flex flex-col justify-end border-4 border-white">
 
-                        {/* Dark gradient for controls visibility */}
-                        <div className="absolute inset-0 bg-gradient-to-t from-[#111827]/95 via-[#111827]/40 to-transparent pointer-events-none"></div>
+                        {/* Real video player */}
+                        <video
+                            key={videoUrl}
+                            ref={videoRef}
+                            src={videoUrl}
+                            autoPlay
+                            playsInline
+                            controls={false}
+                            loop={false}
+                            className="absolute inset-0 w-full h-full object-cover"
+                            onError={(e) => {
+                                // If no video file exists, show thumbnail instead
+                                const el = e.currentTarget;
+                                el.style.display = 'none';
+                                const img = el.nextElementSibling as HTMLElement | null;
+                                if (img) img.style.display = 'block';
+                            }}
+                        />
+                        {/* Thumbnail fallback (hidden when video loads) */}
+                        <Image
+                            src={scenario.thumbnail_url}
+                            alt="Scenario Stage"
+                            fill
+                            className="object-cover opacity-95"
+                            style={{ display: 'none' }}
+                        />
 
-                        {/* Top Floating Status Indicator */}
+                        {/* Dark gradient overlay */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-[#111827]/90 via-[#111827]/30 to-transparent pointer-events-none"></div>
+
+                        {/* Top live indicator */}
                         <div className="absolute top-4 md:top-6 right-4 md:right-6 flex gap-2">
                             <div className="bg-black/40 backdrop-blur-md text-white px-3 md:px-4 py-1.5 md:py-2 rounded-full text-[10px] md:text-xs font-bold shadow-sm flex items-center gap-2 border border-white/10 uppercase tracking-wider">
-                                <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse box-shadow-glow"></div> INTERACTIVE VIDEO MODULE
+                                <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse"></div> VIDEO MODULE
                             </div>
                         </div>
 
-                        {/* Bottom Simulated Video Controls Bar */}
+                        {/* Subtitle / transcript bar */}
                         <div className="relative z-10 w-full flex flex-col">
-                            {/* Fake progress bar */}
-                            <div className="flex items-center gap-3 md:gap-4 px-4 md:px-6 py-3 border-b border-white/10 font-mono text-[10px] md:text-xs text-gray-400">
-                                <div className="w-6 h-6 md:w-8 md:h-8 hover:bg-white/10 rounded-full flex items-center justify-center cursor-pointer transition-colors"><div className="w-0 h-0 border-t-4 border-t-transparent border-l-[6px] border-l-white border-b-4 border-b-transparent ml-1 opacity-80"></div></div>
-                                <span className="opacity-80 drop-shadow-sm">0:15</span>
-                                <div className="flex-1 h-1 md:h-1.5 bg-gray-600/50 rounded-full relative overflow-hidden backdrop-blur-sm"><div className="absolute top-0 left-0 bg-blue-500 shadow-[0_0_8px_blue] h-full w-[40%] rounded-full"></div></div>
-                                <span className="opacity-80 drop-shadow-sm">1:20</span>
-                                <div className="w-6 h-6 md:w-8 md:h-8 hover:bg-white/10 rounded-full flex items-center justify-center cursor-pointer transition-colors">
-                                    <Volume2 className="w-3.5 h-3.5 md:w-4 md:h-4 text-white opacity-80 pt-0.5" />
-                                </div>
-                            </div>
-
-                            {/* Dialogue Subtitle Overlay matching Image 1 layout */}
-                            <div className="p-3 md:p-5 flex gap-3 md:gap-5 items-center bg-[#1f2937]/60 backdrop-blur-lg">
-                                <button onClick={() => playAudio(currentQ.patient_prompt, 'prompt-video')} className="flex-shrink-0 w-10 h-10 md:w-12 md:h-12 bg-teal-600/90 hover:bg-teal-500 rounded-full flex items-center justify-center text-white transition-colors shadow-lg shadow-teal-900 border border-teal-400/30">
+                            <div className="p-3 md:p-5 flex gap-3 md:gap-5 items-center bg-[#1f2937]/70 backdrop-blur-lg">
+                                <button onClick={() => playAudio(currentQ.patient_prompt, 'prompt-video')} className="flex-shrink-0 w-10 h-10 md:w-12 md:h-12 bg-teal-600/90 hover:bg-teal-500 rounded-full flex items-center justify-center text-white transition-colors shadow-lg border border-teal-400/30">
                                     {playingAudioId === 'prompt-video' ? <Square className="w-4 h-4 md:w-5 md:h-5 fill-current" /> : <Volume2 className="w-4 h-4 md:w-5 md:h-5" />}
                                 </button>
                                 <div className="flex-1 text-gray-100 font-medium text-xs md:text-sm lg:text-base leading-snug lg:leading-relaxed">
