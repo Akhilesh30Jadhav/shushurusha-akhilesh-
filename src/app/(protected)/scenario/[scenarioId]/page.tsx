@@ -243,8 +243,8 @@ export default function MCQPlayer({ params }: { params: Promise<{ scenarioId: st
                             style={{ display: 'none' }}
                         />
 
-                        {/* Dark gradient overlay */}
-                        <div className="absolute inset-0 bg-gradient-to-t from-[#111827]/90 via-[#111827]/30 to-transparent pointer-events-none"></div>
+                        {/* Dark gradient overlay — only top half, not covering video content */}
+                        <div className="absolute inset-0 bg-gradient-to-b from-black/20 to-transparent pointer-events-none"></div>
 
                         {/* Top live indicator */}
                         <div className="absolute top-4 md:top-6 right-4 md:right-6 flex gap-2">
@@ -252,18 +252,16 @@ export default function MCQPlayer({ params }: { params: Promise<{ scenarioId: st
                                 <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse"></div> VIDEO MODULE
                             </div>
                         </div>
+                    </div>
 
-                        {/* Subtitle / transcript bar */}
-                        <div className="relative z-10 w-full flex flex-col">
-                            <div className="p-3 md:p-5 flex gap-3 md:gap-5 items-center bg-[#1f2937]/70 backdrop-blur-lg">
-                                <button onClick={() => playAudio(currentQ.patient_prompt, 'prompt-video')} className="flex-shrink-0 w-10 h-10 md:w-12 md:h-12 bg-teal-600/90 hover:bg-teal-500 rounded-full flex items-center justify-center text-white transition-colors shadow-lg border border-teal-400/30">
-                                    {playingAudioId === 'prompt-video' ? <Square className="w-4 h-4 md:w-5 md:h-5 fill-current" /> : <Volume2 className="w-4 h-4 md:w-5 md:h-5" />}
-                                </button>
-                                <div className="flex-1 text-gray-100 font-medium text-xs md:text-sm lg:text-base leading-snug lg:leading-relaxed">
-                                    <span className="text-teal-400 font-bold mr-2 uppercase tracking-wide text-[10px] md:text-xs bg-teal-900/50 px-2 py-0.5 rounded border border-teal-700/50">TRANSCRIPT</span>
-                                    {currentQ.patient_prompt}
-                                </div>
-                            </div>
+                    {/* Transcript bar — outside the video, below it */}
+                    <div className="flex gap-3 items-start bg-[#0f172a] rounded-2xl px-4 py-3 mt-3 border border-gray-800">
+                        <button onClick={() => playAudio(currentQ.patient_prompt, 'prompt-video')} className={`flex-shrink-0 w-9 h-9 rounded-full flex items-center justify-center text-white transition-colors border ${playingAudioId === 'prompt-video' ? 'bg-teal-500 border-teal-400' : 'bg-teal-700/80 hover:bg-teal-600 border-teal-600/50'}`}>
+                            {playingAudioId === 'prompt-video' ? <Square className="w-3.5 h-3.5 fill-current" /> : <Volume2 className="w-3.5 h-3.5" />}
+                        </button>
+                        <div className="flex-1 text-gray-200 text-xs md:text-sm leading-relaxed font-medium pt-1">
+                            <span className="text-teal-400 font-bold mr-2 uppercase tracking-wide text-[10px] bg-teal-900/60 px-2 py-0.5 rounded border border-teal-700/50">TRANSCRIPT</span>
+                            {currentQ.patient_prompt}
                         </div>
                     </div>
 
