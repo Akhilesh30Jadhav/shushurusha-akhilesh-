@@ -1,6 +1,6 @@
 "use client";
 
-import { LayoutDashboard, UserCog, LogOut, FileText, Globe, Trophy } from "lucide-react";
+import { LayoutDashboard, UserCog, LogOut, FileText, Globe, Trophy, ShieldCheck } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
@@ -18,6 +18,7 @@ export default function ProtectedLayout({ children }: { children: React.ReactNod
         { name: t('nav', 'dashboard'), url: "/dashboard", icon: LayoutDashboard },
         { name: t('nav', 'scenarios'), url: "/scenarios", icon: FileText },
         { name: t('nav', 'leaderboard'), url: "/leaderboard", icon: Trophy },
+        { name: "Admin", url: "/admin", icon: ShieldCheck },
         { name: t('nav', 'profile'), url: "/profile", icon: UserCog },
     ];
 
