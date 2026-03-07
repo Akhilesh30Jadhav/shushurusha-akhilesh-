@@ -7,14 +7,15 @@ import { useLanguage } from '@/contexts/LanguageContext';
 export default function LeaderboardPage() {
     const [leaders, setLeaders] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
-    const [activeRegion, setActiveRegion] = useState("Maharashtra");
+    const [activeRegion, setActiveRegion] = useState("Global");
     const { t } = useLanguage();
 
-    const regions = ["Maharashtra", "Tamil Nadu", "Gujarat"];
+    const regions = ["Global", "Maharashtra District", "Top Rising"];
 
     useEffect(() => {
         setLoading(true);
-        fetch(`/api/leaderboard?region=${encodeURIComponent(activeRegion)}`)
+        // Fetch all users without region filter for now since districts vary (Thane, Palghar vs Maharashtra)
+        fetch(`/api/leaderboard`)
             .then(res => res.json())
             .then(data => {
                 if (data.leaderboard) {
@@ -41,7 +42,7 @@ export default function LeaderboardPage() {
                     Regional Leaderboard
                 </h1>
                 <p className="text-emerald-100 font-medium mt-3 text-sm sm:text-lg relative z-10 max-w-md leading-relaxed">Top ASHA Workers by Clinical XP organized by state and district</p>
-                
+
                 {/* Region Tabs */}
                 <div className="mt-8 flex flex-wrap gap-2 relative z-10 bg-white/10 p-1.5 rounded-2xl backdrop-blur-md w-fit">
                     {regions.map(region => (
