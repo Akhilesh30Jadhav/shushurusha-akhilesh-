@@ -24,38 +24,62 @@ export default function MCQPlayer({ params }: { params: Promise<{ scenarioId: st
     const [startTime, setStartTime] = useState<number>(0);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [playingAudioId, setPlayingAudioId] = useState<string | null>(null);
+    const audioRef = useRef<HTMLAudioElement | null>(null);
     const videoRef = useRef<HTMLVideoElement>(null);
 
     useEffect(() => {
-        // Cancel speech when component unmounts or question changes
-        window.speechSynthesis.cancel();
+        // Stop any playing audio when question changes
+        if (audioRef.current) {
+            audioRef.current.pause();
+            audioRef.current = null;
+        }
+        window.speechSynthesis?.cancel();
         setPlayingAudioId(null);
     }, [currentQIdx]);
 
-    const playAudio = (text: string, id: string) => {
+    const playAudio = async (text: string, id: string) => {
+        // Toggle off if already playing this item
         if (playingAudioId === id) {
-            window.speechSynthesis.cancel();
+            audioRef.current?.pause();
+            audioRef.current = null;
+            window.speechSynthesis?.cancel();
             setPlayingAudioId(null);
             return;
         }
 
-        window.speechSynthesis.cancel(); // Stop any other playing audio
+        // Stop anything currently playing
+        audioRef.current?.pause();
+        audioRef.current = null;
+        window.speechSynthesis?.cancel();
+        setPlayingAudioId(id);
 
-        const utterance = new SpeechSynthesisUtterance(text);
+        try {
+            // Try Fish Audio API first
+            const res = await fetch('/api/tts', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ text, language }),
+            });
 
-        // Map app language to speech synthesis language code
-        if (language === 'hi') {
-            utterance.lang = 'hi-IN';
-        } else if (language === 'mr') {
-            utterance.lang = 'mr-IN';
-        } else {
-            utterance.lang = 'en-IN';
+            if (res.ok) {
+                const blob = await res.blob();
+                const url = URL.createObjectURL(blob);
+                const audio = new Audio(url);
+                audioRef.current = audio;
+                audio.onended = () => { setPlayingAudioId(null); URL.revokeObjectURL(url); };
+                audio.onerror = () => { setPlayingAudioId(null); URL.revokeObjectURL(url); };
+                await audio.play();
+                return;
+            }
+        } catch {
+            // Fish Audio failed — fall through to browser TTS
         }
 
+        // Fallback: browser speechSynthesis
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = language === 'hi' ? 'hi-IN' : language === 'mr' ? 'mr-IN' : 'en-IN';
         utterance.onend = () => setPlayingAudioId(null);
         utterance.onerror = () => setPlayingAudioId(null);
-
-        setPlayingAudioId(id);
         window.speechSynthesis.speak(utterance);
     };
 
