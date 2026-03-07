@@ -10,7 +10,7 @@ export default function LeaderboardPage() {
     const [activeRegion, setActiveRegion] = useState("Global");
     const { t } = useLanguage();
 
-    const regions = ["Global", "Maharashtra District", "Top Rising"];
+    const regions = ["Global", "Maharashtra", "Top Rising"];
 
     useEffect(() => {
         setLoading(true);
