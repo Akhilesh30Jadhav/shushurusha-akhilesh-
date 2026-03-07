@@ -19,7 +19,7 @@ type WorkerData = {
     criticalMisses: number;
 };
 
-export default function AdminDashboardPage() {
+export default function AdminUsersPage() {
     const [workers, setWorkers] = useState<WorkerData[]>([]);
     const [loading, setLoading] = useState(true);
     const [searchQuery, setSearchQuery] = useState('');
