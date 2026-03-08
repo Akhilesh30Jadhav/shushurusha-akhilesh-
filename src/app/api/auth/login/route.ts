@@ -25,9 +25,9 @@ export async function POST(request: Request) {
         }
 
         // Sign the JWT cookie session
-        await loginSession(user.id);
+        await loginSession(user.id, user.role);
 
-        return NextResponse.json({ success: true, user: { id: user.id, name: user.display_name } });
+        return NextResponse.json({ success: true, user: { id: user.id, name: user.display_name, role: user.role } });
     } catch (error) {
         console.error('Login error:', error);
         return NextResponse.json({ error: 'Internal server error' }, { status: 500 });

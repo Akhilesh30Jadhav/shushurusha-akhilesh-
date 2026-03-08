@@ -13,8 +13,15 @@ export async function middleware(request: NextRequest) {
     }
 
     try {
-        // Verify the JWT token on the edge
-        await jwtVerify(session, key, { algorithms: ['HS256'] });
+        const { payload } = await jwtVerify(session, key, { algorithms: ['HS256'] });
+
+        // For admin routes, check role
+        if (request.nextUrl.pathname.startsWith('/admin')) {
+            if (payload.role !== 'admin') {
+                return NextResponse.redirect(new URL('/dashboard', request.url));
+            }
+        }
+
         return NextResponse.next();
     } catch (error) {
         // Invalid or expired token, clear it and redirect

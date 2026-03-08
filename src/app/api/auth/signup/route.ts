@@ -28,7 +28,7 @@ export async function POST(request: Request) {
         });
 
         // Sign the JWT cookie session
-        await loginSession(user.id);
+        await loginSession(user.id, user.role);
 
         return NextResponse.json({ success: true, user: { id: user.id, name: user.display_name } });
     } catch (error: any) {

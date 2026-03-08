@@ -8,10 +8,9 @@ export async function GET() {
         if (!payload) {
             return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
         }
-
-        // Ideally, we'd check if the user is an admin here.
-        // For MVP, we'll allow any authenticated user to view the admin page,
-        // or we could add a hardcoded check. Given it's a hackathon, returning all.
+        if (payload.role !== 'admin') {
+            return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
+        }
 
         const users = await prisma.user.findMany({
             select: {
@@ -21,6 +20,7 @@ export async function GET() {
                 phone: true,
                 district: true,
                 language: true,
+                role: true,
                 created_at: true,
                 mcq_sessions: {
                     select: {
@@ -69,6 +69,7 @@ export async function GET() {
                 phone: user.phone || 'N/A',
                 district: user.district || 'Unassigned',
                 language: user.language === 'en' ? 'English' : user.language === 'hi' ? 'Hindi' : 'Marathi',
+                role: user.role,
                 joinedAt: user.created_at,
                 lastActive: lastActive,
                 totalScenarios,

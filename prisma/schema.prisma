@@ -13,10 +13,11 @@ model User {
   email         String?      @unique
   phone         String?      @unique
   password_hash String?
+  role          String       @default("user") // "user" or "admin"
   language      String       @default("en")
   district      String?
   created_at    DateTime     @default(now())
-  
+
   sessions      Session[]
   mcq_sessions  McqSession[]
 }
