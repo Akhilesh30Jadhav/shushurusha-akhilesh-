@@ -1,13 +1,23 @@
+import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { getSession } from "@/lib/auth";
 import prisma from "@/lib/prisma";
 import AdminSidebar from "./AdminSidebar";
 
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {
+    // Get the current pathname from headers
+    const headersList = await headers();
+    const pathname = headersList.get("x-nextjs-path") || headersList.get("x-invoke-path") || "";
+
+    // Admin login page: render without sidebar/header
+    if (pathname === "/admin/login") {
+        return <>{children}</>;
+    }
+
     const session = await getSession();
 
     if (!session) {
-        redirect("/auth/login");
+        redirect("/admin/login");
     }
 
     // Verify admin role from database
@@ -17,7 +27,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
     });
 
     if (!user || user.role !== "admin") {
-        redirect("/dashboard");
+        redirect("/admin/login");
     }
 
     return (
