@@ -28,10 +28,6 @@ export async function middleware(request: NextRequest) {
     const session = request.cookies.get('session')?.value;
 
     if (!session) {
-        // Redirect admin routes to admin login, others to regular login
-        if (pathname.startsWith('/admin')) {
-            return NextResponse.redirect(new URL('/admin/login', request.url));
-        }
         return NextResponse.redirect(new URL('/auth/login', request.url));
     }
 
@@ -41,14 +37,14 @@ export async function middleware(request: NextRequest) {
         // For admin routes, check role
         if (pathname.startsWith('/admin')) {
             if (payload.role !== 'admin') {
-                return NextResponse.redirect(new URL('/admin/login', request.url));
+                return NextResponse.redirect(new URL('/auth/login', request.url));
             }
         }
 
         return NextResponse.next();
     } catch (error) {
         // Invalid or expired token, clear it and redirect
-        const redirectUrl = pathname.startsWith('/admin') ? '/admin/login' : '/auth/login';
+        const redirectUrl = '/auth/login';
         const res = NextResponse.redirect(new URL(redirectUrl, request.url));
         res.cookies.set('session', '', { expires: new Date(0) });
         return res;

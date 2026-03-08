@@ -17,7 +17,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
     const session = await getSession();
 
     if (!session) {
-        redirect("/admin/login");
+        redirect("/auth/login");
     }
 
     // Verify admin role from database
@@ -27,7 +27,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
     });
 
     if (!user || user.role !== "admin") {
-        redirect("/admin/login");
+        redirect("/auth/login");
     }
 
     return (
