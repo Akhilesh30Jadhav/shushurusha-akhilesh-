@@ -303,28 +303,28 @@ export default function MCQPlayer({ params }: { params: Promise<{ scenarioId: st
                     </div>
 
                     {/* MCQ Options Area */}
-                    <div className="space-y-3 sm:space-y-4 flex-1 mt-6 px-2 sm:px-4 pb-8 md:pb-12 max-w-5xl">
+                    <div className="space-y-4 sm:space-y-5 flex-1 mt-6 px-2 sm:px-4 pb-12 w-full max-w-4xl">
                         {currentQ.options.map((opt: any) => {
                             const isSelected = selectedOption?.option_id === opt.option_id;
                             const isCorrectTarget = opt.option_id === currentQ.correct_option_id;
 
-                            let cardClass = "bg-white/70 border-2 border-gray-100 hover:border-[#FF7A00]/40 cursor-pointer shadow-sm hover:bg-white";
+                            let cardClass = "group bg-white border-2 border-slate-200 hover:border-[#FF7A00] hover:ring-4 hover:ring-[#FF7A00]/10 hover:bg-orange-50/40 cursor-pointer shadow-sm";
                             let icon = null;
 
                             if (hasAnswered) {
                                 if (isSelected) {
                                     if (isCorrectTarget) {
-                                        cardClass = "bg-green-50/90 border-2 border-green-500 shadow-md";
-                                        icon = <CheckCircle2 className="text-green-600 w-6 h-6 sm:w-7 sm:h-7" />;
+                                        cardClass = "bg-green-50 border-2 border-green-500 shadow-md ring-4 ring-green-500/20";
+                                        icon = <CheckCircle2 className="text-green-600 w-7 h-7 sm:w-8 sm:h-8 drop-shadow-sm" />;
                                     } else {
-                                        cardClass = "bg-red-50/90 border-2 border-red-500 shadow-md";
-                                        icon = <XCircle className="text-red-600 w-6 h-6 sm:w-7 sm:h-7" />;
+                                        cardClass = "bg-red-50 border-2 border-red-500 shadow-md ring-4 ring-red-500/20";
+                                        icon = <XCircle className="text-red-600 w-7 h-7 sm:w-8 sm:h-8 drop-shadow-sm" />;
                                     }
                                 } else if (isCorrectTarget) {
-                                    cardClass = "bg-white border-2 border-green-400 border-dashed opacity-80";
-                                    icon = <CheckCircle2 className="text-green-500 w-6 h-6 sm:w-7 sm:h-7 opacity-70" />;
+                                    cardClass = "bg-white border-2 border-green-400 border-dashed opacity-90";
+                                    icon = <CheckCircle2 className="text-green-500 w-7 h-7 sm:w-8 sm:h-8 opacity-70" />;
                                 } else {
-                                    cardClass = "bg-white/50 border-2 border-gray-100 opacity-40 cursor-not-allowed";
+                                    cardClass = "bg-slate-50 border-2 border-slate-100 opacity-50 cursor-not-allowed";
                                 }
                             }
 
@@ -332,26 +332,26 @@ export default function MCQPlayer({ params }: { params: Promise<{ scenarioId: st
                                 <div
                                     key={opt.option_id}
                                     onClick={() => handleSelect(opt)}
-                                    className={`p-4 sm:p-5 rounded-2xl transition-all duration-300 flex items-center justify-between gap-4 sm:gap-5 ${cardClass} ${!hasAnswered ? 'hover:shadow-md hover:-translate-y-1' : ''}`}
+                                    className={`p-5 sm:p-6 rounded-3xl transition-all duration-300 flex items-center justify-between gap-4 sm:gap-6 ${cardClass} ${!hasAnswered ? 'hover:shadow-lg hover:-translate-y-1.5 active:scale-[0.98]' : ''}`}
                                 >
-                                    <div className="flex items-center gap-4 sm:gap-5 flex-1 w-full max-w-[85%]">
-                                        <div className={`w-6 h-6 sm:w-7 sm:h-7 rounded-full border-2 flex items-center justify-center flex-shrink-0 transition-colors ${hasAnswered && !isSelected ? 'opacity-50' : ''} ${isSelected ? (isCorrectTarget ? 'border-green-500 bg-green-500' : 'border-red-500 bg-red-500') : 'border-gray-300 bg-gray-50'}`}>
-                                            {isSelected && <div className="w-2.5 h-2.5 bg-white rounded-full shadow-sm animate-in zoom-in duration-200"></div>}
+                                    <div className="flex items-center gap-5 sm:gap-6 flex-1 w-full max-w-[85%]">
+                                        <div className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full border-[3px] flex items-center justify-center flex-shrink-0 transition-all duration-300 ${hasAnswered && !isSelected ? 'opacity-50' : ''} ${isSelected ? (isCorrectTarget ? 'border-green-500 bg-green-500 shadow-[0_0_15px_rgba(34,197,94,0.4)]' : 'border-red-500 bg-red-500 shadow-[0_0_15px_rgba(239,68,68,0.4)]') : 'border-slate-300 bg-slate-50 group-hover:border-[#FF7A00] group-hover:scale-110'}`}>
+                                            {isSelected && <div className="w-3 h-3 bg-white rounded-full shadow-sm animate-in zoom-in duration-200"></div>}
                                         </div>
-                                        <div className={`flex-1 text-base sm:text-lg font-bold text-gray-800 break-words ${hasAnswered && !isSelected ? 'text-gray-500' : ''}`}>{opt.text}</div>
+                                        <div className={`flex-1 text-lg sm:text-xl font-extrabold text-slate-800 break-words leading-snug transition-all duration-300 ${hasAnswered && !isSelected ? 'text-slate-400' : ''} ${!hasAnswered ? 'group-hover:text-gray-900 group-hover:translate-x-1' : ''}`}>{opt.text}</div>
                                     </div>
 
-                                    <div className="flex items-center gap-2 flex-shrink-0">
+                                    <div className="flex items-center gap-3 flex-shrink-0">
                                         {icon}
                                         <button
                                             onClick={(e) => {
                                                 e.stopPropagation();
                                                 playAudio(opt.text, `opt-${opt.option_id}`);
                                             }}
-                                            className={`p-2 rounded-full transition-colors flex-shrink-0 ml-1 shadow-sm border ${playingAudioId === `opt-${opt.option_id}` ? 'bg-orange-100 text-[#FF7A00] border-orange-200' : 'bg-white hover:bg-gray-50 text-gray-400 hover:text-gray-600 border-gray-100'}`}
+                                            className={`p-3 rounded-full transition-transform flex-shrink-0 ml-1 shadow-sm border ${playingAudioId === `opt-${opt.option_id}` ? 'bg-orange-100 text-[#FF7A00] border-orange-300 scale-110' : 'bg-white hover:bg-slate-100 text-slate-400 hover:text-slate-700 border-slate-200 hover:scale-110'}`}
                                             title="Listen to option"
                                         >
-                                            {playingAudioId === `opt-${opt.option_id}` ? <Square className="w-4 h-4 sm:w-5 sm:h-5 fill-current" /> : <Volume2 className="w-4 h-4 sm:w-5 sm:h-5" />}
+                                            {playingAudioId === `opt-${opt.option_id}` ? <Square className="w-5 h-5 sm:w-6 sm:h-6 fill-current" /> : <Volume2 className="w-5 h-5 sm:w-6 sm:h-6" />}
                                         </button>
                                     </div>
                                 </div>
