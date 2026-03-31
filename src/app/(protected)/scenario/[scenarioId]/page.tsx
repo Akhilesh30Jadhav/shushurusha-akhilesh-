@@ -167,7 +167,7 @@ export default function MCQPlayer({ params }: { params: Promise<{ scenarioId: st
             </div>
 
             {/* ══ ROW 2: Video (left 45%) | Question + Options (right) ══ */}
-            <div className="flex gap-3 flex-1 min-h-0">
+            <div className="flex gap-3 flex-shrink-0">
 
                 {/* Video — fills full height of this row */}
                 <div className="w-[45%] flex-shrink-0 rounded-[1.75rem] overflow-hidden bg-[#0f172a] relative border-4 border-white shadow-lg">
