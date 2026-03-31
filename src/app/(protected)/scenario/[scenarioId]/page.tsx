@@ -235,10 +235,12 @@ export default function MCQPlayer({ params }: { params: Promise<{ scenarioId: st
 
             {/* Right Main Stage: Media & MCQ */}
             <div className="w-full md:w-9/12 lg:w-[72%] flex flex-col bg-white/70 backdrop-blur-xl rounded-[2.5rem] shadow-[0_8px_32px_0_rgba(31,38,135,0.07)] border border-white/60 overflow-hidden relative">
-                <div className="flex flex-col h-full overflow-y-auto custom-scrollbar p-3 md:p-6 lg:p-8">
+                <div className="flex flex-col xl:flex-row h-full overflow-hidden p-3 md:p-6 lg:p-8 gap-6 xl:gap-8">
 
-                    {/* Media Stage — real video if available, thumbnail fallback otherwise */}
-                    <div className="w-full h-[35vh] md:min-h-[350px] lg:min-h-[420px] bg-[#0f172a] relative rounded-[2rem] overflow-hidden shadow-inner flex flex-col justify-end border-4 border-white">
+                    {/* Left Pane: Media & Transcript */}
+                    <div className="w-full xl:w-[45%] flex flex-col gap-4 flex-shrink-0 h-full">
+                        {/* Media Stage — real video if available, thumbnail fallback otherwise */}
+                        <div className="w-full h-[35vh] md:min-h-[350px] xl:h-full xl:min-h-0 bg-[#0f172a] relative rounded-[2rem] overflow-hidden shadow-inner flex flex-col justify-end border-4 border-white">
 
                         {/* Real video player */}
                         <video
@@ -280,15 +282,19 @@ export default function MCQPlayer({ params }: { params: Promise<{ scenarioId: st
                     </div>
 
                     {/* Transcript bar — outside the video, below it */}
-                    <div className="flex gap-3 items-start bg-[#0f172a] rounded-2xl px-4 py-3 mt-3 border border-gray-800">
+                    <div className="flex gap-3 items-start bg-[#0f172a] rounded-2xl px-4 py-3 border border-gray-800 flex-shrink-0">
                         <button onClick={() => playAudio(currentQ.patient_prompt, 'prompt-video')} className={`flex-shrink-0 w-9 h-9 rounded-full flex items-center justify-center text-white transition-colors border ${playingAudioId === 'prompt-video' ? 'bg-teal-500 border-teal-400' : 'bg-teal-700/80 hover:bg-teal-600 border-teal-600/50'}`}>
                             {playingAudioId === 'prompt-video' ? <Square className="w-3.5 h-3.5 fill-current" /> : <Volume2 className="w-3.5 h-3.5" />}
                         </button>
-                        <div className="flex-1 text-gray-200 text-xs md:text-sm leading-relaxed font-medium pt-1">
+                        <div className="flex-1 text-gray-200 text-xs md:text-sm leading-relaxed font-medium pt-1 overflow-y-auto max-h-32 custom-scrollbar">
                             <span className="text-teal-400 font-bold mr-2 uppercase tracking-wide text-[10px] bg-teal-900/60 px-2 py-0.5 rounded border border-teal-700/50">TRANSCRIPT</span>
                             {currentQ.patient_prompt}
                         </div>
                     </div>
+                </div>
+
+                {/* Right Pane: MCQ Question & Options */}
+                <div className="w-full xl:w-[55%] flex flex-col h-full overflow-y-auto custom-scrollbar pb-6 pr-2 xl:pl-4">
 
                     {/* MCQ Section Header */}
                     <div className="flex justify-between items-start gap-4 mt-8 md:mt-10 px-2 sm:px-4">
@@ -423,6 +429,7 @@ export default function MCQPlayer({ params }: { params: Promise<{ scenarioId: st
                         )}
                     </div>
                 </div>
+            </div>
             </div>
         </div>
     );
