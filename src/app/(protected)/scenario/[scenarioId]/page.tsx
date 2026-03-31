@@ -238,7 +238,7 @@ export default function MCQPlayer({ params }: { params: Promise<{ scenarioId: st
                 <div className="flex flex-col xl:flex-row h-full overflow-hidden p-3 md:p-6 lg:p-8 gap-6 xl:gap-8">
 
                     {/* Left Pane: Media & Transcript */}
-                    <div className="w-full xl:w-[50%] flex flex-col gap-4 flex-shrink-0">
+                    <div className="w-full xl:flex-1 flex flex-col gap-4 flex-shrink-0 min-w-0">
                         {/* Media Stage — real video if available, thumbnail fallback otherwise */}
                         <div className="w-full aspect-video bg-[#0f172a] relative rounded-[2rem] overflow-hidden shadow-inner flex flex-col justify-end border-4 border-white">
 
@@ -294,10 +294,10 @@ export default function MCQPlayer({ params }: { params: Promise<{ scenarioId: st
                 </div>
 
                 {/* Right Pane: MCQ Question & Options */}
-                <div className="w-full xl:w-[50%] flex flex-col h-full overflow-y-auto custom-scrollbar pb-6 pr-2 xl:pl-6">
+                <div className="w-full xl:flex-1 flex flex-col h-full overflow-y-auto custom-scrollbar pb-6 pr-2 xl:pl-2 min-w-0">
 
                     {/* MCQ Section Header */}
-                    <div className="flex justify-between items-start gap-4 mt-8 md:mt-10 px-2 sm:px-4">
+                    <div className="flex justify-between items-start gap-4 mt-8 md:mt-10 xl:mt-0 px-2 sm:px-4">
                         <h3 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-gray-900 leading-tight">{currentQ.mcq_question}</h3>
                         <button
                             onClick={() => playAudio(currentQ.mcq_question, 'question')}
