@@ -233,182 +233,116 @@ export default function MCQPlayer({ params }: { params: Promise<{ scenarioId: st
                 </div>
             </div>
 
-            {/* Right Main Stage: Media & MCQ */}
-            <div className="w-full md:w-9/12 lg:w-[72%] flex flex-col bg-white/70 backdrop-blur-xl rounded-[2.5rem] shadow-[0_8px_32px_0_rgba(31,38,135,0.07)] border border-white/60 overflow-hidden relative">
-                <div className="flex flex-col h-full overflow-y-auto custom-scrollbar p-4 md:p-6 lg:p-8 gap-0">
+            {/* Right Main Stage: 2-col split — Video LEFT, MCQ RIGHT */}
+            <div className="w-full md:w-9/12 lg:w-[72%] flex flex-col bg-white/70 backdrop-blur-xl rounded-[2.5rem] shadow-[0_8px_32px_0_rgba(31,38,135,0.07)] border border-white/60 overflow-hidden">
+                <div className="flex flex-row h-full overflow-hidden">
 
-                    {/* Full-width Video Stage */}
-                    <div className="w-full rounded-[1.75rem] overflow-hidden bg-[#0f172a] relative border-4 border-white shadow-lg flex-shrink-0" style={{aspectRatio: '16/9'}}>
-                        <video
-                            key={videoUrl}
-                            ref={videoRef}
-                            src={videoUrl}
-                            autoPlay
-                            muted
-                            playsInline
-                            controls={false}
-                            loop={false}
-                            className="absolute inset-0 w-full h-full object-cover"
-                            onError={(e) => {
-                                const el = e.currentTarget;
-                                el.style.display = 'none';
-                                const img = el.nextElementSibling as HTMLElement | null;
-                                if (img) img.style.display = 'block';
-                            }}
-                        />
-                        <Image
-                            src={scenario.thumbnail_url}
-                            alt="Scenario Stage"
-                            fill
-                            className="object-cover opacity-95"
-                            style={{ display: 'none' }}
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-b from-black/20 to-transparent pointer-events-none"></div>
-                        <div className="absolute top-4 right-4 md:top-5 md:right-5">
-                            <div className="bg-black/50 backdrop-blur-md text-white px-3 py-1.5 rounded-full text-[10px] md:text-xs font-bold flex items-center gap-1.5 border border-white/10 uppercase tracking-wider">
-                                <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse"></div> VIDEO MODULE
+                    {/* LEFT: Video + Transcript (fixed) */}
+                    <div className="w-[44%] flex-shrink-0 flex flex-col p-4 md:p-5 gap-3 border-r border-gray-100">
+
+                        <div className="w-full rounded-2xl overflow-hidden bg-[#0f172a] relative border-2 border-white/80 shadow-md flex-shrink-0" style={{aspectRatio:'16/9'}}>
+                            <video key={videoUrl} ref={videoRef} src={videoUrl} autoPlay muted playsInline controls={false} loop={false} className="absolute inset-0 w-full h-full object-cover"
+                                onError={(e) => { const el = e.currentTarget; el.style.display='none'; const img = el.nextElementSibling as HTMLElement|null; if(img) img.style.display='block'; }} />
+                            <Image src={scenario.thumbnail_url} alt="Scenario" fill className="object-cover opacity-95" style={{display:'none'}} />
+                            <div className="absolute inset-0 bg-gradient-to-b from-black/20 to-transparent pointer-events-none" />
+                            <div className="absolute top-3 right-3">
+                                <div className="bg-black/50 backdrop-blur-md text-white px-2.5 py-1 rounded-full text-[9px] font-bold flex items-center gap-1.5 border border-white/10 uppercase tracking-wider">
+                                    <div className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" /> VIDEO
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    {/* Transcript bar */}
-                    <div className="flex gap-3 items-start bg-[#0f172a] rounded-2xl px-4 py-3 mt-3 border border-gray-800 flex-shrink-0">
-                        <button onClick={() => playAudio(currentQ.patient_prompt, 'prompt-video')} className={`flex-shrink-0 w-9 h-9 rounded-full flex items-center justify-center text-white transition-colors border ${playingAudioId === 'prompt-video' ? 'bg-teal-500 border-teal-400' : 'bg-teal-700/80 hover:bg-teal-600 border-teal-600/50'}`}>
-                            {playingAudioId === 'prompt-video' ? <Square className="w-3.5 h-3.5 fill-current" /> : <Volume2 className="w-3.5 h-3.5" />}
-                        </button>
-                        <div className="flex-1 text-gray-200 text-xs md:text-sm leading-relaxed font-medium pt-1">
-                            <span className="text-teal-400 font-bold mr-2 uppercase tracking-wide text-[10px] bg-teal-900/60 px-2 py-0.5 rounded border border-teal-700/50">TRANSCRIPT</span>
-                            {currentQ.patient_prompt}
+                        <div className="flex gap-2.5 items-start bg-[#0f172a] rounded-xl px-3 py-2.5 border border-gray-800 flex-shrink-0">
+                            <button onClick={() => playAudio(currentQ.patient_prompt, 'prompt-video')} className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-white border ${playingAudioId==='prompt-video' ? 'bg-teal-500 border-teal-400' : 'bg-teal-700/80 hover:bg-teal-600 border-teal-600/50'}`}>
+                                {playingAudioId==='prompt-video' ? <Square className="w-3 h-3 fill-current" /> : <Volume2 className="w-3 h-3" />}
+                            </button>
+                            <div className="flex-1 text-gray-300 text-[11px] leading-relaxed font-medium pt-0.5">
+                                <span className="text-teal-400 font-bold mr-1.5 uppercase tracking-wide text-[9px] bg-teal-900/60 px-1.5 py-0.5 rounded border border-teal-700/50">TRANSCRIPT</span>
+                                {currentQ.patient_prompt}
+                            </div>
+                        </div>
+
+                        <div className="flex-1 bg-blue-50/70 rounded-xl p-3 border border-blue-100 border-l-4 border-l-blue-400 overflow-y-auto custom-scrollbar">
+                            <p className="text-[11px] text-blue-900 font-semibold leading-relaxed">{currentQ.patient_prompt}</p>
                         </div>
                     </div>
 
-                    {/* MCQ Question */}
-                    <div className="flex justify-between items-start gap-4 mt-8 px-1">
-                        <h3 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-gray-900 leading-tight">{currentQ.mcq_question}</h3>
-                        <button
-                            onClick={() => playAudio(currentQ.mcq_question, 'question')}
-                            className={`p-2.5 sm:p-3 rounded-full transition-colors flex-shrink-0 mt-1 shadow-sm ${playingAudioId === 'question' ? 'bg-orange-100 text-[#FF7A00]' : 'bg-white border border-gray-100 text-gray-500 hover:text-blue-600 hover:border-blue-200'}`}
-                            title="Listen to question"
-                        >
-                            {playingAudioId === 'question' ? <Square className="w-5 h-5 sm:w-6 sm:h-6 fill-current" /> : <Volume2 className="w-5 h-5 sm:w-6 sm:h-6" />}
-                        </button>
-                    </div>
+                    {/* RIGHT: Question + compact options (no scroll needed for options) */}
+                    <div className="flex-1 flex flex-col h-full overflow-y-auto custom-scrollbar p-4 md:p-5 lg:p-6">
 
-                    {/* MCQ Options Area */}
-                    <div className="space-y-4 sm:space-y-5 flex-1 mt-6 px-2 sm:px-4 pb-12 w-full max-w-4xl">
-                        {currentQ.options.map((opt: any) => {
-                            const isSelected = selectedOption?.option_id === opt.option_id;
-                            const isCorrectTarget = opt.option_id === currentQ.correct_option_id;
+                        <div className="flex justify-between items-start gap-3 mb-4 flex-shrink-0">
+                            <h3 className="text-base md:text-lg lg:text-xl font-extrabold text-gray-900 leading-snug">{currentQ.mcq_question}</h3>
+                            <button onClick={() => playAudio(currentQ.mcq_question, 'question')} className={`p-2 rounded-full transition-colors flex-shrink-0 shadow-sm ${playingAudioId==='question' ? 'bg-orange-100 text-[#FF7A00]' : 'bg-white border border-gray-100 text-gray-400 hover:text-blue-600'}`}>
+                                {playingAudioId==='question' ? <Square className="w-4 h-4 fill-current" /> : <Volume2 className="w-4 h-4" />}
+                            </button>
+                        </div>
 
-                            let cardClass = "group bg-white border-2 border-slate-200 hover:border-[#FF7A00] hover:ring-4 hover:ring-[#FF7A00]/10 hover:bg-orange-50/40 cursor-pointer shadow-sm";
-                            let icon = null;
-
-                            if (hasAnswered) {
-                                if (isSelected) {
-                                    if (isCorrectTarget) {
-                                        cardClass = "bg-green-50 border-2 border-green-500 shadow-md ring-4 ring-green-500/20";
-                                        icon = <CheckCircle2 className="text-green-600 w-7 h-7 sm:w-8 sm:h-8 drop-shadow-sm" />;
-                                    } else {
-                                        cardClass = "bg-red-50 border-2 border-red-500 shadow-md ring-4 ring-red-500/20";
-                                        icon = <XCircle className="text-red-600 w-7 h-7 sm:w-8 sm:h-8 drop-shadow-sm" />;
-                                    }
-                                } else if (isCorrectTarget) {
-                                    cardClass = "bg-white border-2 border-green-400 border-dashed opacity-90";
-                                    icon = <CheckCircle2 className="text-green-500 w-7 h-7 sm:w-8 sm:h-8 opacity-70" />;
-                                } else {
-                                    cardClass = "bg-slate-50 border-2 border-slate-100 opacity-50 cursor-not-allowed";
+                        <div className="space-y-2.5 flex-shrink-0">
+                            {currentQ.options.map((opt: any) => {
+                                const isSelected = selectedOption?.option_id === opt.option_id;
+                                const isCorrectTarget = opt.option_id === currentQ.correct_option_id;
+                                let cardClass = "group bg-white border-2 border-slate-200 hover:border-[#FF7A00] hover:ring-2 hover:ring-[#FF7A00]/15 hover:bg-orange-50/30 cursor-pointer shadow-sm";
+                                let icon = null;
+                                if (hasAnswered) {
+                                    if (isSelected) {
+                                        if (isCorrectTarget) { cardClass = "bg-green-50 border-2 border-green-500 shadow-md ring-2 ring-green-500/20"; icon = <CheckCircle2 className="text-green-600 w-5 h-5 flex-shrink-0" />; }
+                                        else { cardClass = "bg-red-50 border-2 border-red-500 shadow-md ring-2 ring-red-500/20"; icon = <XCircle className="text-red-600 w-5 h-5 flex-shrink-0" />; }
+                                    } else if (isCorrectTarget) { cardClass = "bg-white border-2 border-green-400 border-dashed opacity-90"; icon = <CheckCircle2 className="text-green-500 w-5 h-5 opacity-70 flex-shrink-0" />; }
+                                    else { cardClass = "bg-slate-50 border-2 border-slate-100 opacity-50 cursor-not-allowed"; }
                                 }
-                            }
-
-                            return (
-                                <div
-                                    key={opt.option_id}
-                                    onClick={() => handleSelect(opt)}
-                                    className={`p-5 sm:p-6 rounded-3xl transition-all duration-300 flex items-center justify-between gap-4 sm:gap-6 ${cardClass} ${!hasAnswered ? 'hover:shadow-lg hover:-translate-y-1.5 active:scale-[0.98]' : ''}`}
-                                >
-                                    <div className="flex items-center gap-5 sm:gap-6 flex-1 w-full max-w-[85%]">
-                                        <div className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full border-[3px] flex items-center justify-center flex-shrink-0 transition-all duration-300 ${hasAnswered && !isSelected ? 'opacity-50' : ''} ${isSelected ? (isCorrectTarget ? 'border-green-500 bg-green-500 shadow-[0_0_15px_rgba(34,197,94,0.4)]' : 'border-red-500 bg-red-500 shadow-[0_0_15px_rgba(239,68,68,0.4)]') : 'border-slate-300 bg-slate-50 group-hover:border-[#FF7A00] group-hover:scale-110'}`}>
-                                            {isSelected && <div className="w-3 h-3 bg-white rounded-full shadow-sm animate-in zoom-in duration-200"></div>}
+                                return (
+                                    <div key={opt.option_id} onClick={() => handleSelect(opt)} className={`px-4 py-3 rounded-2xl transition-all duration-200 flex items-center gap-3 ${cardClass} ${!hasAnswered ? 'hover:shadow-md hover:-translate-y-0.5 active:scale-[0.99]' : ''}`}>
+                                        <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 transition-all ${hasAnswered && !isSelected ? 'opacity-40' : ''} ${isSelected ? (isCorrectTarget ? 'border-green-500 bg-green-500' : 'border-red-500 bg-red-500') : 'border-slate-300 bg-white group-hover:border-[#FF7A00]'}`}>
+                                            {isSelected && <div className="w-2 h-2 bg-white rounded-full animate-in zoom-in duration-150" />}
                                         </div>
-                                        <div className={`flex-1 text-lg sm:text-xl font-extrabold text-slate-800 break-words leading-snug transition-all duration-300 ${hasAnswered && !isSelected ? 'text-slate-400' : ''} ${!hasAnswered ? 'group-hover:text-gray-900 group-hover:translate-x-1' : ''}`}>{opt.text}</div>
+                                        <div className={`flex-1 text-sm md:text-[15px] font-bold text-slate-800 leading-snug ${hasAnswered && !isSelected ? 'text-slate-400' : ''}`}>{opt.text}</div>
+                                        <div className="flex items-center gap-1.5 flex-shrink-0">
+                                            {icon}
+                                            <button onClick={(e) => { e.stopPropagation(); playAudio(opt.text, `opt-${opt.option_id}`); }} className={`p-1.5 rounded-full border ${playingAudioId===`opt-${opt.option_id}` ? 'bg-orange-100 text-[#FF7A00] border-orange-300' : 'bg-white text-slate-400 hover:text-slate-700 border-slate-200'}`}>
+                                                {playingAudioId===`opt-${opt.option_id}` ? <Square className="w-3.5 h-3.5 fill-current" /> : <Volume2 className="w-3.5 h-3.5" />}
+                                            </button>
+                                        </div>
                                     </div>
+                                );
+                            })}
+                        </div>
 
-                                    <div className="flex items-center gap-3 flex-shrink-0">
-                                        {icon}
-                                        <button
-                                            onClick={(e) => {
-                                                e.stopPropagation();
-                                                playAudio(opt.text, `opt-${opt.option_id}`);
-                                            }}
-                                            className={`p-3 rounded-full transition-transform flex-shrink-0 ml-1 shadow-sm border ${playingAudioId === `opt-${opt.option_id}` ? 'bg-orange-100 text-[#FF7A00] border-orange-300 scale-110' : 'bg-white hover:bg-slate-100 text-slate-400 hover:text-slate-700 border-slate-200 hover:scale-110'}`}
-                                            title="Listen to option"
-                                        >
-                                            {playingAudioId === `opt-${opt.option_id}` ? <Square className="w-5 h-5 sm:w-6 sm:h-6 fill-current" /> : <Volume2 className="w-5 h-5 sm:w-6 sm:h-6" />}
-                                        </button>
-                                    </div>
-                                </div>
-                            );
-                        })}
-
-                        {/* Feedback & Result Card */}
+                        {/* Feedback — appears inline below options after answering */}
                         {hasAnswered && (
-                            <div className="mt-8 animate-in slide-in-from-bottom-6 duration-500 fade-in">
-                                <div className={`p-6 md:p-8 rounded-[2rem] border border-white/60 shadow-md mb-6 relative overflow-hidden ${selectedOption.option_id === currentQ.correct_option_id ? 'bg-gradient-to-br from-green-50 to-emerald-50 text-green-900' : 'bg-gradient-to-br from-orange-50 to-red-50 text-red-900'}`}>
-                                    {/* Background decoration */}
-                                    <div className={`absolute -top-24 -right-24 w-48 h-48 rounded-full blur-3xl opacity-50 ${selectedOption.option_id === currentQ.correct_option_id ? 'bg-green-400' : 'bg-red-400'}`}></div>
-
-                                    <div className="flex justify-between items-start mb-4 relative z-10">
-                                        <h4 className="font-extrabold flex items-center gap-2 text-xl md:text-2xl">
-                                            {selectedOption.option_id === currentQ.correct_option_id ? <><CheckCircle2 className="w-7 h-7 md:w-8 md:h-8 text-green-600" /> {t('player', 'correctTitle')}</> : <><XCircle className="w-7 h-7 md:w-8 md:h-8 text-red-600" /> {t('player', 'wrongTitle')}</>}
+                            <div className="mt-5 animate-in slide-in-from-bottom-4 duration-400 fade-in">
+                                <div className={`p-5 rounded-2xl border border-white/60 shadow-md relative overflow-hidden ${selectedOption.option_id === currentQ.correct_option_id ? 'bg-gradient-to-br from-green-50 to-emerald-50 text-green-900' : 'bg-gradient-to-br from-orange-50 to-red-50 text-red-900'}`}>
+                                    <div className={`absolute -top-16 -right-16 w-32 h-32 rounded-full blur-3xl opacity-40 ${selectedOption.option_id === currentQ.correct_option_id ? 'bg-green-400' : 'bg-red-400'}`} />
+                                    <div className="flex justify-between items-start mb-3 relative z-10">
+                                        <h4 className="font-extrabold flex items-center gap-2 text-base">
+                                            {selectedOption.option_id === currentQ.correct_option_id ? <><CheckCircle2 className="w-5 h-5 text-green-600" />{t('player', 'correctTitle')}</> : <><XCircle className="w-5 h-5 text-red-600" />{t('player', 'wrongTitle')}</>}
                                         </h4>
-                                        <button
-                                            onClick={() => playAudio(selectedOption.option_id === currentQ.correct_option_id ? currentQ.explanation_correct : currentQ.explanation_wrong, 'explanation')}
-                                            className={`p-2 rounded-full transition-colors flex-shrink-0 border bg-white/60 shadow-sm ${playingAudioId === 'explanation' ? 'border-orange-300 text-[#FF7A00]' : 'border-transparent hover:bg-white text-gray-700'}`}
-                                            title="Listen to explanation"
-                                        >
-                                            {playingAudioId === 'explanation' ? <Square className="w-5 h-5 fill-current" /> : <Volume2 className="w-5 h-5" />}
+                                        <button onClick={() => playAudio(selectedOption.option_id === currentQ.correct_option_id ? currentQ.explanation_correct : currentQ.explanation_wrong, 'explanation')} className={`p-1.5 rounded-full border bg-white/60 shadow-sm ${playingAudioId==='explanation' ? 'border-orange-300 text-[#FF7A00]' : 'border-transparent hover:bg-white text-gray-700'}`}>
+                                            {playingAudioId==='explanation' ? <Square className="w-4 h-4 fill-current" /> : <Volume2 className="w-4 h-4" />}
                                         </button>
                                     </div>
-
-                                    {/* Show the correct answer explicitly if they got it wrong */}
                                     {selectedOption.option_id !== currentQ.correct_option_id && (
-                                        <div className="mb-4 bg-white/60 backdrop-blur-sm border border-red-100 rounded-xl p-4 shadow-sm relative z-10">
-                                            <p className="text-sm font-bold text-red-800 uppercase tracking-widest mb-1 text-[10px]">Correct Answer:</p>
-                                            <p className="text-base md:text-lg font-bold text-gray-900">
-                                                {currentQ.options.find((opt: any) => opt.option_id === currentQ.correct_option_id)?.text}
-                                            </p>
+                                        <div className="mb-3 bg-white/60 border border-red-100 rounded-xl p-3 relative z-10">
+                                            <p className="text-[10px] font-bold text-red-800 uppercase tracking-widest mb-1">Correct Answer:</p>
+                                            <p className="text-sm font-bold text-gray-900">{currentQ.options.find((o: any) => o.option_id === currentQ.correct_option_id)?.text}</p>
                                         </div>
                                     )}
-
-                                    <p className="text-base md:text-lg font-medium opacity-90 leading-relaxed relative z-10 bg-white/30 p-4 rounded-xl border border-white/40">
+                                    <p className="text-sm font-medium leading-relaxed relative z-10 bg-white/30 p-3 rounded-xl border border-white/40">
                                         {selectedOption.option_id === currentQ.correct_option_id ? currentQ.explanation_correct : currentQ.explanation_wrong}
                                     </p>
-
                                     {currentQ.critical && selectedOption.option_id !== currentQ.correct_option_id && (
-                                        <div className="mt-4 mb-2 flex items-center gap-2 text-xs md:text-sm font-bold text-red-700 bg-red-100/80 backdrop-blur-sm px-4 py-3 rounded-xl uppercase tracking-wider w-fit shadow-inner border border-red-200 relative z-10">
-                                            <AlertTriangle className="w-5 h-5 md:w-6 md:h-6" /> {t('player', 'critical')}
+                                        <div className="mt-3 flex items-center gap-2 text-xs font-bold text-red-700 bg-red-100/80 px-3 py-2 rounded-xl uppercase tracking-wider w-fit border border-red-200 relative z-10">
+                                            <AlertTriangle className="w-4 h-4" /> {t('player', 'critical')}
                                         </div>
                                     )}
-
-                                    {/* Reference Link */}
-                                    <div className="mt-6 flex flex-wrap gap-3 relative z-10 pt-4 border-t border-black/5">
-                                        <a href="https://nhsrcindia.org/sites/default/files/2021-06/ASHA%20Training%20Module%20%28English%29.pdf" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-4 py-2 bg-white/70 hover:bg-white border border-gray-200 rounded-xl text-sm font-bold text-blue-700 transition-colors shadow-sm">
-                                            📘 ASHA Training Module Ref
-                                        </a>
-                                        <a href="https://www.who.int/publications/i/item/9789241549912" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-4 py-2 bg-white/70 hover:bg-white border border-gray-200 rounded-xl text-sm font-bold text-teal-700 transition-colors shadow-sm">
-                                            🌍 WHO Protocol Reference
-                                        </a>
+                                    <div className="mt-4 flex flex-wrap gap-2 relative z-10 pt-3 border-t border-black/5">
+                                        <a href="https://nhsrcindia.org/sites/default/files/2021-06/ASHA%20Training%20Module%20%28English%29.pdf" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white/70 hover:bg-white border border-gray-200 rounded-xl text-xs font-bold text-blue-700 shadow-sm">📘 ASHA Ref</a>
+                                        <a href="https://www.who.int/publications/i/item/9789241549912" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white/70 hover:bg-white border border-gray-200 rounded-xl text-xs font-bold text-teal-700 shadow-sm">🌍 WHO Protocol</a>
                                     </div>
                                 </div>
-
-                                <div className="flex justify-end pt-2">
-                                    <button
-                                        onClick={handleNext}
-                                        disabled={isSubmitting}
-                                        className="px-8 md:px-12 py-4 md:py-5 bg-gradient-to-r from-[#FF7A00] to-[#E55A00] text-white font-extrabold text-lg md:text-xl rounded-full shadow-[0_8px_20px_rgb(229,90,0,0.25)] hover:shadow-[0_12px_25px_rgb(229,90,0,0.35)] hover:-translate-y-1 transition-all flex items-center gap-3 disabled:opacity-70 disabled:hover:translate-y-0"
-                                    >
+                                <div className="flex justify-end pt-4">
+                                    <button onClick={handleNext} disabled={isSubmitting} className="px-8 py-3.5 bg-gradient-to-r from-[#FF7A00] to-[#E55A00] text-white font-extrabold text-base rounded-full shadow-[0_6px_16px_rgb(229,90,0,0.3)] hover:-translate-y-0.5 transition-all flex items-center gap-2 disabled:opacity-70">
                                         {isSubmitting ? t('player', 'evaluating') : (currentQIdx === scenario.questions.length - 1 ? t('player', 'finish') : t('player', 'next'))}
-                                        {!isSubmitting && <ArrowRight className="w-6 h-6 md:w-7 md:h-7" />}
+                                        {!isSubmitting && <ArrowRight className="w-5 h-5" />}
                                     </button>
                                 </div>
                             </div>
@@ -418,4 +352,5 @@ export default function MCQPlayer({ params }: { params: Promise<{ scenarioId: st
             </div>
         </div>
     );
+
 }
