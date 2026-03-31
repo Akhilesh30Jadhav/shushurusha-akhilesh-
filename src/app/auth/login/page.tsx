@@ -12,6 +12,7 @@ export default function LoginPage() {
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
+    const [successMsg, setSuccessMsg] = useState('');
     const [showPassword, setShowPassword] = useState(false);
 
     const handleLogin = async (e: React.FormEvent) => {
@@ -29,7 +30,8 @@ export default function LoginPage() {
                 });
                 const data = await res.json();
                 if (!res.ok) throw new Error(data.error || 'Login failed');
-                router.push('/admin');
+                setSuccessMsg('Redirecting to Admin Portal...');
+                window.location.href = '/admin';
             } else {
                 // User login - email or phone
                 const isEmail = emailOrPhone.includes('@');
@@ -41,11 +43,13 @@ export default function LoginPage() {
                 });
                 const data = await res.json();
                 if (!res.ok) throw new Error(data.error || 'Login failed');
-                router.push('/dashboard');
+                setSuccessMsg('Redirecting to Dashboard...');
+                window.location.href = '/dashboard';
             }
         } catch (err: any) {
             setError(err.message);
             setLoading(false);
+            setSuccessMsg('');
         }
     };
 
@@ -129,7 +133,7 @@ export default function LoginPage() {
                     <div>
                         <div className="flex justify-between items-center mb-1.5 ml-1 mr-1">
                             <label className="block text-sm font-bold text-gray-700">Password</label>
-                            <a href="#" className="text-xs font-semibold text-[#FF7A00] hover:underline">Forgot?</a>
+                            <Link href="/auth/reset-password" className="text-xs font-semibold text-[#FF7A00] hover:underline">Forgot?</Link>
                         </div>
                         <div className="relative">
                             <input
@@ -158,7 +162,12 @@ export default function LoginPage() {
                             : 'bg-gradient-to-r from-[#FF7A00] to-[#E55A00] text-white shadow-[0_8px_20px_rgb(229,90,0,0.25)] hover:-translate-y-0.5 hover:shadow-[0_12px_25px_rgb(229,90,0,0.35)]'
                             }`}
                     >
-                        {loading ? (
+                        {successMsg ? (
+                            <>
+                                <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                                {successMsg}
+                            </>
+                        ) : loading ? (
                             <>
                                 <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
                                 Signing in...
