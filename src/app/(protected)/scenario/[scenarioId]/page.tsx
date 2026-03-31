@@ -153,21 +153,21 @@ export default function MCQPlayer({ params }: { params: Promise<{ scenarioId: st
     };
 
     return (
-        <div className="flex flex-col gap-3 h-[calc(100vh-theme(spacing.16))] font-sans">
+        <div className="flex flex-col gap-5 h-[calc(100vh-theme(spacing.16))] font-sans">
 
             {/* ══ ROW 1: Full-width Transcript bar ══ */}
-            <div className="flex-shrink-0 flex gap-3 items-center bg-[#0f172a] rounded-2xl px-4 py-2.5 border border-gray-800 shadow-sm">
-                <button onClick={() => playAudio(currentQ.patient_prompt, 'transcript')} className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-white border transition-colors ${playingAudioId === 'transcript' ? 'bg-teal-500 border-teal-400' : 'bg-teal-700/80 hover:bg-teal-600 border-teal-600/50'}`}>
-                    {playingAudioId === 'transcript' ? <Square className="w-3 h-3 fill-current" /> : <Volume2 className="w-3 h-3" />}
+            <div className="flex-shrink-0 flex gap-4 items-center bg-[#0f172a] rounded-2xl px-6 py-4 border border-gray-800 shadow-sm">
+                <button onClick={() => playAudio(currentQ.patient_prompt, 'transcript')} className={`flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center text-white border transition-colors ${playingAudioId === 'transcript' ? 'bg-teal-500 border-teal-400' : 'bg-teal-700/80 hover:bg-teal-600 border-teal-600/50'}`}>
+                    {playingAudioId === 'transcript' ? <Square className="w-4 h-4 fill-current" /> : <Volume2 className="w-4 h-4" />}
                 </button>
-                <div className="flex-1 text-gray-300 text-xs leading-relaxed font-medium">
-                    <span className="text-teal-400 font-bold mr-2 uppercase tracking-wide text-[9px] bg-teal-900/60 px-1.5 py-0.5 rounded border border-teal-700/50">TRANSCRIPT</span>
+                <div className="flex-1 text-gray-300 text-sm leading-relaxed font-medium">
+                    <span className="text-teal-400 font-bold mr-2 uppercase tracking-wide text-[10px] bg-teal-900/60 px-2 py-1 rounded border border-teal-700/50">TRANSCRIPT</span>
                     {currentQ.patient_prompt}
                 </div>
             </div>
 
             {/* ══ ROW 2: Video (left 45%) | Question + Options (right) ══ */}
-            <div className="flex gap-3 flex-1 min-h-0">
+            <div className="flex gap-5 flex-shrink-0">
 
                 {/* Video — fills full height of this row */}
                 <div className="w-[45%] flex-shrink-0 rounded-[1.75rem] overflow-hidden bg-[#0f172a] relative border-4 border-white shadow-lg">
@@ -184,17 +184,17 @@ export default function MCQPlayer({ params }: { params: Promise<{ scenarioId: st
                 </div>
 
                 {/* Question + Options */}
-                <div className="flex-1 flex flex-col gap-2.5 min-h-0 overflow-y-auto custom-scrollbar">
+                <div className="flex-1 flex flex-col gap-4 overflow-y-auto custom-scrollbar">
 
                     <div className="flex items-start justify-between gap-3 flex-shrink-0">
-                        <h3 className="text-lg md:text-xl font-extrabold text-gray-900 leading-snug">{currentQ.mcq_question}</h3>
-                        <button onClick={() => playAudio(currentQ.mcq_question, 'question')} className={`p-2 rounded-full flex-shrink-0 border shadow-sm transition-colors ${playingAudioId === 'question' ? 'bg-orange-100 text-[#FF7A00] border-orange-200' : 'bg-white text-gray-400 border-gray-100 hover:text-blue-600'}`}>
-                            {playingAudioId === 'question' ? <Square className="w-4 h-4 fill-current" /> : <Volume2 className="w-4 h-4" />}
+                        <h3 className="text-xl md:text-2xl font-extrabold text-gray-900 leading-snug">{currentQ.mcq_question}</h3>
+                        <button onClick={() => playAudio(currentQ.mcq_question, 'question')} className={`p-2.5 rounded-full flex-shrink-0 border shadow-sm transition-colors ${playingAudioId === 'question' ? 'bg-orange-100 text-[#FF7A00] border-orange-200' : 'bg-white text-gray-400 border-gray-100 hover:text-blue-600'}`}>
+                            {playingAudioId === 'question' ? <Square className="w-5 h-5 fill-current" /> : <Volume2 className="w-5 h-5" />}
                         </button>
                     </div>
 
-                    {/* Option cards — flex-1 so they grow to fill available height */}
-                    <div className="flex flex-col gap-2 flex-1 min-h-0">
+                    {/* Option cards */}
+                    <div className="flex flex-col gap-3 flex-shrink-0">
                         {currentQ.options.map((opt: any) => {
                             const isSelected = selectedOption?.option_id === opt.option_id;
                             const isCorrectTarget = opt.option_id === currentQ.correct_option_id;
@@ -208,15 +208,15 @@ export default function MCQPlayer({ params }: { params: Promise<{ scenarioId: st
                                 else { cardClass = "bg-slate-50 border-2 border-slate-100 opacity-50 cursor-not-allowed"; }
                             }
                             return (
-                                <div key={opt.option_id} onClick={() => handleSelect(opt)} className={`px-4 py-3 rounded-2xl transition-all duration-200 flex items-center gap-3 flex-1 ${cardClass} ${!hasAnswered ? 'hover:shadow-md hover:-translate-y-0.5 active:scale-[0.99]' : ''}`}>
-                                    <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 transition-all ${hasAnswered && !isSelected ? 'opacity-40' : ''} ${isSelected ? (isCorrectTarget ? 'border-green-500 bg-green-500' : 'border-red-500 bg-red-500') : 'border-slate-300 bg-white group-hover:border-[#FF7A00]'}`}>
-                                        {isSelected && <div className="w-2 h-2 bg-white rounded-full animate-in zoom-in duration-150" />}
+                                <div key={opt.option_id} onClick={() => handleSelect(opt)} className={`px-5 py-4 rounded-2xl transition-all duration-200 flex items-center gap-4 ${cardClass} ${!hasAnswered ? 'hover:shadow-md hover:-translate-y-0.5 active:scale-[0.99]' : ''}`}>
+                                    <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center flex-shrink-0 transition-all ${hasAnswered && !isSelected ? 'opacity-40' : ''} ${isSelected ? (isCorrectTarget ? 'border-green-500 bg-green-500' : 'border-red-500 bg-red-500') : 'border-slate-300 bg-white group-hover:border-[#FF7A00]'}`}>
+                                        {isSelected && <div className="w-2.5 h-2.5 bg-white rounded-full animate-in zoom-in duration-150" />}
                                     </div>
-                                    <div className={`flex-1 text-sm font-bold text-slate-800 leading-snug ${hasAnswered && !isSelected ? 'text-slate-400' : ''}`}>{opt.text}</div>
-                                    <div className="flex items-center gap-1.5 flex-shrink-0">
+                                    <div className={`flex-1 text-base font-bold text-slate-800 leading-snug ${hasAnswered && !isSelected ? 'text-slate-400' : ''}`}>{opt.text}</div>
+                                    <div className="flex items-center gap-2 flex-shrink-0">
                                         {icon}
-                                        <button onClick={(e) => { e.stopPropagation(); playAudio(opt.text, `opt-${opt.option_id}`); }} className={`p-1.5 rounded-full border transition-colors ${playingAudioId === `opt-${opt.option_id}` ? 'bg-orange-100 text-[#FF7A00] border-orange-300' : 'bg-white text-slate-400 hover:text-slate-700 border-slate-200'}`}>
-                                            {playingAudioId === `opt-${opt.option_id}` ? <Square className="w-3.5 h-3.5 fill-current" /> : <Volume2 className="w-3.5 h-3.5" />}
+                                        <button onClick={(e) => { e.stopPropagation(); playAudio(opt.text, `opt-${opt.option_id}`); }} className={`p-2 rounded-full border transition-colors ${playingAudioId === `opt-${opt.option_id}` ? 'bg-orange-100 text-[#FF7A00] border-orange-300' : 'bg-white text-slate-400 hover:text-slate-700 border-slate-200'}`}>
+                                            {playingAudioId === `opt-${opt.option_id}` ? <Square className="w-4 h-4 fill-current" /> : <Volume2 className="w-4 h-4" />}
                                         </button>
                                     </div>
                                 </div>
@@ -266,21 +266,21 @@ export default function MCQPlayer({ params }: { params: Promise<{ scenarioId: st
             </div>
 
             {/* ══ ROW 3: Three info cards at the bottom ══ */}
-            <div className="flex-shrink-0 flex gap-3">
+            <div className="flex-shrink-0 flex gap-5">
 
                 {/* Card 1: Simulation Case */}
                 <div className="flex-1 bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-                    <div className="bg-[#1e40af] px-4 py-2.5 flex gap-3 items-center relative overflow-hidden">
-                        <div className="absolute top-0 right-0 w-20 h-20 bg-white/10 rounded-full blur-xl -mr-6 -mt-6 pointer-events-none" />
-                        <div className="w-9 h-9 rounded-full border-2 border-blue-200/50 bg-indigo-900 shadow-inner flex items-center justify-center flex-shrink-0">
-                            <span className="text-base">👩🏾‍⚕️</span>
+                    <div className="bg-[#1e40af] px-5 py-4 flex gap-4 items-center relative overflow-hidden">
+                        <div className="absolute top-0 right-0 w-24 h-24 bg-white/10 rounded-full blur-xl -mr-6 -mt-6 pointer-events-none" />
+                        <div className="w-11 h-11 rounded-full border-2 border-blue-200/50 bg-indigo-900 shadow-inner flex items-center justify-center flex-shrink-0">
+                            <span className="text-xl">👩🏾‍⚕️</span>
                         </div>
                         <div className="text-white relative z-10">
-                            <h3 className="font-bold text-sm leading-tight">Simulation Case</h3>
-                            <p className="text-blue-200 text-[10px] opacity-90">#{scenario.scenario_id.substring(0, 6)}</p>
+                            <h3 className="font-bold text-base leading-tight">Simulation Case</h3>
+                            <p className="text-blue-200 text-xs opacity-90">#{scenario.scenario_id.substring(0, 6)}</p>
                         </div>
                     </div>
-                    <div className="px-4 py-2.5 flex flex-col gap-1.5 text-xs">
+                    <div className="px-5 py-4 flex flex-col gap-2.5 text-sm">
                         <div className="flex justify-between"><span className="text-gray-500">Language</span><span className="font-bold text-gray-900 uppercase">{language}</span></div>
                         <div className="flex justify-between"><span className="text-gray-500">Category</span><span className="font-bold text-gray-900 text-right max-w-[60%] truncate">{scenario.category}</span></div>
                         <div className="flex justify-between"><span className="text-gray-500">Difficulty</span><span className={`font-bold ${scenario.difficulty === 'Hard' ? 'text-red-500' : scenario.difficulty === 'Medium' ? 'text-orange-500' : 'text-green-500'}`}>{scenario.difficulty}</span></div>
@@ -288,27 +288,27 @@ export default function MCQPlayer({ params }: { params: Promise<{ scenarioId: st
                 </div>
 
                 {/* Card 2: Scenario */}
-                <div className="flex-1 bg-gradient-to-br from-[#E55A00] to-[#FF7A00] rounded-2xl shadow-[0_4px_16px_rgb(229,90,0,0.15)] p-4 text-white relative overflow-hidden">
-                    <div className="absolute top-0 right-0 w-28 h-28 bg-white/10 rounded-full blur-2xl pointer-events-none" />
-                    <p className="text-[9px] uppercase font-bold tracking-widest text-orange-200 mb-1">SCENARIO</p>
-                    <h3 className="font-extrabold text-sm leading-tight mb-2 relative z-10">{scenario.title}</h3>
-                    <div className="flex items-center gap-2 text-[10px] font-bold text-orange-100 mb-2">
-                        <span className="bg-black/20 backdrop-blur-sm px-2 py-1 rounded-lg">Q {currentQIdx + 1} of {scenario.questions.length}</span>
+                <div className="flex-1 bg-gradient-to-br from-[#E55A00] to-[#FF7A00] rounded-2xl shadow-[0_4px_16px_rgb(229,90,0,0.15)] p-5 text-white relative overflow-hidden">
+                    <div className="absolute top-0 right-0 w-36 h-36 bg-white/10 rounded-full blur-2xl pointer-events-none" />
+                    <p className="text-[10px] uppercase font-bold tracking-widest text-orange-200 mb-1.5">SCENARIO</p>
+                    <h3 className="font-extrabold text-base leading-tight mb-3 relative z-10">{scenario.title}</h3>
+                    <div className="flex items-center gap-2 text-xs font-bold text-orange-100 mb-3">
+                        <span className="bg-black/20 backdrop-blur-sm px-3 py-1.5 rounded-lg">Q {currentQIdx + 1} of {scenario.questions.length}</span>
                     </div>
-                    <div className="bg-white/20 h-1.5 rounded-full overflow-hidden relative z-10">
+                    <div className="bg-white/20 h-2 rounded-full overflow-hidden relative z-10">
                         <div className="h-full bg-white transition-all duration-700 ease-out shadow-[0_0_8px_white]" style={{ width: `${progressPercent}%` }} />
                     </div>
                 </div>
 
                 {/* Card 3: Clinical Presentation */}
-                <div className="flex-1 bg-white rounded-2xl shadow-sm border border-gray-100 p-4">
-                    <div className="flex justify-between items-center mb-2">
-                        <h4 className="font-extrabold text-xs text-gray-800 flex items-center gap-1.5">📌 Clinical Presentation</h4>
-                        <button onClick={() => playAudio(currentQ.patient_prompt, 'prompt')} className={`p-1.5 rounded-full border flex-shrink-0 ${playingAudioId === 'prompt' ? 'bg-orange-100 text-[#FF7A00] border-orange-200' : 'bg-white text-gray-400 border-gray-100 hover:text-blue-600'}`}>
-                            {playingAudioId === 'prompt' ? <Square className="w-3 h-3 fill-current" /> : <Volume2 className="w-3 h-3" />}
+                <div className="flex-1 bg-white rounded-2xl shadow-sm border border-gray-100 p-5">
+                    <div className="flex justify-between items-center mb-3">
+                        <h4 className="font-extrabold text-sm text-gray-800 flex items-center gap-2">📌 Clinical Presentation</h4>
+                        <button onClick={() => playAudio(currentQ.patient_prompt, 'prompt')} className={`p-2 rounded-full border flex-shrink-0 ${playingAudioId === 'prompt' ? 'bg-orange-100 text-[#FF7A00] border-orange-200' : 'bg-white text-gray-400 border-gray-100 hover:text-blue-600'}`}>
+                            {playingAudioId === 'prompt' ? <Square className="w-4 h-4 fill-current" /> : <Volume2 className="w-4 h-4" />}
                         </button>
                     </div>
-                    <p className="text-xs text-gray-700 font-medium leading-relaxed bg-gray-50 p-2.5 rounded-xl border border-gray-100 border-l-4 border-l-blue-400 overflow-y-auto max-h-[72px] custom-scrollbar">
+                    <p className="text-sm text-gray-700 font-medium leading-relaxed bg-gray-50 p-3 rounded-xl border border-gray-100 border-l-4 border-l-blue-400 overflow-y-auto max-h-[90px] custom-scrollbar">
                         {currentQ.patient_prompt}
                     </p>
                 </div>
