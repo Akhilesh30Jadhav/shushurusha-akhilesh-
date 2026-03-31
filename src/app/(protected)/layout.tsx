@@ -33,7 +33,7 @@ export default function ProtectedLayout({ children }: { children: React.ReactNod
     };
 
     return (
-        <div className="flex flex-col w-full min-h-screen relative font-sans">
+        <div className="flex h-full min-h-full flex-col w-full relative font-sans">
             {/* Top Navigation Header matching reference theme */}
             <header className="w-full bg-white/60 backdrop-blur-xl border-b border-white/40 shadow-sm sticky top-0 z-50">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between">
@@ -108,7 +108,7 @@ export default function ProtectedLayout({ children }: { children: React.ReactNod
                 </div>
             </header>
 
-            <main className="flex-1 w-full max-w-7xl mx-auto p-4 sm:p-6 lg:p-8 flex flex-col">
+            <main className="flex-1 min-h-0 w-full max-w-7xl mx-auto p-4 pb-24 sm:p-6 lg:p-8 flex flex-col">
                 {children}
             </main>
 

@@ -136,10 +136,10 @@ export default function AdaptiveMCQPlayer() {
         generateNextQuestion(difficulty);
     };
 
-    if (!questionData) return <div className="flex h-[calc(100vh-theme(spacing.8))] items-center justify-center bg-transparent"><Loader2 className="w-12 h-12 animate-spin text-purple-600" /></div>;
+    if (!questionData) return <div className="flex min-h-[40vh] items-center justify-center bg-transparent"><Loader2 className="w-12 h-12 animate-spin text-purple-600" /></div>;
 
     return (
-        <div className="flex flex-col md:flex-row h-[calc(100vh-theme(spacing.8))] gap-4 md:gap-6 font-sans relative">
+        <div className="flex flex-1 min-h-0 flex-col md:flex-row gap-4 md:gap-6 font-sans relative">
 
             {/* Left Sidebar */}
             <div className="w-full md:w-3/12 lg:w-[28%] flex flex-col gap-4 md:gap-5 overflow-y-auto custom-scrollbar pb-6 pr-1">

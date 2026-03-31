@@ -47,7 +47,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${outfit.variable} ${outfit.className} antialiased min-h-screen flex flex-col bg-background text-foreground relative z-0`}
+        className={`${outfit.variable} ${outfit.className} antialiased min-h-screen flex flex-col bg-background text-foreground relative z-0 overflow-x-hidden`}
       >
         <ChakraBackground />
         <LanguageProvider>
