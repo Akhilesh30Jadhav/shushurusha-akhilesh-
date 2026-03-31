@@ -167,7 +167,7 @@ export default function MCQPlayer({ params }: { params: Promise<{ scenarioId: st
             </div>
 
             {/* ══ ROW 2: Video (left 45%) | Question + Options (right) ══ */}
-            <div className="flex gap-3 flex-shrink-0">
+            <div className="flex gap-3 flex-1 min-h-0">
 
                 {/* Video — fills full height of this row */}
                 <div className="w-[45%] flex-shrink-0 rounded-[1.75rem] overflow-hidden bg-[#0f172a] relative border-4 border-white shadow-lg">
@@ -184,7 +184,7 @@ export default function MCQPlayer({ params }: { params: Promise<{ scenarioId: st
                 </div>
 
                 {/* Question + Options */}
-                <div className="flex-1 flex flex-col gap-2.5 overflow-y-auto custom-scrollbar">
+                <div className="flex-1 flex flex-col gap-2.5 min-h-0 overflow-y-auto custom-scrollbar">
 
                     <div className="flex items-start justify-between gap-3 flex-shrink-0">
                         <h3 className="text-lg md:text-xl font-extrabold text-gray-900 leading-snug">{currentQ.mcq_question}</h3>
@@ -193,8 +193,8 @@ export default function MCQPlayer({ params }: { params: Promise<{ scenarioId: st
                         </button>
                     </div>
 
-                    {/* Option cards */}
-                    <div className="flex flex-col gap-2 flex-shrink-0">
+                    {/* Option cards — flex-1 so they grow to fill available height */}
+                    <div className="flex flex-col gap-2 flex-1 min-h-0">
                         {currentQ.options.map((opt: any) => {
                             const isSelected = selectedOption?.option_id === opt.option_id;
                             const isCorrectTarget = opt.option_id === currentQ.correct_option_id;
@@ -208,7 +208,7 @@ export default function MCQPlayer({ params }: { params: Promise<{ scenarioId: st
                                 else { cardClass = "bg-slate-50 border-2 border-slate-100 opacity-50 cursor-not-allowed"; }
                             }
                             return (
-                                <div key={opt.option_id} onClick={() => handleSelect(opt)} className={`px-4 py-3 rounded-2xl transition-all duration-200 flex items-center gap-3 ${cardClass} ${!hasAnswered ? 'hover:shadow-md hover:-translate-y-0.5 active:scale-[0.99]' : ''}`}>
+                                <div key={opt.option_id} onClick={() => handleSelect(opt)} className={`px-4 py-3 rounded-2xl transition-all duration-200 flex items-center gap-3 flex-1 ${cardClass} ${!hasAnswered ? 'hover:shadow-md hover:-translate-y-0.5 active:scale-[0.99]' : ''}`}>
                                     <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 transition-all ${hasAnswered && !isSelected ? 'opacity-40' : ''} ${isSelected ? (isCorrectTarget ? 'border-green-500 bg-green-500' : 'border-red-500 bg-red-500') : 'border-slate-300 bg-white group-hover:border-[#FF7A00]'}`}>
                                         {isSelected && <div className="w-2 h-2 bg-white rounded-full animate-in zoom-in duration-150" />}
                                     </div>
